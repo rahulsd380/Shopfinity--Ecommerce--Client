@@ -44,8 +44,8 @@ const ProductDetails = () => {
     }
   };
   return (
-    <div className="w-[50%]">
-      
+    <div className="w-full xl:w-[50%]">
+
       {/* Name and availablity */}
       <div className="flex items-center gap-2">
         <h1 className="text-2xl md:text-[36px] text-neutral-10 font-bold font-Poppins">

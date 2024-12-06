@@ -12,7 +12,7 @@ const DetailsTab = () => {
   return (
     <div className="mt-20">
       {/* Tab buttons */}
-      <div className="flex items-center gap-5 border-b border-neutral-40 pb-4">
+      <div className="flex items-center gap-5 border-b border-neutral-40 pb-4 overflow-x-auto">
         {tabButtons.map((button: string, index) => (
           <button
             key={index}
@@ -28,6 +28,7 @@ const DetailsTab = () => {
         ))}
       </div>
 
+      <div className="mt-6">
       {detailsTab === "Description" ? (
         <Description />
       ) : detailsTab === "Specification" ? (
@@ -35,6 +36,7 @@ const DetailsTab = () => {
       ) : (
         <Reviews />
       )}
+      </div>
     </div>
   );
 };
