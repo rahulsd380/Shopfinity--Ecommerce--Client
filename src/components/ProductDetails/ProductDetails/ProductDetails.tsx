@@ -9,7 +9,6 @@ import {
   FaLinkedinIn,
   FaMinus,
   FaPlus,
-  FaShoppingBag,
   FaTwitter,
 } from "react-icons/fa";
 import { IoBagHandleOutline } from "react-icons/io5";
@@ -45,10 +44,11 @@ const ProductDetails = () => {
     }
   };
   return (
-    <div className="w-full">
+    <div className="w-[50%]">
+      
       {/* Name and availablity */}
       <div className="flex items-center gap-2">
-        <h1 className="text-[36px] text-neutral-10 font-bold font-Poppins">
+        <h1 className="text-2xl md:text-[36px] text-neutral-10 font-bold font-Poppins">
           Fast Runner Cycle
         </h1>
         <div className="bg-primary-20 p-2 rounded text-primary-30 font-Poppins text-sm w-fit">
@@ -57,7 +57,7 @@ const ProductDetails = () => {
       </div>
 
       {/* Rating | ID */}
-      <div className="flex items-center gap-3 mt-3">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-3">
         <div className="flex items-center gap-2">
           <Image src={ICONS.star} alt="star-icon" className="size-5" />
           <Image src={ICONS.star} alt="star-icon" className="size-5" />
