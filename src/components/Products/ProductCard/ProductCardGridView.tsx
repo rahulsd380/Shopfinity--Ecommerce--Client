@@ -37,7 +37,7 @@ const ProductCardGridView = () => {
             </div>
           </div>
 
-          <button className="border border-neutral-45 p-2 flex items-center justify-center rounded-md">
+          <button className="border border-neutral-45 p-2 flex items-center justify-center rounded-md hover:bg-neutral-45/30 transition duration-300">
             <Image src={ICONS.heart} alt="star-icon" className="size-5" />
           </button>
         </div>

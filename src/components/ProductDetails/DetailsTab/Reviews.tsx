@@ -24,7 +24,7 @@ const Reviews = () => {
   ];
   return (
     <div>
-      <div className="bg-[#F7F7F9] rounded-lg p-4">
+      <div className="bg-white border border-neutral-45 rounded-lg p-4">
         <h1 className="text-xl font-bold text-neutral-55">Reviews</h1>
 
         <hr className="border border-neutral-20/10 mt-3" />
@@ -122,11 +122,11 @@ const Reviews = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
         {review.map((review, index) => (
           <div
             key={index}
-            className="border p-5 rounded-xl flex flex-col gap-3 mt-6"
+            className="bg-white border border-neutral-45 rounded-lg p-4 flex flex-col gap-3 mt-6"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">

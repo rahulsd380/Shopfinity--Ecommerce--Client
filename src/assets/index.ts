@@ -8,6 +8,9 @@ import gridView from "@/assets/icons/gridview.svg";
 import listView from "@/assets/icons/listview.svg";
 import heart from "@/assets/icons/heart.svg";
 import dot from "@/assets/icons/dot.svg";
+import bangladeshFlag from "@/assets/icons/bangladesh-flag.svg";
+import verifiedUser from "@/assets/icons/verified_user.svg";
+import language from "@/assets/icons/language.svg";
 
 
 
@@ -18,6 +21,10 @@ export const ICONS = {
     listView,
     heart,
     dot,
+    bangladeshFlag,
+    verifiedUser,
+    language,
+ 
 };
 
 export const IMAGES = {

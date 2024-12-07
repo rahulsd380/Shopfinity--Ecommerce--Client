@@ -53,12 +53,12 @@ const ProductCardListView = () => {
         </p>
 
         <div className="mt-3">
-          <Link href={"/"} className="text-secondary-10 font-medium">
+          <Link href={`products/${1}`} className="text-secondary-10 font-medium">
             View Details
           </Link>
         </div>
 
-        <button className="absolute top-2 right-2 border border-neutral-45 p-2 flex items-center justify-center rounded-md">
+        <button className="absolute top-2 right-2 border border-neutral-45 p-2 flex items-center justify-center rounded-md hover:bg-neutral-45/30 transition duration-300">
           <Image src={ICONS.heart} alt="star-icon" className="size-5" />
         </button>
       </div>
