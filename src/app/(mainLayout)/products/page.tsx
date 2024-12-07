@@ -1,22 +1,78 @@
-
-import DetailsTab from "@/components/ProductDetails/DetailsTab/DetailsTab";
-import Images from "@/components/ProductDetails/Images/Images";
-import ProductDetails from "@/components/ProductDetails/ProductDetails/ProductDetails";
+"use client"
+import { ICONS } from "@/assets";
+import Filters from "@/components/Products/Filter/Filter";
+import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
 import Container from "@/components/shared/Container/Container";
+import Image from "next/image";
+import { useState } from "react";
 // import Link from "next/link";
 
 const Products = () => {
+  const [viewType, setViewType] = useState("grid");
+  const viewButtons = [
+    {
+      label : "grid",
+      icon : ICONS.gridView
+    },
+    {
+      label : "list",
+      icon : ICONS.listView
+    },
+  ]
   return (
     <Container>
-      <div className="mt-10">
-        {/* <div>
-          <Link href={"/"} className="font-Sora text-xs text-neutral-30/50 hover:underline">Home</Link>
-        </div> */}
-        <div className="flex flex-col lg:flex-row gap-7">
-        <Images/>
-        <ProductDetails/>
-        </div>
-        <DetailsTab/>
+      <div className="mt-10 flex gap-4 ">
+         <div className="w-[20%]">
+         <Filters/>
+         </div>
+
+         <div className="w-[80%]">
+            <div className="bg-white border border-neutral-45 p-5 rounded-lg flex items-center justify-between">
+              <p className="font-Inter text-neutral-15">12,911 items in <span className="font-semibold">Mobile accessory</span></p>
+
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  {/* Checkbox Input */}
+            <input
+              type="checkbox"
+              id={`verified`}
+              className="w-4 h-4 text-primary-10 border-gray-300 rounded focus:outline-none focus:ring-2"
+              
+            />
+            {/* Label */}
+            <label
+              htmlFor={`verified`}
+              className="font-Inter text-neutral-15"
+            >
+              Verified only
+            </label>
+                </div>
+
+                <div className="flex bg-white border border-neutral-45 rounded-lg">
+                    {
+                      viewButtons.map((btn, index) => 
+                        <button key={index} onClick={() => setViewType(btn.label)} className={`${btn.label === viewType ? "bg-[#EFF2F4]" : "bg-white"} p-2 flex items-center justify-center`}>
+                    <Image src={btn.icon} alt="grid-view" className="size-6"/>
+                    </button>
+                      )
+                    }
+                </div>
+              </div>
+            </div>
+
+
+
+            {
+              viewType === "grid" ? 
+              <div className="grid grid-cols-3 gap-5 mt-5">
+                    <ProductCardGridView/>
+            </div>
+            :
+            <div>
+              
+            </div>
+            }
+         </div>
       </div>
     </Container>
   );

@@ -5,15 +5,20 @@ import Specification from "./Specification";
 import Reviews from "./Reviews";
 
 const DetailsTab = () => {
-  const [detailsTab, setDetailsTab] = useState<
-    "Description" | "Specification" | "Reviews"
-  >("Description");
-  const tabButtons = ["Description", "Specification", "Reviews"];
+  const [detailsTab, setDetailsTab] = useState<"Description" | "Specification" | "Reviews">("Description");
+
+  // Tab buttons
+  const tabButtons: Array<"Description" | "Specification" | "Reviews"> = [
+    "Description",
+    "Specification",
+    "Reviews",
+  ];
+
   return (
     <div className="mt-20">
       {/* Tab buttons */}
       <div className="flex items-center gap-5 border-b border-neutral-40 pb-4 overflow-x-auto">
-        {tabButtons.map((button: string, index) => (
+        {tabButtons.map((button, index) => (
           <button
             key={index}
             onClick={() => setDetailsTab(button)}
@@ -29,13 +34,13 @@ const DetailsTab = () => {
       </div>
 
       <div className="mt-6">
-      {detailsTab === "Description" ? (
-        <Description />
-      ) : detailsTab === "Specification" ? (
-        <Specification />
-      ) : (
-        <Reviews />
-      )}
+        {detailsTab === "Description" ? (
+          <Description />
+        ) : detailsTab === "Specification" ? (
+          <Specification />
+        ) : (
+          <Reviews />
+        )}
       </div>
     </div>
   );
