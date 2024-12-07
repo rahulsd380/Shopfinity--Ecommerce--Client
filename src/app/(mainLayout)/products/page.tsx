@@ -2,6 +2,7 @@
 import { ICONS } from "@/assets";
 import Filters from "@/components/Products/Filter/Filter";
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
+import ProductCardListView from "@/components/Products/ProductCard/ProductCardListView";
 import Container from "@/components/shared/Container/Container";
 import Image from "next/image";
 import { useState } from "react";
@@ -68,8 +69,8 @@ const Products = () => {
                     <ProductCardGridView/>
             </div>
             :
-            <div>
-              
+            <div className="flex flex-col gap-5 mt-5">
+              <ProductCardListView/>
             </div>
             }
          </div>

@@ -7,6 +7,7 @@ import downArrow from "@/assets/icons/down-arrow.svg";
 import gridView from "@/assets/icons/gridview.svg";
 import listView from "@/assets/icons/listview.svg";
 import heart from "@/assets/icons/heart.svg";
+import dot from "@/assets/icons/dot.svg";
 
 
 
@@ -16,6 +17,7 @@ export const ICONS = {
     gridView,
     listView,
     heart,
+    dot,
 };
 
 export const IMAGES = {

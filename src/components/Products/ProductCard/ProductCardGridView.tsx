@@ -43,7 +43,7 @@ const ProductCardGridView = () => {
         </div>
 
         <p className="text-neutral-25 font-Inter mt-3">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiore
+          Iphone 11 Pro Max
         </p>
       </div>
     </div>
