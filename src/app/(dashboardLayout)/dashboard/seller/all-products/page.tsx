@@ -78,7 +78,7 @@ const AllProductsBySeller = () => {
             </div>
             :
             <div className="flex flex-col gap-5 mt-7">
-              <ProductCardListView/>
+              <ProductCardListView isMenuActive={true} />
             </div>
             }
         </div>

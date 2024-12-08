@@ -1,9 +1,53 @@
+"use client"
 import { ICONS, IMAGES } from "@/assets";
+import ConfirmDelete from "@/components/Dashboard/SellerDashboard/OrderHistory/ConfirmDelete/ConfirmDelete";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 const ProductCardGridView = () => {
+  const [productId, setProductId] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const handleDropdownToggle = (rowId: string) => {
+    setActiveDropdown((prev) => (prev === rowId ? null : rowId));
+  };
+  const id = "614234245"
   return (
-    <div className=" bg-white border border-neutral-45 rounded-lg">
+    <div className=" bg-white border border-neutral-45 rounded-lg relative">
+
+                <button
+                  onClick={() => handleDropdownToggle(id)}
+                  className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2"
+                >
+                  <Image
+                    src={ICONS.threeDots}
+                    alt="three-dots"
+                    className="size-6"
+                  />
+                </button>
+
+                {activeDropdown === id && (
+                  <div className="absolute right-0 mt-12 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
+                    <Link
+                    href={`/dashboard/edit-product/${id}`}
+                      onClick={() => console.log(`Editing row ${id}`)}
+                      className="block text-left w-full p-[10px] text-sm text-[#424B54] hover:bg-gray-100"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setOpenModal(true);
+                        setProductId(id);
+                      }}
+                      className="block text-left w-full p-[10px] text-sm text-[#DE3C4B] hover:bg-red-100 mt-1"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
+
       <div className="p-3">
         <Image
           src={IMAGES.product}
@@ -46,6 +90,12 @@ const ProductCardGridView = () => {
           Iphone 11 Pro Max
         </p>
       </div>
+
+      <ConfirmDelete
+        setOpenModal={setOpenModal}
+        openModal={openModal}
+        id={productId}
+      />
     </div>
   );
 };
