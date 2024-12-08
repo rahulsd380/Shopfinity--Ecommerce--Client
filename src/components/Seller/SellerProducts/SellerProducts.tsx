@@ -3,7 +3,7 @@ import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGr
 import { useState } from "react";
 
 const SellerProducts = () => {
-  const [sellerTab, setSellerTab] = useState("Products");
+  const [sellerTab, setSellerTab] = useState("Seller Products");
   const tabButtons = [
     "Seller Products",
     "Feedbacks",
@@ -27,7 +27,7 @@ const SellerProducts = () => {
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col lg:flex-row items-center gap-3 w-full">
           <div className="w-full relative">
             <input
               type="text"
@@ -40,6 +40,7 @@ const SellerProducts = () => {
             </button>
           </div>
 
+          <div className="flex items-center gap-3">
           <select
             name=""
             id=""
@@ -59,6 +60,7 @@ const SellerProducts = () => {
             <option value="Most Recent">Most Recent</option>
             <option value="Most Recent">Oldest</option>
           </select>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5 mt-7">
