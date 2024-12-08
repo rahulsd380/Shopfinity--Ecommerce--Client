@@ -19,7 +19,7 @@ const Filters = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-white border border-neutral-45 p-5 rounded-lg">
       {/* Category Filter */}
       <Dropdown title="Category" defaultOpen>
         {categories.map((item, index) => (

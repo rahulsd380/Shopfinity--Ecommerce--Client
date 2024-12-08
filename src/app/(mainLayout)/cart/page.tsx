@@ -25,7 +25,7 @@ const CartPage = () => {
         <div className="lg:col-span-2">
           {/* Cart Table */}
           <table className="w-full border-collapse border border-neutral-200">
-            <thead className="bg-neutral-50">
+            <thead className="bg-white">
               <tr>
                 <th className="text-left p-4 border-b border-neutral-200 font-semibold font-Poppins">Product</th>
                 <th className="text-left p-4 border-b border-neutral-200 font-semibold font-Poppins">Price</th>

@@ -1,10 +1,10 @@
-import { ICONS, IMAGES } from "@/assets";
-import Image from "next/image";
-import React from "react";
+import { ICONS, IMAGES } from '@/assets';
+import Image from 'next/image';
+import React from 'react';
 
-const SellerCard = () => {
-  return (
-    <div className="bg-white border border-neutral-45 rounded-lg p-4 font-Inter w-full xl:w-[20%] h-fit">
+const AdditionalInfo = () => {
+    return (
+        <div className="bg-white border border-neutral-45 rounded-xl p-4 font-Inter w-full xl:w-[25%] h-fit">
       <div className="flex items-center gap-3">
         <Image src={IMAGES.logo} alt="product-img" className="size-10" />
         <div>
@@ -13,7 +13,7 @@ const SellerCard = () => {
         </div>
       </div>
 
-      <hr className="border border-neutral-45 my-3" />
+      <hr className="border border-neutral-45/50 my-3" />
 
       <div className="space-y-3">
         <div className="flex items-center gap-4">
@@ -42,10 +42,15 @@ const SellerCard = () => {
         Send Inquiry
       </button>
       <button className="text-primary-10 bg-white border border-neutral-45 py-3 w-full font-medium mt-2 rounded-lg ">
-        Seller’s profile
+        Send Message
       </button>
+
+      <div className='flex items-center justify-center gap-3 mt-4'>
+      <Image src={ICONS.review} alt="product-img" className="size-5" />
+      <p className="text-primary-10 font-Inter font-semibold">Write a review</p>
+      </div>
     </div>
-  );
+    );
 };
 
-export default SellerCard;
+export default AdditionalInfo;
