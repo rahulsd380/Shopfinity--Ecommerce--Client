@@ -20,6 +20,7 @@ import location from "@/assets/icons/location.svg";
 import date from "@/assets/icons/date.svg";
 import products from "@/assets/icons/products.svg";
 import review from "@/assets/icons/review.svg";
+import user from "@/assets/icons/user.svg";
 
 
 
@@ -39,6 +40,7 @@ export const ICONS = {
     date,
     products,
     review,
+    user,
  
 };
 
