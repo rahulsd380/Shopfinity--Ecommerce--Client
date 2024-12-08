@@ -12,6 +12,7 @@ type TFormValues = {
   brand: string;
   stock: string;
   description: string;
+  category: string; // Added category field
 };
 
 const AddProduct = () => {
@@ -23,6 +24,14 @@ const AddProduct = () => {
 
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
+
+  // Dummy category array
+  const categories = [
+    { id: "1", name: "Electronics" },
+    { id: "2", name: "Clothing" },
+    { id: "3", name: "Home Appliances" },
+    { id: "4", name: "Sports" },
+  ];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,8 +48,25 @@ const AddProduct = () => {
   };
 
   const handleAddProduct: SubmitHandler<TFormValues> = async (data) => {
-    // Placeholder for product submission logic
-    console.log("Form Data: ", data);
+    try {
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("price", data.price);
+      formData.append("brand", data.brand);
+      formData.append("stock", data.stock);
+      formData.append("description", data.description);
+      formData.append("vendorId", data.description);  // vendor id required
+      formData.append("category", data.category);  // Append category
+
+      imageFiles.forEach((file) => {
+        formData.append(`images`, file);
+      });
+
+      // Make your API request here
+    } catch (error) {
+      console.error("Error submitting product:", error);
+    }
   };
 
   return (
@@ -53,23 +79,22 @@ const AddProduct = () => {
           <UploadImage handleImageChange={handleImageChange} />
 
           {imagePreviews.length > 0 ? (
-  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center gap-5 mt-3">
-    {imagePreviews.map((previewUrl) => (
-      <div key={previewUrl} className="p-2 rounded-md border">
-        <Image
-          width={0}
-          height={0}
-          src={previewUrl}
-          alt="image"
-          className="size-16 object-cover object-center rounded-md"
-        />
-      </div>
-    ))}
-  </div>
-) : (
-  <p className="text-neutral-10 font-Inter mt-5">No image selected</p>
-)}
-
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center gap-5 mt-3">
+              {imagePreviews.map((previewUrl) => (
+                <div key={previewUrl} className="p-2 rounded-md border">
+                  <Image
+                    width={0}
+                    height={0}
+                    src={previewUrl}
+                    alt="image"
+                    className="size-16 object-cover object-center rounded-md"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-neutral-10 font-Inter mt-5">No image selected</p>
+          )}
         </div>
         <div className="bg-white border border-neutral-45 p-5 rounded-xl w-[70%]">
           <form
@@ -84,6 +109,35 @@ const AddProduct = () => {
               register={register}
               error={errors.name}
             />
+            {/* Category Dropdown */}
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="category"
+                className="text-[#6E7883] font-Poppins leading-5"
+              >
+                Product Category<span className="text-[#DE3C4B]">*</span>
+              </label>
+              <select
+                id="category"
+                {...register("category", { required: "Select a product category" })}
+                className={`bg-[#6e788305] px-[18px] py-[14px] rounded-lg border ${
+                  errors.category ? "border-[#DE3C4B]" : "border-[#6e78831f]"
+                } focus:outline-none`}
+              >
+                <option value="">Select Category</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              {errors.category && (
+                <p className="text-[#DE3C4B] text-sm mt-1">
+                  {errors.category.message}
+                </p>
+              )}
+            </div>
+            
             <TextInput
               label="Price"
               type="number"
@@ -118,7 +172,7 @@ const AddProduct = () => {
                 Product Description<span className="text-[#DE3C4B]">*</span>
               </label>
               <textarea
-              rows={5}
+                rows={5}
                 id="description"
                 className={`bg-[#6e788305] px-[18px] py-[14px] rounded-lg border ${
                   errors.description ? "border-[#DE3C4B]" : "border-[#6e78831f]"
@@ -138,6 +192,8 @@ const AddProduct = () => {
                 </p>
               )}
             </div>
+
+            
 
             <button
               type="submit"

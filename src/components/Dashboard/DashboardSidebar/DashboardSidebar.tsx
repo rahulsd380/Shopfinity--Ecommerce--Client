@@ -28,7 +28,7 @@ const DashboardSidebar = () => {
     },
     {
       label: "Order History",
-      path: "/dashboard/order-history",
+      path: "/dashboard/seller/order-history",
       icon: <LuHistory />,
     },
     {

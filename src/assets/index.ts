@@ -21,6 +21,8 @@ import date from "@/assets/icons/date.svg";
 import products from "@/assets/icons/products.svg";
 import review from "@/assets/icons/review.svg";
 import user from "@/assets/icons/user.svg";
+import threeDots from "@/assets/icons/threeDots.svg";
+import sort from "@/assets/icons/sort.svg";
 
 
 
@@ -41,6 +43,8 @@ export const ICONS = {
     products,
     review,
     user,
+    threeDots,
+    sort,
  
 };
 
