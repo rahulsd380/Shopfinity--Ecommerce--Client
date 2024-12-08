@@ -1,56 +1,49 @@
-"use client"
+"use client";
 import { ICONS, IMAGES } from "@/assets";
 import ConfirmDelete from "@/components/Dashboard/SellerDashboard/OrderHistory/ConfirmDelete/ConfirmDelete";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const ProductCardListView = ({isMenuActive}) => {
+const ProductCardListView = ({ isMenuActive }) => {
   const [productId, setProductId] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const handleDropdownToggle = (rowId: string) => {
     setActiveDropdown((prev) => (prev === rowId ? null : rowId));
   };
-  const id = "614234245"
+  const id = "614234245";
   return (
-    <div className=" bg-white border border-neutral-45 rounded-lg flex items-center gap-4 font-Inter p-5 relative" >
-      {
-        isMenuActive &&
+    <div className=" bg-white border border-neutral-45 rounded-lg flex items-center gap-4 font-Inter p-5 relative">
+      {isMenuActive && (
         <button
-                  onClick={() => handleDropdownToggle(id)}
-                  className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2"
-                >
-                  <Image
-                    src={ICONS.threeDots}
-                    alt="three-dots"
-                    className="size-6"
-                  />
-                </button>
+          onClick={() => handleDropdownToggle(id)}
+          className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2"
+        >
+          <Image src={ICONS.threeDots} alt="three-dots" className="size-6" />
+        </button>
+      )}
 
-      }
-      
-
-                {activeDropdown === id && (
-                  <div className="absolute right-2 top-11 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
-                    <Link
-                    href={`/dashboard/edit-product/${id}`}
-                      onClick={() => console.log(`Editing row ${id}`)}
-                      className="block text-left w-full p-[10px] text-sm text-[#424B54] hover:bg-gray-100"
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      onClick={() => {
-                        setOpenModal(true);
-                        setProductId(id);
-                      }}
-                      className="block text-left w-full p-[10px] text-sm text-[#DE3C4B] hover:bg-red-100 mt-1"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                )}
+      {activeDropdown === id && (
+        <div className="absolute right-2 top-11 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
+          <Link
+            href={`/dashboard/edit-product/${id}`}
+            onClick={() => console.log(`Editing row ${id}`)}
+            className="block text-left w-full p-[10px] text-sm text-[#424B54] hover:bg-gray-100"
+          >
+            Edit
+          </Link>
+          <button
+            onClick={() => {
+              setOpenModal(true);
+              setProductId(id);
+            }}
+            className="block text-left w-full p-[10px] text-sm text-[#DE3C4B] hover:bg-red-100 mt-1"
+          >
+            Delete
+          </button>
+        </div>
+      )}
       <div className="p-3">
         <Image
           src={IMAGES.product}
@@ -99,17 +92,19 @@ const ProductCardListView = ({isMenuActive}) => {
         </p>
 
         <div className="mt-3">
-          <Link href={`products/${1}`} className="text-secondary-10 font-medium">
+          <Link
+            href={`products/${1}`}
+            className="text-secondary-10 font-medium"
+          >
             View Details
           </Link>
         </div>
 
-        {
-          !isMenuActive &&
+        {!isMenuActive && (
           <button className="absolute top-2 right-2 border border-neutral-45 p-2 flex items-center justify-center rounded-md hover:bg-neutral-45/30 transition duration-300">
-          <Image src={ICONS.heart} alt="star-icon" className="size-5" />
-        </button>
-        }
+            <Image src={ICONS.heart} alt="star-icon" className="size-5" />
+          </button>
+        )}
       </div>
       <ConfirmDelete
         setOpenModal={setOpenModal}

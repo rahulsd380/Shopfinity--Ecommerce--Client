@@ -3,6 +3,7 @@ import { IMAGES } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BsShopWindow } from "react-icons/bs";
 import { FaHome, FaListUl } from "react-icons/fa";
 import { LuHistory } from "react-icons/lu";
 import { MdOutlineLibraryAdd, MdOutlinePayment } from "react-icons/md";
@@ -15,6 +16,11 @@ const DashboardSidebar = () => {
       label: "Dashboard",
       path: "/dashboard/seller",
       icon: <FaHome />,
+    },
+    {
+      label: "Manage Shop",
+      path: "/dashboard/seller/manage-shop",
+      icon: <BsShopWindow/>,
     },
     {
       label: "All Products",

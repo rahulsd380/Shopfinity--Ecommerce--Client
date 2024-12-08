@@ -2,7 +2,10 @@ import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
 import AdditionalInfo from "./AdditionalInfo";
 
-const SellerProfile = () => {
+type TSellerProfileProps = {
+  isFollowVisible:boolean
+}
+const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true}) => {
   return (
         <div className="flex flex-col xl:flex-row gap-5">
     <div className="rounded-xl w-full xl:w-[80%]">
@@ -74,9 +77,12 @@ const SellerProfile = () => {
               </div>
             </div>
 
-            <button className="text-white px-6 py-2 bg-primary-10 hover:bg-primary-10/80 transition duration-300 text-lg font-Inter font-medium rounded-3xl">
+            {
+              isFollowVisible &&
+              <button className="text-white px-6 py-2 bg-primary-10 hover:bg-primary-10/80 transition duration-300 text-lg font-Inter font-medium rounded-3xl">
               Follow
             </button>
+            }
           </div>
         </div>
       </div>
