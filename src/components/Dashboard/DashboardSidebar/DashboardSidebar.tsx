@@ -8,6 +8,7 @@ import { FaHome, FaListUl } from "react-icons/fa";
 import { LiaUsersCogSolid } from "react-icons/lia";
 import { LuHistory } from "react-icons/lu";
 import { MdOutlineLibraryAdd, MdOutlinePayment } from "react-icons/md";
+import { TbCategoryPlus } from "react-icons/tb";
 
 const DashboardSidebar = () => {
   const pathname = usePathname();
@@ -61,26 +62,17 @@ const DashboardSidebar = () => {
       path: "/dashboard/admin/manage-shops",
       icon: <BsShopWindow/>,
     },
-    // {
-    //   label: "All Products",
-    //   path: "/dashboard/seller/all-products",
-    //   icon: <FaListUl />,
-    // },
-    // {
-    //   label: "Add Product",
-    //   path: "/dashboard/seller/add-product",
-    //   icon: <MdOutlineLibraryAdd />,
-    // },
-    // {
-    //   label: "Order History",
-    //   path: "/dashboard/seller/order-history",
-    //   icon: <LuHistory />,
-    // },
-    // {
-    //   label: "Payment Info",
-    //   path: "/dashboard/payment-info",
-    //   icon: <MdOutlinePayment />,
-    // },
+    {
+      label: "Categories",
+      path: "/dashboard/admin/manage-categories",
+      icon: <TbCategoryPlus/>
+      ,
+    },
+    {
+      label: "Payment History",
+      path: "/dashboard/admin/payment-history",
+      icon: <MdOutlinePayment />,
+    },
   ];
 
   return (

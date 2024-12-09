@@ -94,7 +94,7 @@ const ManageShops = () => {
             <tr key={shop.shopId} className="border-b relative">
               <td className="text-[#6E7883] font-Poppins p-4">{shop.shopId}</td>
               <td className="text-[#6E7883] font-Poppins p-4">
-                <img
+                <Image
                   src={shop.logo}
                   alt={shop.shopName}
                   className="w-10 h-10 rounded-full"

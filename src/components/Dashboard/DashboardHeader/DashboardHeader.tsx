@@ -8,7 +8,7 @@ const DashboardHeader = () => {
             <h1 className="text-2xl text-neutral-15 font-bold font-Inter">
          Welcome Back, <span className="font-semibold text-primary-10">Rahul</span>
         </h1>
-        <p className="text-neutral-20 font-Inter text-sm">Dashboard | Home</p>
+        <p className="text-neutral-20 font-Inter text-sm">Dashboard | Admin</p>
             </div>
 
         <UserDropdown/>

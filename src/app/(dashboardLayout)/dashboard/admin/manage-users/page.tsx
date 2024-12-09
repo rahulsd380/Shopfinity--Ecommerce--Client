@@ -59,7 +59,7 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className="mt-8 overflow-x-auto min-h-screen">
+    <div className="mt-5 overflow-x-auto min-h-screen">
         <h1 className="text-neutral-10 font-Inter text-xl font-semibold">Manage Users</h1>
       <table className="bg-white w-full rounded-3xl shadow border-collapse mt-5">
         <thead className="bg-gray-100">
