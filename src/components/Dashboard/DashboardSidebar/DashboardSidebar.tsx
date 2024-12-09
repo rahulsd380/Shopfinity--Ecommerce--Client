@@ -5,13 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BsShopWindow } from "react-icons/bs";
 import { FaHome, FaListUl } from "react-icons/fa";
+import { LiaUsersCogSolid } from "react-icons/lia";
 import { LuHistory } from "react-icons/lu";
 import { MdOutlineLibraryAdd, MdOutlinePayment } from "react-icons/md";
 
 const DashboardSidebar = () => {
   const pathname = usePathname();
 
-  const dashboardSidebarLinks = [
+  const sellerSidebarLinks = [
     {
       label: "Dashboard",
       path: "/dashboard/seller",
@@ -44,6 +45,39 @@ const DashboardSidebar = () => {
     },
   ];
 
+  const adminSidebarLinks = [
+    {
+      label: "Dashboard",
+      path: "/dashboard/admin",
+      icon: <FaHome />,
+    },
+    {
+      label: "Manage Users",
+      path: "/dashboard/admin/manage-users",
+      icon: <LiaUsersCogSolid/>,
+    },
+    // {
+    //   label: "All Products",
+    //   path: "/dashboard/seller/all-products",
+    //   icon: <FaListUl />,
+    // },
+    // {
+    //   label: "Add Product",
+    //   path: "/dashboard/seller/add-product",
+    //   icon: <MdOutlineLibraryAdd />,
+    // },
+    // {
+    //   label: "Order History",
+    //   path: "/dashboard/seller/order-history",
+    //   icon: <LuHistory />,
+    // },
+    // {
+    //   label: "Payment Info",
+    //   path: "/dashboard/payment-info",
+    //   icon: <MdOutlinePayment />,
+    // },
+  ];
+
   return (
     <div className="w-[280px] bg-neutral-15 h-screen sticky top-0 left-0">
       <div className="p-4">
@@ -62,7 +96,7 @@ const DashboardSidebar = () => {
       </div>
 
       <div className="flex flex-col gap-3 mt-7 font-Inter">
-        {dashboardSidebarLinks.map((link, index) => (
+        {adminSidebarLinks.map((link, index) => (
           <Link
             key={index}
             href={link.path}
