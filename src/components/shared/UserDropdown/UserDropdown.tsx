@@ -67,7 +67,7 @@ const data = {}
         onClick={() => setOpen((prev) => !prev)}
         className="bg-primary-70 px-2 py-[6px] rounded-3xl border border-primary-10 focus:outline-none transition duration-300 focus:shadow flex items-center gap-3 w-[220px]"
       >
-        <div className="size-8 rounded-full bg-primary-10/20 border border-primary-10/50 flex items-center justify-center">
+        <div className="size-8 rounded-full bg-primary-10 border border-primary-10/50 flex items-center justify-center">
         {
           data?.data?.profilePicture ?
           <Image
@@ -85,7 +85,7 @@ const data = {}
         />
         }
         </div>
-          <h1 className="font-medium text-neutral-45">{data?.data?.name ? data?.data?.name : "Rahul Sutrdahar"}</h1>
+          <h1 className="font-medium text-neutral-10">{data?.data?.name ? data?.data?.name : "Rahul Sutrdahar"}</h1>
           <p><FaChevronDown className="text-neutral-45" /></p>
       </button>
 

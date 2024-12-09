@@ -56,6 +56,11 @@ const DashboardSidebar = () => {
       path: "/dashboard/admin/manage-users",
       icon: <LiaUsersCogSolid/>,
     },
+    {
+      label: "Manage Shops",
+      path: "/dashboard/admin/manage-shops",
+      icon: <BsShopWindow/>,
+    },
     // {
     //   label: "All Products",
     //   path: "/dashboard/seller/all-products",
@@ -79,7 +84,7 @@ const DashboardSidebar = () => {
   ];
 
   return (
-    <div className="w-[280px] bg-neutral-15 h-screen sticky top-0 left-0">
+    <div className="w-[280px] bg-neutral-15 rounded-r-2xl h-screen sticky top-0 left-0">
       <div className="p-4">
         {/* Logo */}
         <Link href={"/"} className="flex items-center gap-3">
