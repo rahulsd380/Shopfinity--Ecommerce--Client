@@ -1,29 +1,58 @@
+"use client";
+import TextInput from "@/components/reusable/TextInput/TextInput";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 
+type TFormValues = {
+  name: string;
+  description: string;
+  image: File | null;
+};
 
 type ConfirmationModalProps = {
-  id: string;
   openModal: boolean;
   setOpenModal: (value: boolean) => void;
 };
 
 const CreateCategory: React.FC<ConfirmationModalProps> = ({
-  id,
   openModal,
   setOpenModal,
 }) => {
-//   const [deleteProduct, {isLoading}] = useDeleteProductMutation();
-  const handleDeleteProduct = async () => {
-    // try {
-    //   const result = await deleteProduct(id).unwrap();
-    //   toast.success(result.message);
-    //   setOpenModal(false);
-    // } catch (error) {
-    //   toast.error("Error deleting product");
-    // }
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<TFormValues>();
+
+  const handleCreateCategory: SubmitHandler<TFormValues> = async (data) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("description", data.description);
+      if (data.image) {
+        formData.append("image", data.image);
+      }
+
+      // Simulate API request
+      console.log("Submitting form data...");
+      console.log(Array.from(formData.entries()));
+
+      // Make your API request here
+    } catch (error) {
+      console.error("Error submitting product:", error);
+    }
   };
 
-  const isLoading = false
-  
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setValue("image", e.target.files[0]);
+    }
+  };
+
   return (
     <div className="mx-auto flex w-72 items-center justify-center">
       <div
@@ -34,43 +63,111 @@ const CreateCategory: React.FC<ConfirmationModalProps> = ({
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-[738px] p-8 rounded-3xl bg-white drop-shadow-2xl ${
+          className={`absolute w-[600px] p-5 rounded-3xl bg-white drop-shadow-2xl ${
             openModal
               ? "opacity-1 translate-y-0 duration-300"
               : "translate-y-20 opacity-0 duration-150"
           }`}
         >
           <div className="flex flex-col gap-8">
-            <h1 className="text-[#293241] font-Poppins text-xl font-semibold leading-[42px]">
+            <h1 className="text-[#293241] font-Poppins text-xl font-semibold border-b border-[#6e78831f] pb-4">
               Create New Category
             </h1>
-            <hr className="border border-[#6e78831f]" />
 
-            <div className="flex items-center justify-end gap-4">
-              <button
-                onClick={() => setOpenModal(false)}
-                type="submit"
-                className="px-6 py-[14px] text-white bg-[#8D9095] rounded-xl text-lg leading-6 font-semibold"
-              >
-                No, Cancel
-              </button>
-              <button
-              onClick={() => {
-                handleDeleteProduct()
-              }}
-                type="submit"
-                className="px-6 py-[14px] text-white bg-[#E28413] rounded-xl text-lg leading-6 font-semibold"
-              >
-                {
-                  isLoading ?
-                  <div className="flex items-center gap-1">
-                    <p>Loading</p>
-                    <div className="size-6 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-yellow-900 border-white"></div>
-                  </div>
-                  : "Yes, Delete"
-                }
-              </button>
-            </div>
+            <form
+              onSubmit={handleSubmit(handleCreateCategory)}
+              className="flex flex-col gap-5 w-full"
+            >
+              <TextInput
+                label="Category Name"
+                name="name"
+                placeholder="Grocery"
+                validation={{ required: "Enter category name" }}
+                register={register}
+                error={errors.name}
+              />
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="description"
+                  className="text-[#6E7883] font-Poppins leading-5"
+                >
+                  Description<span className="text-[#DE3C4B]">*</span>
+                </label>
+                <textarea
+                  rows={5}
+                  id="description"
+                  className={`bg-[#6e788305] px-[18px] py-[14px] rounded-lg border ${
+                    errors.description
+                      ? "border-[#DE3C4B]"
+                      : "border-[#6e78831f]"
+                  } focus:outline-none`}
+                  placeholder="Enter product description"
+                  {...register("description", {
+                    required: "Enter product description",
+                    maxLength: {
+                      value: 500,
+                      message: "Description cannot exceed 500 characters",
+                    },
+                  })}
+                />
+                {errors.description && (
+                  <p className="text-[#DE3C4B] text-sm mt-1">
+                    {errors.description.message}
+                  </p>
+                )}
+              </div>
+
+              {/* File Input for Image */}
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="image"
+                  className="text-[#6E7883] font-Poppins leading-5"
+                >
+                  Image<span className="text-[#DE3C4B]">*</span>
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  className={`bg-[#6e788305] px-[18px] py-[14px] rounded-lg border ${
+                    errors.image ? "border-[#DE3C4B]" : "border-[#6e78831f]"
+                  } focus:outline-none`}
+                  {...register("image", {
+                    required: "Please upload an image",
+                  })}
+                  onChange={handleFileChange}
+                />
+                {errors.image && (
+                  <p className="text-[#DE3C4B] text-sm mt-1">
+                    {errors.image.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex items-center justify-end gap-4">
+                <button
+                  onClick={() => setOpenModal(false)}
+                  type="button"
+                  className="px-6 py-[14px] text-white bg-[#8D9095] rounded-xl text-lg leading-6 font-semibold"
+                >
+                  No, Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center gap-1">
+                      <p>Loading</p>
+                      <div className="size-6 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-yellow-900 border-white"></div>
+                    </div>
+                  ) : (
+                    "Submit"
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

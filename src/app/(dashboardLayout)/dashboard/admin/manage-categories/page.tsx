@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { ICONS } from "@/assets";
 import { TbCategoryPlus } from "react-icons/tb";
+import CreateCategory from "@/components/Dashboard/AdminDashboard/CreateCategory/CreateCategory";
 
 type TCategory = {
   categoryId: string;
@@ -29,6 +30,8 @@ const ManageCategories = () => {
     },
   ]);
 
+  const [openCreateCategoryModal, setOpenCreateCategoryModal] = useState(false);
+
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const handleDropdownToggle = (categoryId: string) => {
@@ -52,7 +55,7 @@ const ManageCategories = () => {
       <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
         Manage Categories
       </h1>
-      <button className="bg-primary-10 px-4 py-3 rounded text-white font-Inter font-medium flex items-center gap-2">
+      <button onClick={() => setOpenCreateCategoryModal(true)} className="bg-primary-10 px-4 py-3 rounded text-white font-Inter font-medium flex items-center gap-2">
       <TbCategoryPlus />
         Add New Category</button>
       </div>
@@ -118,6 +121,8 @@ const ManageCategories = () => {
           No Categories Available
         </p>
       )}
+
+      <CreateCategory openModal={openCreateCategoryModal} setOpenModal={setOpenCreateCategoryModal}/>
     </div>
   );
 };

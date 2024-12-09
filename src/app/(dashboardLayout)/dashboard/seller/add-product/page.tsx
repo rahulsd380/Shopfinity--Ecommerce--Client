@@ -12,7 +12,7 @@ type TFormValues = {
   brand: string;
   stock: string;
   description: string;
-  category: string; // Added category field
+  category: string;
 };
 
 const AddProduct = () => {
@@ -57,7 +57,7 @@ const AddProduct = () => {
       formData.append("stock", data.stock);
       formData.append("description", data.description);
       formData.append("vendorId", data.description);  // vendor id required
-      formData.append("category", data.category);  // Append category
+      formData.append("category", data.category);
 
       imageFiles.forEach((file) => {
         formData.append(`images`, file);
