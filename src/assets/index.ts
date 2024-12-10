@@ -60,6 +60,8 @@ import send from "@/assets/icons/send.svg";
 import rightArrow from "@/assets/icons/right-arrow.svg";
 import leftArrow from "@/assets/icons/left-Arrow.svg";
 import cart2 from "@/assets/icons/cart.svg";
+import email2 from "@/assets/icons/email2.svg";
+import phone2 from "@/assets/icons/phone-2.svg";
 
 
 
@@ -96,6 +98,8 @@ export const ICONS = {
     rightArrow,
     leftArrow,
     cart2,
+    email2,
+    phone2,
 
 };
 

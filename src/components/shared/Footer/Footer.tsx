@@ -3,35 +3,75 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="bg-neutral-55 py-10 text-sm font-sans px-16">
-      <div>
-        <div></div>
-        <div></div>
-      </div>
-      <div className="max-w-full  flex flex-wrap justify-between md:space-x-1 border-t border-b border-neutral-30  py-10  lg:space-y-0">
-        {/* Help Section */}
-        <div className="max-w-[250px] mb-6 ">
-          <h3 className="mb-3 text-lg font-bold">Do You Need Help?</h3>
-          <p className="mb-4 text-gray-600">
-            Autoseligen syr. Nek diarask fröbomba. Nör antipol kynoda nyna.
-            Pressa fåmoska.
-          </p>
-          <p className="mb-2">
-            <span className="block font-bold">Monday-Friday: 08am-9pm</span>
-            <span className="text-2xl">0 444 300-353</span>
-          </p>
-          <p>
-            <strong>Need help with your order?</strong>
-            <br />
-            <a href="mailto:info@example.com" className="text-sm ">
-              info@example.com
-            </a>
-          </p>
+    <footer className="bg-neutral-55 mt-[100px] text-sm font-sans px-6 lg:px-16 py-10">
+    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 lg:gap-0">
+    <div>
+     <h1 className="text-neutral-15 font-Sora text-xl font-semibold">
+      Join our newsletter for £10 offs
+              </h1>
+              <p className="text-neutral-60 font-Inter text-sm font-medium mt-3 max-w-[300px]">
+              Register now to get latest updates on promotions & coupons.Don’t worry, we not spam!
+              </p>
+     </div>
+      {/* Email Input and Subscribe Button */}
+     <div className="w-full max-w-[550px]">
+     <div className="flex items-center w-full max-w-[550px]">
+          <div className="relative flex-grow">
+          <Image src={ICONS.send} alt="send-icon" className="size-5 absolute left-3 top-5 bottom-0" />
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              className="w-full p-4 pl-12 rounded-l focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-2 border border-white"
+            />
+          </div>
+          <button className="bg-primary-10 hover:bg-primary-10/70 transition duration-300 border border-primary-10 text-white font-medium p-4 rounded-r">
+            Subscribe
+          </button>
         </div>
-        <div className="lg:flex gap-10">
+        <p className="text-neutral-60 font-Inter text-[13px] font-medium mt-2">
+        By subscribing you agree to our <span className="text-primary-10 font-medium">Terms & Conditions and Privacy & Cookies Policy.</span>
+              </p>
+     </div>
+    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 border-b border-t border-neutral-50/40 py-12 my-10">
+        {/* Help Section */}
+        <div className="w-fit">
+        <h1 className="text-neutral-15 font-Sora text-xl font-semibold">
+        Do You Need Help ?
+              </h1>
+              <p className="text-neutral-60 font-Inter text-sm font-medium mt-5 max-w-[270px]">
+              Autoseligen syr. Nek diarask fröbomba. Nör antipol kynoda nynat. Pressa fåmoska.
+              </p>
+
+          {/* Phone */}
+          <div className="flex items-center gap-3 mt-7">
+            <Image src={ICONS.phone2} alt="phone icon" className="size-12" />
+            <div>
+              <p className="text-neutral-60 font-Inter text-sm font-medium">
+                Monday-Friday: 08am-9pm
+              </p>
+              <h1 className="text-neutral-15 font-Sora text-xl font-semibold mt-1">
+                +880 1608249337
+              </h1>
+            </div>
+          </div>
+          {/* Email */}
+          <div className="flex items-center gap-3 mt-7">
+            <Image src={ICONS.email2} alt="phone icon" className="size-9" />
+            <div>
+              <p className="text-neutral-60 font-Inter text-sm font-medium">
+              Need help with your order?
+              </p>
+              <h1 className="text-neutral-15 font-Sora text-xl font-semibold mt-1">
+                rahulsd380@gmail.com
+              </h1>
+            </div>
+          </div>
+        </div>
+
           {/* Make Money Section */}
-          <div className="flex-1 min-w-[200px] mb-4">
-            <h3 className="mb-3 text-sm font-bold">Make Money with Us</h3>
+          <div className="w-fit">
+            <h3 className="text-neutral-15 font-Sora text-xl font-semibold mb-5">Make Money with Us</h3>
             <ul className="space-y-2 text-gray-600">
               <li>Sell on Grogin</li>
               <li>Sell Your Services on Grogin</li>
@@ -45,8 +85,8 @@ const Footer = () => {
           </div>
 
           {/* Help Section */}
-          <div className="flex-1 min-w-[200px] mb-4">
-            <h3 className="mb-3 text-sm font-bold">Let Us Help You</h3>
+          <div className="w-fit">
+            <h3 className="text-neutral-15 font-Sora text-xl font-semibold mb-5">Let Us Help You</h3>
             <ul className="space-y-2 text-gray-600">
               <li>Accessibility Statement</li>
               <li>Your Orders</li>
@@ -61,8 +101,8 @@ const Footer = () => {
           </div>
 
           {/* About Section */}
-          <div className="flex-1 min-w-[200px] mb-4">
-            <h3 className="mb-3 text-sm font-bold">Get to Know Us</h3>
+          <div className="w-fit">
+            <h3 className="text-neutral-15 font-Sora text-xl font-semibold mb-5">Get to Know Us</h3>
             <ul className="space-y-2 text-gray-600">
               <li>Careers for Grogin</li>
               <li>About Grogin</li>
@@ -74,8 +114,8 @@ const Footer = () => {
             </ul>
           </div>
           {/* App Download and Social Links */}
-          <div className="flex-1 min-w-[250px]">
-            <h3 className="mb-3 text-sm font-bold">Download our app</h3>
+          <div className="w-fit">
+            <h3 className="text-neutral-15 font-Sora text-xl font-semibold mb-5">Download our app</h3>
             <div className="flex items-center space-x-4 mb-4">
               <a href="#" className="flex items-center space-x-2">
                 <Image
@@ -132,26 +172,29 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
-        
       </div>
       <div className="py-5 sm:flex justify-between">
-        <div >
+        <div>
           <div className=" font-normal text-base pb-4">
             Copyright 2024 © Grogin WooCommerce WordPress Theme. All right
             reserved.
-            
           </div>
           <div>
-            <Image src={IMAGES.paymentOptions} alt="" className="h-9 w-60"/>
-          </div>
-          </div>
-          <div className="md:flex gap-4">
-            <p className=" hover:underline font-semibold text-sm ">Terms and Conditions</p>
-            <p className=" hover:underline font-semibold text-sm">Privacy Policy</p>
-            <p className=" hover:underline font-semibold text-sm">Order Tracking</p>
+            <Image src={IMAGES.paymentOptions} alt="" className="h-9 w-60" />
           </div>
         </div>
+        <div className="md:flex gap-4">
+          <p className=" hover:underline font-semibold text-sm ">
+            Terms and Conditions
+          </p>
+          <p className=" hover:underline font-semibold text-sm">
+            Privacy Policy
+          </p>
+          <p className=" hover:underline font-semibold text-sm">
+            Order Tracking
+          </p>
+        </div>
+      </div>
     </footer>
   );
 };
