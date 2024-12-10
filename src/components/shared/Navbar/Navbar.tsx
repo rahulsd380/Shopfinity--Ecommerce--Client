@@ -71,7 +71,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#F7FAFC]">
       {/* Top Section */}
       <div className="hidden lg:flex justify-between px-10 items-center pt-3 pb-2 border-b">
         <div className="flex items-center gap-2">

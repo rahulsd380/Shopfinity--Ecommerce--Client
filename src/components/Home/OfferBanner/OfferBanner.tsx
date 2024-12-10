@@ -6,27 +6,23 @@ const OfferBanner = () => {
         <div className="flex flex-col md:flex-row gap-10 items-center justify-center mt-16">
         <OfferBannerCard
           badgeText="Limited Time Offer"
-          title="20% Off on Fresh Produce"
+          title="Free delivery over $50 "
           description="Get fresh groceries delivered to your door."
           buttonText="Order Now"
           buttonUrl="/shop"
           imageSrc={IMAGES.offerBanner1}
           imageAlt="Person holding groceries"
-          overlayColor="#FFF5E1D9" 
-          overlayOpacity="0.5"
-          backgroundImage="/path-to-background.jpg"
+          bgColor="#fff7e6" 
         />
         <OfferBannerCard
           badgeText="Limited Time Offer"
-          title="Organic Food"
+          title="Organic Food Of Your Choice"
           description="Save up to 60% off on your first order"
           buttonText="Order Now"
           buttonUrl="/shop"
           imageSrc={IMAGES.offerBanner2}
           imageAlt="Person holding groceries"
-          overlayColor="#D2EFE1D9"
-          overlayOpacity="0.5"
-          backgroundImage="/path-to-background.jpg"
+          bgColor="#d2f0d4"
         />
       </div>
     );

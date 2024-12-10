@@ -5,7 +5,7 @@ import Container from "@/components/shared/Container/Container";
 
 const AppDownloadBanner = () => {
   return (
-    <div className="relative flex p-10 justify-between items-center bg-primary-20">
+    <div className="relative flex p-10 justify-between items-center bg-primary-20 mt-[100px]">
       {/* Background Image */}
       <Image
         src={IMAGES.bgVector}

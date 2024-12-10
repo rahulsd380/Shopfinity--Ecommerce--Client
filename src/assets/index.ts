@@ -16,6 +16,18 @@ import playStore from "@/assets/images/playStore.png";
 import paymentOptions from "@/assets/images/paymentOptions.png";
 import bgVector from "@/assets/images/bg-img.png";
 
+
+import vegetable from "@/assets/images/vegetable.png";
+import egg from "@/assets/images/egg.png";
+import chicken from "@/assets/images/chicken.png";
+import mutton from "@/assets/images/mutton.png";
+import fruits from "@/assets/images/fruits.png";
+import strawberry from "@/assets/images/strawberry.png";
+import potato from "@/assets/images/potato.png";
+import apple from "@/assets/images/apple.png";
+
+
+
 import star from "@/assets/icons/star.svg";
 import downArrow from "@/assets/icons/down-arrow.svg";
 import gridView from "@/assets/icons/gridview.svg";
@@ -45,6 +57,8 @@ import profile from "@/assets/icons/profile.svg";
 import wishlist from "@/assets/icons/wishlist.svg";
 import search from "@/assets/icons/search.svg";
 import send from "@/assets/icons/send.svg";
+import rightArrow from "@/assets/icons/right-arrow.svg";
+import leftArrow from "@/assets/icons/left-Arrow.svg";
 
 
 
@@ -78,7 +92,9 @@ export const ICONS = {
     wishlist,
     search,
     send,
- 
+    rightArrow,
+    leftArrow,
+
 };
 
 export const IMAGES = {
@@ -99,4 +115,13 @@ export const IMAGES = {
     playStore,
     paymentOptions,
     bgVector,
+
+    vegetable,
+    egg,
+    chicken,
+    mutton,
+    fruits,
+    strawberry,
+    potato,
+    apple,
 };

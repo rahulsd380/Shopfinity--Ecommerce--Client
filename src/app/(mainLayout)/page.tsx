@@ -4,6 +4,7 @@ import OfferBanner from "@/components/Home/OfferBanner/OfferBanner";
 import WhatWeOffer from "@/components/Home/WhatWeOffer/WhatWeOffer";
 import Container from "@/components/shared/Container/Container";
 import AppDownloadBanner from "@/components/Home/AppDownloadBanner/AppDownloadBanner";
+import Categories from "@/components/Home/Categories/Categories";
 
 
 export default function Home() {
@@ -12,9 +13,10 @@ export default function Home() {
       <Hero/>
       <Container>
       <WhatWeOffer/>
+        <Categories/>
       <OfferBanner/>
-      </Container>
       <FeaturedProduct/>
+      </Container>
       <AppDownloadBanner/>
     </div>
   );

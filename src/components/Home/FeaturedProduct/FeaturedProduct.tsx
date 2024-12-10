@@ -28,22 +28,19 @@ const FeaturedProduct = () => {
 
 
   return (
-    <div className="p-10">
-      <div className="flex justify-between">
-        <p className="text-black font-quicksand text-[32px] font-semibold leading-normal">
-          Featured Products
-        </p>
-        <div className="hidden lg:flex flex-col  pt-3 px-10">
-          <nav className="flex gap-4 justify-end">
-            <span>All</span>
-            <span>Fruits</span>
-            <span>Vegetables </span>
-            <span>Beverages </span>
-          </nav>
-        </div>
+    <div className="mt-[100px]">
+      <div className="flex items-center justify-between">
+      <h1 className="text-neutral-10 text-[32px] font-semibold font-Sora mt-4">Our Featured Products</h1>
+      <div className="flex items-center gap-5">
+        <button className="font-Inter font-medium">All</button>
+        <button className="font-Inter font-medium">Vegetables</button>
+        <button className="font-Inter font-medium">Fruits</button>
+        <button className="font-Inter font-medium">Coffe & teas</button>
+        <button className="font-Inter font-medium">Meat</button>
+      </div>
       </div>
 
-      <div className="p-6 flex gap-3 overflow-auto ">
+      <div className="flex gap-3 overflow-auto mt-10">
         {products.map((product, index) => (
           <FeaturedProductCard key={index} {...product} />
         ))}
