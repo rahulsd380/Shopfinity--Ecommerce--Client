@@ -27,8 +27,7 @@ const WhatWeOffer = () => {
     },
   ];
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 max-w-5xl mx-auto gap-20 md:gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-[100px] max-w-5xl mx-auto gap-20 md:gap-10">
         {cardData.map((card, index) => (
           <div key={index} className="flex gap-3">
             <div className=" ">
@@ -45,7 +44,6 @@ const WhatWeOffer = () => {
           </div>
         ))}
       </div>
-    </div>
   );
 };
 

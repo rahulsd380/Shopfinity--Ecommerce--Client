@@ -14,8 +14,8 @@ export default function Home() {
       <Container>
       <WhatWeOffer/>
         <Categories/>
-      <OfferBanner/>
       <FeaturedProduct/>
+      <OfferBanner/>
       </Container>
       <AppDownloadBanner/>
     </div>

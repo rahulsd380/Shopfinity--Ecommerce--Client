@@ -3,7 +3,7 @@ import { IMAGES } from '@/assets';
 
 const OfferBanner = () => {
     return (
-        <div className="flex flex-col md:flex-row gap-10 items-center justify-center mt-16">
+        <div className="flex flex-col md:flex-row gap-10 items-center justify-center mt-[100px]">
         <OfferBannerCard
           badgeText="Limited Time Offer"
           title="Free delivery over $50 "

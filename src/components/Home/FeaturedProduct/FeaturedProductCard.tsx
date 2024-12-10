@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ICONS } from "@/assets";
 import Image from "next/image";
 import React from "react";
 interface ProductCardProps {
@@ -23,7 +24,10 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   originalPrice,
 }) => {
   return (
-    <div className="flex flex-col w-[250px] justify-center  p-0.5 rounded-[3px] border border-[rgba(173,173,173,0.25)] bg-white">
+    <div className="relative flex flex-col w-[250px] justify-center  px-3 py-4 border-r border-[rgba(173,173,173,0.25)] bg-white">
+      <div className="px-2 py-1 bg-warning-10 text-white font-semibold font-Sora absolute top-3 left-0 rounded-r-2xl rounded-l-md text-xs">
+        10%
+      </div>
       <Image
         src={imageUrl}
         width={100}
@@ -31,14 +35,12 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
         alt={name}
         className="w-full h-40 object-cover rounded-lg"
       />
-      <div className="mt-4 p-3">
-        <p className="text-[var(--Grey,#ADADAD)] font-quicksand text-[12px] font-normal leading-normal">
-          {category}
-        </p>
-        <h3 className="text-[var(--Black,#253D4E)] font-quicksand text-[16px] font-semibold leading-normal">
+      <div className="mt-4">
+        <p className="text-neutral-40 font-Inter text-xs">{category}</p>
+        <h3 className="text-neutral-10 font-Sora font-semibold leading-normal mt-[7px]">
           {name}
         </h3>
-        <div className="flex items-center mt-2">
+        <div className="flex items-center mt-3">
           {/* Render Stars */}
           <div className="flex items-center text-yellow-400 h-fit">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -59,42 +61,28 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
               </svg>
             ))}
           </div>
-          <p className="text-sm text-gray-500 ml-2">({reviews})</p>
+          <p className="text-sm text-neutral-10 ml-2">({reviews})</p>
         </div>
-        <p className="text-[var(--Grey,#ADADAD)] font-quicksand text-[12px] font-normal leading-normal">
+        <p className="text-neutral-40 font-Inter text-[12px]">
           By{" "}
-          <span className="text-[#3BB77E] font-quicksand text-[12px] font-normal leading-normal">
+          <span className="text-primary-10 font-Inter text-[12px]">
             {author}
           </span>
         </p>
-        <div className="flex justify-between ">
-        <div className="flex items-center mt-4">
-          <p className="text-green-600 text-xl font-bold">${price}</p>
-          <p className="text-gray-500 text-sm line-through ml-2">
-            ${originalPrice}
-          </p>
+        <div className="flex justify-between mt-4">
+          <div className="flex items-center">
+            <p className="text-primary-10 font-Inter text-xl font-bold">
+              ${price}
+            </p>
+            <p className="text-neutral-40 text-sm line-through ml-2">
+              ${originalPrice}
+            </p>
+          </div>
+          <button className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
+            <Image src={ICONS.cart} alt="" className="size-4" />
+            Add
+          </button>
         </div>
-        <button
-          className="px-3 w-fit bg-green-100 text-green-600 font-medium  rounded-sm flex items-center justify-center hover:bg-green-200 transition"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-5 h-5 mr-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 3h2l.894 4.447M7 13h10l3-8H6.112M7 13L5.447 7H21m-9 8v7m0-7H9m3 0h3"
-            />
-          </svg>
-          Add
-        </button>
-        </div>
-        
       </div>
     </div>
   );

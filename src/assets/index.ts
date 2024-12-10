@@ -59,6 +59,7 @@ import search from "@/assets/icons/search.svg";
 import send from "@/assets/icons/send.svg";
 import rightArrow from "@/assets/icons/right-arrow.svg";
 import leftArrow from "@/assets/icons/left-Arrow.svg";
+import cart2 from "@/assets/icons/cart.svg";
 
 
 
@@ -94,6 +95,7 @@ export const ICONS = {
     send,
     rightArrow,
     leftArrow,
+    cart2,
 
 };
 

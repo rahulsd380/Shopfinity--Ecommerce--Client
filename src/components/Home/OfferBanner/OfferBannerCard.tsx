@@ -9,7 +9,7 @@ interface ReusableBannerProps {
   buttonUrl?: string;
   imageSrc?: string | StaticImageData;
   imageAlt?: string;
-  bgColor : string;
+  bgColor: string;
 }
 
 const OfferBannerCard: React.FC<ReusableBannerProps> = ({
@@ -23,8 +23,11 @@ const OfferBannerCard: React.FC<ReusableBannerProps> = ({
   bgColor,
 }) => {
   return (
-    <div className={`relative w-full h-[600px] lg:h-[400px] shadow flex flex-col-reverse lg:flex-row items-center`} style={{ backgroundColor: bgColor }}>
-       <Image
+    <div
+      className={`relative w-full h-[600px] lg:h-[400px] shadow flex flex-col-reverse lg:flex-row items-center`}
+      style={{ backgroundColor: bgColor }}
+    >
+      <Image
         src={IMAGES.bgVector}
         alt="Background Vector"
         className="absolute top-0 left-0 w-full h-full object-cover opacity-15 pointer-events-none"
@@ -35,10 +38,12 @@ const OfferBannerCard: React.FC<ReusableBannerProps> = ({
         <span className="bg-secondary-15 text-yellow-800 text-sm font-semibold px-2 py-1 rounded-sm inline-block mb-2">
           {badgeText}
         </span>
-        <h2 className="text-neutral-10 text-[28px] font-semibold font-Sora mt-4">{title}</h2>
+        <h2 className="text-neutral-10 text-[28px] font-semibold font-Sora mt-4">
+          {title}
+        </h2>
         <p className="text-neutral-60 font-Inter text-lg font-medium mt-4">
-             {description}
-            </p>
+          {description}
+        </p>
         <a
           href={buttonUrl}
           className="inline-block bg-primary-10 text-white font-semibold px-4 py-2 rounded-sm hover:bg-green-600 transition mt-10"

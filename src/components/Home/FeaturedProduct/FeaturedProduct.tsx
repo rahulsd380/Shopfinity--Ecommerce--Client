@@ -24,6 +24,36 @@ const FeaturedProduct = () => {
       price: "4",
       originalPrice: "5.99",
     },
+    {
+      imageUrl: IMAGES.product,
+      category: "Vegetables",
+      name: "Tomato 1kg",
+      rating: 4,
+      reviews: 4,
+      author: "VeggieShop",
+      price: "4",
+      originalPrice: "5.99",
+    },
+    {
+      imageUrl: IMAGES.product,
+      category: "Vegetables",
+      name: "Tomato 1kg",
+      rating: 4,
+      reviews: 4,
+      author: "VeggieShop",
+      price: "4",
+      originalPrice: "5.99",
+    },
+    {
+      imageUrl: IMAGES.product,
+      category: "Vegetables",
+      name: "Tomato 1kg",
+      rating: 4,
+      reviews: 4,
+      author: "VeggieShop",
+      price: "4",
+      originalPrice: "5.99",
+    },
   ];
 
 
@@ -40,7 +70,7 @@ const FeaturedProduct = () => {
       </div>
       </div>
 
-      <div className="flex gap-3 overflow-auto mt-10">
+      <div className="flex gap-3 overflow-auto mt-10 border border-[rgba(173,173,173,0.25)] rounded-xl">
         {products.map((product, index) => (
           <FeaturedProductCard key={index} {...product} />
         ))}
