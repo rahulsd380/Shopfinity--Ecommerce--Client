@@ -18,6 +18,9 @@ const Categories = () => {
     { name: "Strawberries", items: ["Fresh Strawberries"], img: IMAGES.strawberry },
     { name: "Potatoes", items: ["Baby Potatoes", "Sweet Potatoes"], img: IMAGES.potato },
     { name: "Apples", items: ["Red Apple", "Green Apple"], img: IMAGES.apple },
+    { name: "Strawberries", items: ["Fresh Strawberries"], img: IMAGES.strawberry },
+    { name: "Potatoes", items: ["Baby Potatoes", "Sweet Potatoes"], img: IMAGES.potato },
+    { name: "Apples", items: ["Red Apple", "Green Apple"], img: IMAGES.apple },
   ];
 
   const colors = ["#FEEFEA", "#FFF3FF", "#F2FCE4", "#FEEFEA", "#ECFFEC", "#FFFCEB", "#DEF9EC"];
@@ -69,7 +72,7 @@ const Categories = () => {
             slidesPerView: 5,
           },
           1280: {
-            slidesPerView: 6,
+            slidesPerView: 7,
           },
         }}
         pagination={{
