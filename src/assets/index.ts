@@ -44,6 +44,7 @@ import hamburger from "@/assets/icons/hamburger.svg";
 import profile from "@/assets/icons/profile.svg";
 import wishlist from "@/assets/icons/wishlist.svg";
 import search from "@/assets/icons/search.svg";
+import send from "@/assets/icons/send.svg";
 
 
 
@@ -76,6 +77,7 @@ export const ICONS = {
     profile,
     wishlist,
     search,
+    send,
  
 };
 

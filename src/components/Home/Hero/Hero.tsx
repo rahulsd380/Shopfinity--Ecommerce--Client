@@ -1,37 +1,43 @@
-import { IMAGES } from "@/assets";
+import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="md:flex justify-between bg-primary-20">
-      <div className="order-1 md:order-2  flex justify-end items-start">
-        <Image src={IMAGES.heroImg} alt="hero" />
+    <div className="relative flex flex-col-reverse lg:flex-row justify-between bg-primary-20 pb-10">
+      {/* Background Image */}
+      <Image
+        src={IMAGES.bgVector}
+        alt="Background Vector"
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-15 pointer-events-none"
+      />
+
+      {/* Hero Content */}
+      <div className="order-1 md:order-2 flex justify-end items-start z-10 w-full h-full">
+        <Image src={IMAGES.heroImg} alt="Hero" className="" />
       </div>
-      <div className="flex flex-col justify-center gap-4 items-start md:p-20 p-10">
-        <p className="text-neutral-10 font-quicksand text-[30px] md:text-[55px] font-bold leading-none tracking-[-0.55px]">
+      <div className="flex flex-col justify-center gap-4 items-start px-3 md:px-5 pl-0 lg:pl-12 lg:px-0 z-10">
+        <h1 className="text-neutral-15 font-Sora text-[40px] md:text-[50px] 2xl:text-[60px] font-semibold leading-normal md:leading-[80px] px-3 md:px-5 lg:px-0">
           Don’t miss our daily amazing deals.
-        </p>
-        <p className="text-neutral-30 font-quicksand text-[20px] text-start font-medium leading-none tracking-[-0.2px]">
-        Save up to 60% off on your first order
-        </p>
-       
-        <div className="flex items-center  ">
-      <div className="relative flex-grow">
-        <input
-          type="email"
-          placeholder="Enter your email address"
-          className="w-full px-4 py-2  focus:outline-none  focus:ring-green-400focus:ring-2"
-        />
-        <span className="absolute top-1/2 right-2 transform -translate-y-1/2 text-red-500 text-sm">
-          
-        </span>
+        </h1>
+        <p className="text-neutral-60 font-Inter text-xl font-medium mt-7 px-3 md:px-5 lg:px-0">
+              Save up to 60% off on your first order
+            </p>
+
+        {/* Email Input and Subscribe Button */}
+        <div className="flex items-center w-full mt-10 max-w-[550px] px-3 md:px-5 lg:px-0">
+          <div className="relative flex-grow">
+          <Image src={ICONS.send} alt="send-icon" className="size-5 absolute left-3 top-5 bottom-0" />
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              className="w-full p-4 pl-12 rounded-l focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-2 border border-white"
+            />
+          </div>
+          <button className="bg-primary-10 hover:bg-primary-10/70 transition duration-300 border border-primary-10 text-white font-medium p-4 rounded-r">
+            Subscribe
+          </button>
+        </div>
       </div>
-      <button className="bg-primary-10 hover:bg-primary-20 text-white font-medium py-2 px-4 ">
-        Subscribe
-      </button>
-    </div>
-      </div>
-      
     </div>
   );
 };
