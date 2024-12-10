@@ -4,6 +4,17 @@ import product from "@/assets/images/image 33.png";
 import text from "@/assets/images/text.png";
 import modelVector from "@/assets/images/15.png";
 import bgImg from "@/assets/images/bg.jpg";
+import heroImg from "@/assets/images/home-img.svg";
+import bestPrice from "@/assets/images/bestPrice.png";
+import refundable from "@/assets/images/refundable.png";
+import freeDelivery from "@/assets/images/freeDelivery.png";
+import offerBanner1 from "@/assets/images/offerBanner1.png";
+import offerBanner2 from "@/assets/images/offerBanner2.png";
+import appBannerImg from "@/assets/images/app_image.svg";
+import appStore from "@/assets/images/appStore.png";
+import playStore from "@/assets/images/playStore.png";
+import paymentOptions from "@/assets/images/paymentOptions.png";
+import bgVector from "@/assets/images/bg-img.png";
 
 import star from "@/assets/icons/star.svg";
 import downArrow from "@/assets/icons/down-arrow.svg";
@@ -23,6 +34,16 @@ import review from "@/assets/icons/review.svg";
 import user from "@/assets/icons/user.svg";
 import threeDots from "@/assets/icons/threeDots.svg";
 import sort from "@/assets/icons/sort.svg";
+import cart from "@/assets/icons/cart.svg";
+import close from "@/assets/icons/close.svg";
+import fb from "@/assets/icons/fb.svg";
+import linkedin from "@/assets/icons/in.svg";
+import instagram from "@/assets/icons/insta.svg";
+import twitter from "@/assets/icons/twittter.svg";
+import hamburger from "@/assets/icons/hamburger.svg";
+import profile from "@/assets/icons/profile.svg";
+import wishlist from "@/assets/icons/wishlist.svg";
+import search from "@/assets/icons/search.svg";
 
 
 
@@ -45,6 +66,16 @@ export const ICONS = {
     user,
     threeDots,
     sort,
+    cart,
+    close,
+    fb,
+    linkedin,
+    instagram,
+    twitter,
+    hamburger,
+    profile,
+    wishlist,
+    search,
  
 };
 
@@ -55,4 +86,15 @@ export const IMAGES = {
     modelVector,
     text,
     bgImg,
+    heroImg,
+    bestPrice,
+    refundable,
+    freeDelivery,
+    offerBanner1,
+    offerBanner2,
+    appBannerImg,
+    appStore,
+    playStore,
+    paymentOptions,
+    bgVector,
 };
