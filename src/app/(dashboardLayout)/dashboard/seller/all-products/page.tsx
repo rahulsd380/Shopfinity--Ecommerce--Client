@@ -45,8 +45,8 @@ const AllProductsBySeller = () => {
             className="bg-white border border-neutral-45 rounded-xl p-3 focus:outline-none"
           >
             <option disabled selected>Sort by-</option>
-            <option value="Most Recent">Most Recent</option>
-            <option value="Most Recent">Oldest</option>
+            <option value="all">All</option>
+            <option value="duplicate">See duplicate products</option>
           </select>
 
           <select

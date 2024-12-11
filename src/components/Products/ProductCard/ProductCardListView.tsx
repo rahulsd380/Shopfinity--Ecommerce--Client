@@ -27,7 +27,7 @@ const ProductCardListView = ({ isMenuActive }) => {
       {activeDropdown === id && (
         <div className="absolute right-2 top-11 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
           <Link
-            href={`/dashboard/edit-product/${id}`}
+            href={`/dashboard/seller/edit-product/${id}`}
             onClick={() => console.log(`Editing row ${id}`)}
             className="block text-left w-full p-[10px] text-sm text-[#424B54] hover:bg-gray-100"
           >

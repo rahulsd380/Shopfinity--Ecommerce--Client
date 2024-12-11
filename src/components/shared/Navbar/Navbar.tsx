@@ -161,14 +161,27 @@ const Navbar = () => {
           </p>
       </div>
       </div>
+
+      {/* Account */}
+      <div className="flex items-center gap-4">
+      <Image src={ICONS.profileIcon} alt="cart" className="size-9" />
+      <div>
+      <h1 className="text-neutral-15 font-Sora font-semibold">
+            Rahul Sutradhar
+          </h1>
+          <p className="text-neutral-60 font-Inter text-sm font-medium">
+            Manage Account
+          </p>
+      </div>
+      </div>
       {/* Signup */}
-      <Link href={"/signup"} className="bg-primary-10 px-4 py-3 text-white font-medium font-Sora flex items-center gap-3 rounded-md w-fit">
+      {/* <Link href={"/signup"} className="bg-primary-10 px-4 py-3 text-white font-medium font-Sora flex items-center gap-3 rounded-md w-fit">
       Signup
       <Image src={ICONS.rightArrowWhite} alt="cart" className="size-4" />
-      </Link>
+      </Link> */}
 
 
-      <HamburgerMenu/>
+      {/* <HamburgerMenu/> */}
       </div>
       </div>
     </Container>
