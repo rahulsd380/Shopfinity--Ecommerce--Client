@@ -130,28 +130,28 @@ const Navbar = () => {
             <input
               type="email"
               placeholder="Enter your email address"
-              className="w-full px-4 py-3 pr-12 rounded-l focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-1 bg-neutral-65"
+              className="w-full px-4 py-3 pr-12 rounded focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-1 bg-neutral-65"
             />
           </div>
 
 
       <div className="flex items-center gap-8">
-        {/* Signup */}
-      <Link href={"/signup"} className="bg-primary-20/30 px-4 py-3 text-neutral-15 font-medium font-Sora flex items-center gap-3 rounded-md w-fit">
+        {/* Become a seller */}
+      <Link href={"/become-seller"} className="bg-primary-20/30 px-4 py-3 text-neutral-15 font-medium font-Sora flex items-center gap-3 rounded-md w-fit">
       Become a Seller
       <Image src={ICONS.rightArrow} alt="cart" className="size-4" />
       </Link>
         {/* Wishlist */}
-      <div className="relative w-fit">
+      <Link href={"/wishlist"} className="relative w-fit">
       <Image src={ICONS.wishlist2} alt="cart" className="size-10" />
       <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">10</div>
-      </div>
+      </Link>
       {/* Cart */}
       <div className="flex items-center gap-4">
-      <div className="relative w-fit">
+      <Link href={"/cart"} className="relative w-fit">
       <Image src={ICONS.cart3} alt="cart" className="size-10" />
       <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">5</div>
-      </div>
+      </Link>
       <div>
       <h1 className="text-neutral-15 font-Sora font-semibold">
             Total

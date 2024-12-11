@@ -21,7 +21,7 @@ const TextInput: React.FC<TextInputProps> = ({
   error,
 }) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <label htmlFor={name} className="text-[#6E7883] font-Poppins leading-5">
         {label}
         <span className="text-[#DE3C4B]">*</span>
