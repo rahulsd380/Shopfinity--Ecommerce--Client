@@ -3,7 +3,6 @@ import Container from "@/components/shared/Container/Container";
 import React from "react";
 import TextInput from "../../../components/reusable/TextInput/TextInput";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import Link from "next/link";
 import Image from "next/image";
 import { ICONS, IMAGES } from "@/assets";

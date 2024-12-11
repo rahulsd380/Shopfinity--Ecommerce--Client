@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="relative flex flex-col-reverse lg:flex-row justify-between bg-primary-20 pb-10">
+    <div className="relative flex flex-col-reverse lg:flex-row justify-between bg-primary-20 pb-10 mt-8">
       {/* Background Image */}
       <Image
         src={IMAGES.bgVector}

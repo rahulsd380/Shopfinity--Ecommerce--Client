@@ -62,6 +62,12 @@ import leftArrow from "@/assets/icons/left-Arrow.svg";
 import cart2 from "@/assets/icons/cart.svg";
 import email2 from "@/assets/icons/email2.svg";
 import phone2 from "@/assets/icons/phone-2.svg";
+import cart3 from "@/assets/icons/cart2.svg";
+import wishlist2 from "@/assets/icons/wishlist2.svg";
+import rightArrowWhite from "@/assets/icons/rightArrowWhite.svg";
+import compare from "@/assets/icons/compare.svg";
+import hamburgerMenu from "@/assets/icons/hamburgerMenu.svg";
+import cross from "@/assets/icons/cross.svg";
 
 
 
@@ -100,6 +106,12 @@ export const ICONS = {
     cart2,
     email2,
     phone2,
+    cart3,
+    wishlist2,
+    rightArrowWhite,
+    compare,
+    hamburgerMenu,
+    cross,
 
 };
 

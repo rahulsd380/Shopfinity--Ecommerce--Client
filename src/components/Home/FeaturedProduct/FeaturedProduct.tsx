@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import Link from "next/link";
 
 const FeaturedProduct = () => {
   const products = [
@@ -103,13 +104,18 @@ const FeaturedProduct = () => {
           Our Featured Products
         </h1>
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-5">
+          <div className="hidden lg:flex items-center gap-5">
             <button className="font-Inter font-medium">All</button>
             <button className="font-Inter font-medium">Vegetables</button>
             <button className="font-Inter font-medium">Fruits</button>
             <button className="font-Inter font-medium">Coffee & Teas</button>
             <button className="font-Inter font-medium">Meat</button>
           </div>
+
+          <Link href={"/products"} className="font-Inter font-medium text-neutral-10 px-3 py-2 bg-primary-20 flex items-center gap-2 rounded-3xl">
+              See All
+              <Image src={ICONS.rightArrow} className="size-6" alt="Previous" />
+          </Link>
 
           <div className="flex items-center gap-5">
             <button

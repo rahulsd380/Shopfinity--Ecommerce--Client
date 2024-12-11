@@ -27,19 +27,19 @@ const WhatWeOffer = () => {
     },
   ];
   return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-[100px] max-w-5xl mx-auto gap-20 md:gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-[100px] max-w-7xl mx-auto gap-20 md:gap-10">
         {cardData.map((card, index) => (
-          <div key={index} className="flex gap-3">
+          <div key={index} className="flex gap-5">
             <div className=" ">
               <Image
                 src={card.imageSrc}
                 alt={card.title}
-                className="h-12 w-14"
+                className="w-20 h-[70px]"
               />
             </div>
             <div className="">
-              <h1 className="text-base font-bold">{card.title}</h1>
-              <p className="text-sm">{card.description}</p>
+              <h1 className="text-neutral-10 text-2xl font-semibold font-Sora">{card.title}</h1>
+              <p className="">{card.description}</p>
             </div>
           </div>
         ))}
