@@ -1,10 +1,9 @@
-"use client";
-
+"use client"
 import UploadImage from "@/components/Dashboard/SellerDashboard/AddProduct/UploadImage/UploadImage";
-import TextInput from "@/components/reusable/TextInput/TextInput";
-import Image from "next/image";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Image from "next/image";
+import TextInput from "@/components/reusable/TextInput/TextInput";
 
 type TFormValues = {
   name: string;
@@ -15,64 +14,63 @@ type TFormValues = {
   category: string;
 };
 
-const AddProduct = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TFormValues>();
-
-  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-
-  // Dummy category array
-  const categories = [
-    { id: "1", name: "Electronics" },
-    { id: "2", name: "Clothing" },
-    { id: "3", name: "Home Appliances" },
-    { id: "4", name: "Sports" },
-  ];
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (file) {
-      setImageFiles((prev) => [...prev, file]);
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreviews((prev) => [...prev, reader.result as string]);
+const EditProduct = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm<TFormValues>();
+    
+      const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+      const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
+    
+      // Dummy category array
+      const categories = [
+        { id: "1", name: "Electronics" },
+        { id: "2", name: "Clothing" },
+        { id: "3", name: "Home Appliances" },
+        { id: "4", name: "Sports" },
+      ];
+    
+      const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+    
+        if (file) {
+          setImageFiles((prev) => [...prev, file]);
+    
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImagePreviews((prev) => [...prev, reader.result as string]);
+          };
+          reader.readAsDataURL(file);
+        }
       };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleAddProduct: SubmitHandler<TFormValues> = async (data) => {
-    try {
-      const formData = new FormData();
-
-      formData.append("name", data.name);
-      formData.append("price", data.price);
-      formData.append("brand", data.brand);
-      formData.append("stock", data.stock);
-      formData.append("description", data.description);
-      formData.append("vendorId", data.description); 
-      formData.append("category", data.category);
-
-      imageFiles.forEach((file) => {
-        formData.append(`images`, file);
-      });
-
-      // Make your API request here
-    } catch (error) {
-      console.error("Error submitting product:", error);
-    }
-  };
-
-  return (
-    <div className="font-Inter">
+    
+      const handleAddProduct: SubmitHandler<TFormValues> = async (data) => {
+        try {
+          const formData = new FormData();
+    
+          formData.append("name", data.name);
+          formData.append("price", data.price);
+          formData.append("brand", data.brand);
+          formData.append("stock", data.stock);
+          formData.append("description", data.description);
+          formData.append("vendorId", data.description); 
+          formData.append("category", data.category);
+    
+          imageFiles.forEach((file) => {
+            formData.append(`images`, file);
+          });
+    
+          // Make your API request here
+        } catch (error) {
+          console.error("Error submitting product:", error);
+        }
+      };
+    return (
+        <div className="font-Inter">
       <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
-        Add New Product
+        Edit Product Details
       </h1>
       <div className="flex gap-5 w-full mt-5">
         <div className="bg-white border border-neutral-45 p-5 rounded-xl w-[30%] h-fit">
@@ -205,7 +203,7 @@ const AddProduct = () => {
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default AddProduct;
+export default EditProduct;
