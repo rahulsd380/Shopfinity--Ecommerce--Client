@@ -1,0 +1,21 @@
+.bg {
+	z-index: 1;
+	background: linear-gradient(-45deg, rgb(41, 165, 108), green, blue, #f3843b, rgb(179, 179, 4));
+	animation: animate 15s ease infinite;
+    display: flex;
+    justify-content: space-between;
+    background-size: 400% 400%;
+	width: 100%;
+    color: white;
+}
+@keyframes animate {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

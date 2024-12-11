@@ -5,8 +5,8 @@ import WishlistProduct from "@/components/Wishlist/WishlistProduct/WishlistProdu
 const Wishlist = () => {
   return (
     <div>
-      <WishlistHero />
       <Container>
+      <WishlistHero />
         <WishlistProduct/>
       </Container>
     </div>
