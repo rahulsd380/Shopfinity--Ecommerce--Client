@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Container from "@/components/shared/Container/Container";
 import React from "react";
@@ -7,31 +8,43 @@ import { toast } from "sonner";
 import Link from "next/link";
 import Image from "next/image";
 import { ICONS, IMAGES } from "@/assets";
+import { useAppDispatch } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { useSignupMutation } from "@/redux/features/Auth/authApi";
+import CircleLoader from "@/components/Loaders/CircleLoader/CircleLoader";
 
 type TFormValues = {
+  name: string;
   email: string;
   password: string;
 };
 
 const Signup = () => {
+  const router = useRouter();
+  const [signup, { isLoading }] = useSignupMutation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TFormValues>();
 
-  const handleLogin: SubmitHandler<TFormValues> = async (data) => {
-    // try {
-    //   const loginData = {
-    //     email: data.email,
-    //     password: data.password,
-    //   };
-    //   const response = await axiosInstance.post("/auth/login", loginData);
-    //   console.log(response.data);
-    //   toast.success("Welcome back!");
-    // } catch (error) {
-    //   toast.error("Something went wrong! Please try again.");
-    // }
+  const handleSignup: SubmitHandler<TFormValues> = async (data) => {
+    try {
+      const formData = new FormData();
+      const signupData = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      };
+      formData.append("data", JSON.stringify(signupData));
+
+      const response = await signup(formData);
+      console.log(response);
+      toast.success("Signup successfully. Please login.");
+      router.push("/login");
+    } catch (error) {
+      toast.error("Something went wrong! Please try again.");
+    }
   };
   return (
     <Container>
@@ -49,16 +62,16 @@ const Signup = () => {
         </Link>
 
         <form
-          onSubmit={handleSubmit(handleLogin)}
+          onSubmit={handleSubmit(handleSignup)}
           className="flex flex-col gap-5 w-full"
         >
           <TextInput
             label="Full name"
             name="name"
             placeholder="Rahul Sutradhar"
-            validation={{ required: "Enter your email" }}
+            validation={{ required: "Enter your full name" }}
             register={register}
-            error={errors.email}
+            error={errors.name}
           />
           <TextInput
             label="Email"
@@ -82,9 +95,11 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold w-full"
+            className={`${
+              isLoading ? "animate-pulse" : "animate-none"
+            } px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold w-full flex items-center justify-center`}
           >
-            Signup
+            {isLoading ? <CircleLoader /> : "Signup"}
           </button>
 
           <div className="text-neutral-10 font-Poppins text-sm font-normal mx-auto">

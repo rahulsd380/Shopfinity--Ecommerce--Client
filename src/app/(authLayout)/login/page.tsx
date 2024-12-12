@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Container from "@/components/shared/Container/Container";
 import React from "react";
@@ -6,6 +7,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
 import { ICONS, IMAGES } from "@/assets";
+import { useLoginMutation } from "@/redux/features/Auth/authApi";
+import { toast } from "sonner";
+import { useAppDispatch } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { setUser } from "@/redux/features/Auth/authSlice";
+import CircleLoader from "@/components/Loaders/CircleLoader/CircleLoader";
 
 type TFormValues = {
   email: string;
@@ -13,6 +20,9 @@ type TFormValues = {
 };
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const [login, { isLoading }] = useLoginMutation();
   const {
     register,
     handleSubmit,
@@ -20,17 +30,23 @@ const Login = () => {
   } = useForm<TFormValues>();
 
   const handleLogin: SubmitHandler<TFormValues> = async (data) => {
-    // try {
-    //   const loginData = {
-    //     email: data.email,
-    //     password: data.password,
-    //   };
-    //   const response = await axiosInstance.post("/auth/login", loginData);
-    //   console.log(response.data);
-    //   toast.success("Welcome back!");
-    // } catch (error) {
-    //   toast.error("Something went wrong! Please try again.");
-    // }
+    try {
+      const loginData = {
+        email: data.email,
+        password: data.password,
+      };
+      const response = await login(loginData);
+      // const user = verifyToken(response.data?.accessToken);
+      const user = response.data?.data?.user;
+      console.log(response);
+      console.log(user);
+
+      dispatch(setUser({ user, token: response.data.accessToken }));
+      toast.success("Logged in successfully.");
+      router.push("/");
+    } catch (error) {
+      toast.error("Something went wrong! Please try again.");
+    }
   };
   return (
     <Container>
@@ -47,7 +63,7 @@ const Login = () => {
           </div>
         </Link>
 
-          <form
+        <form
           onSubmit={handleSubmit(handleLogin)}
           className="flex flex-col gap-5 w-full"
         >
@@ -82,9 +98,11 @@ const Login = () => {
 
           <button
             type="submit"
-            className="px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold w-full"
+            className={`${
+              isLoading ? "animate-pulse" : "animate-none"
+            } px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold w-full flex items-center justify-center`}
           >
-            Login
+            {isLoading ? <CircleLoader /> : "Login"}
           </button>
 
           <div className="text-neutral-10 font-Poppins text-sm font-normal mx-auto">
