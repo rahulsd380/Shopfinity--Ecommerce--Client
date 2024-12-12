@@ -1,10 +1,11 @@
 "use client";
-import { IMAGES } from "@/assets";
+import { ICONS } from "@/assets";
+import CartProductCard from "@/components/Cart/CartProductCard/CartProductCard";
 import CartTotal from "@/components/Cart/CartTotal/CartTotal";
 import FreeShippingBar from "@/components/Cart/FreeShippingBar/FreeShippingBar";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
-import { FaTimes } from "react-icons/fa";
 
 const CartPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -14,87 +15,56 @@ const CartPage = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
 
+
+  
+
   return (
-    <div className="p-4 sm:p-6 md:p-8">
+    <div className="p-4 sm:p-6 md:p-8 font-Inter">
       {/* Free Shipping Bar */}
       <FreeShippingBar />
 
+      <div className="flex flex-col lg:flex-row gap-7">
+
       {/* Cart Details */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-        {/* Cart Items */}
-        <div className="lg:col-span-2">
-          {/* Cart Table */}
-          <table className="w-full border-collapse border border-neutral-200">
-            <thead className="bg-white">
-              <tr>
-                <th className="text-left p-4 border-b border-neutral-200 font-semibold font-Poppins">Product</th>
-                <th className="text-left p-4 border-b border-neutral-200 font-semibold font-Poppins">Price</th>
-                <th className="text-left p-4 border-b border-neutral-200 font-semibold font-Poppins">Quantity</th>
-                <th className="text-left p-4 border-b border-neutral-200 font-semibold font-Poppins">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Cart Item */}
-              <tr className="border-b border-neutral-200">
-                <td className="py-4 px-4 flex items-center gap-4">
-                  <button className="text-red-500">
-                    <FaTimes />
-                  </button>
-                  <Image
-                    src={IMAGES.img}
-                    alt="Product"
-                    width={80}
-                    height={80}
-                    className="w-20 h-20 object-cover rounded"
-                  />
-                  <p className="text-neutral-800 text-sm font-medium">
-                    California Pizza Kitchen Margherita, Crispy Thin Crust Pizza, 15.5 oz (Frozen)
-                  </p>
-                </td>
-                <td className="py-4 px-4 text-neutral-800 font-medium">$11.77</td>
-                <td className="py-4 px-4">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={decrementQuantity}
-                      className="px-3 py-1 border border-neutral-300 text-neutral-700 rounded"
-                    >
-                      -
-                    </button>
-                    <span className="text-neutral-800">{quantity}</span>
-                    <button
-                      onClick={incrementQuantity}
-                      className="px-3 py-1 border border-neutral-300 text-neutral-700 rounded"
-                    >
-                      +
-                    </button>
-                  </div>
-                </td>
-                <td className="py-4 px-4 text-neutral-800 font-medium">
-                  ${(quantity * 11.77).toFixed(2)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="w-full lg:w-[70%] bg-neutral-55/20 p-4 rounded-xl border border-neutral-45 flex flex-col gap-5">
+        <CartProductCard quantity={quantity} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />
+        <CartProductCard quantity={quantity} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />
 
-          {/* Coupon Section */}
-          <div className="flex flex-wrap items-center gap-4 border-t border-neutral-200 pt-4 mt-4">
-            <input
-              type="text"
-              placeholder="Coupon code"
-              className="flex-1 px-4 py-2 border border-neutral-300 text-neutral-700 rounded"
-            />
-            <button className="px-6 py-2 bg-neutral-800 text-white rounded">
-              Apply coupon
-            </button>
-            <button className="px-6 py-2 border border-neutral-300 text-neutral-700 rounded">
-              Clear All
-            </button>
-          </div>
-        </div>
+        <div className="flex items-center justify-between w-full ">
+        <Link href={"/products"} className="flex items-center gap-3 text-white font-medium bg-primary-10 rounded-md px-[14px] py-[10px] w-fit">
+        <Image src={ICONS.leftArrowWhite} alt="left-arrow" className="size-5"/>
+        Back to shop
+        </Link>
 
-        {/* Cart Totals */}
-        <CartTotal />
+        <button className="flex items-center gap-3 px-3 py-[10px] border border-neutral-40/60 rounded-md text-warning-10">
+        <Image src={ICONS.remove} alt="remove-icon" className="size-5"/>
+        Remove all</button>
       </div>
+      </div>
+
+      
+
+        <div className="flex flex-col gap-5 w-full lg:w-[30%]">
+          <div className=" bg-neutral-55/20 p-4 rounded-xl border border-neutral-45">
+          <h1 className="text-neutral-20 font-semibold mt-1">
+                Have a coupon?
+                </h1>
+
+                <div className="flex items-center w-full mt-2">
+                            <input
+                              type="email"
+                              placeholder="Enter coupon code"
+                              className="w-full px-3 py-[10px] border border-neutral-40/60 rounded-l-md focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-2"
+                            />
+                          <button className="bg-primary-10 hover:bg-primary-10/70 transition duration-300 border border-primary-10 text-white font-medium px-3 py-[10px] rounded-r">
+                            Apply
+                          </button>
+                        </div>
+          </div>
+          {/* Cart Totals */}
+        <CartTotal />
+        </div>
+        </div>
     </div>
   );
 };

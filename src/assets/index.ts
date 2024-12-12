@@ -70,6 +70,8 @@ import hamburgerMenu from "@/assets/icons/hamburgerMenu.svg";
 import cross from "@/assets/icons/cross.svg";
 import profileIcon from "@/assets/icons/profile-icon.svg";
 import eye from "@/assets/icons/eye.svg";
+import leftArrowWhite from "@/assets/icons/left-arrow-white.svg";
+import remove from "@/assets/icons/remove.svg";
 
 
 
@@ -116,6 +118,8 @@ export const ICONS = {
     cross,
     profileIcon,
     eye,
+    leftArrowWhite,
+    remove
 
 };
 
