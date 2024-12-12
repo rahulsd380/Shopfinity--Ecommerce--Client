@@ -13,6 +13,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { setUser } from "@/redux/features/Auth/authSlice";
 import CircleLoader from "@/components/Loaders/CircleLoader/CircleLoader";
+import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitButton";
 
 type TFormValues = {
   email: string;
@@ -94,14 +95,7 @@ const Login = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className={`${
-              isLoading ? "animate-pulse" : "animate-none"
-            } px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold w-full flex items-center justify-center`}
-          >
-            {isLoading ? <CircleLoader /> : "Login"}
-          </button>
+          <FormSubmitButton label="Login" isLoading={isLoading} />
 
           <div className="text-neutral-10 font-Poppins text-sm font-normal mx-auto">
             New to Shopfinity?{" "}
