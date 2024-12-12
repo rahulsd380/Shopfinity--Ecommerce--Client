@@ -69,6 +69,7 @@ import compare from "@/assets/icons/compare.svg";
 import hamburgerMenu from "@/assets/icons/hamburgerMenu.svg";
 import cross from "@/assets/icons/cross.svg";
 import profileIcon from "@/assets/icons/profile-icon.svg";
+import eye from "@/assets/icons/eye.svg";
 
 
 
@@ -114,6 +115,7 @@ export const ICONS = {
     hamburgerMenu,
     cross,
     profileIcon,
+    eye,
 
 };
 

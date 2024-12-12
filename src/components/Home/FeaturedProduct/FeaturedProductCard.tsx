@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS } from "@/assets";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 interface ProductCardProps {
   imageUrl: any;
   category: string;
@@ -24,9 +24,27 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   originalPrice,
 }) => {
   return (
-    <div className="relative flex flex-col justify-center  px-3 py-4 border-r border-[rgba(173,173,173,0.25)] bg-white">
+    <div className="relative flex flex-col justify-center px-3 py-4 border-r border-[rgba(173,173,173,0.25)] bg-white group">
       <div className="px-2 py-1 bg-warning-10 text-white font-semibold font-Sora absolute top-3 left-0 rounded-r-2xl rounded-l-md text-xs">
         10%
+      </div>
+
+      {/* Sliding buttons */}
+      <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transform translate-x-6 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
+        <Link
+          href={`/products/${1}`}
+          className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-300 flex items-center justify-center"
+          style={{ transitionDelay: "0.1s" }}
+        >
+          <Image src={ICONS.eye} className="size-4" alt="View" />
+        </Link>
+        <Link
+          href={"/"}
+          className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-500 flex items-center justify-center"
+          style={{ transitionDelay: "0.5s" }}
+        >
+          <Image src={ICONS.compare} className="size-4" alt="Compare" />
+        </Link>
       </div>
       <Image
         src={imageUrl}
@@ -40,6 +58,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
         <h3 className="text-neutral-10 font-Sora font-semibold leading-normal mt-[7px]">
           {name}
         </h3>
+
         <div className="flex items-center mt-3">
           {/* Render Stars */}
           <div className="flex items-center text-yellow-400 h-fit">

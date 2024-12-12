@@ -120,13 +120,13 @@ const FeaturedProduct = () => {
           <div className="flex items-center gap-5">
             <button
               ref={prevRef}
-              className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
+              className="size-[46px] rounded-full bg-neutral-65 hover:bg-neutral-45 transition duration-300 flex items-center justify-center"
             >
               <Image src={ICONS.leftArrow} className="size-6" alt="Previous" />
             </button>
             <button
               ref={nextRef}
-              className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
+              className="size-[46px] rounded-full bg-neutral-65 hover:bg-neutral-45 transition duration-300 flex items-center justify-center"
             >
               <Image src={ICONS.rightArrow} className="size-6" alt="Next" />
             </button>
