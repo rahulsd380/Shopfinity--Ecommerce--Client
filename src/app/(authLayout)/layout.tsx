@@ -13,7 +13,7 @@ const AuthLayout: React.FC<TAuthLayoutProps> = ({ children }) => {
     <div>
       <Navbar />
       <Container>
-        <div className="mt-10 flex flex-col-reverse xl:flex-row items-center gap-10 w-full">
+        <div className="mt-16 flex flex-col-reverse xl:flex-row items-center gap-10 w-full">
           <div className="bg-gradient-to-br from-[#14b8a6] via-primary-10 to-[#57811f] w-full xl:w-[65%] h-screen rounded-3xl flex items-center flex-row-reverse px-5">
             <div className="size-96 rounded-full bg-primary-20/10">
               <Image

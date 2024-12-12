@@ -72,6 +72,7 @@ import profileIcon from "@/assets/icons/profile-icon.svg";
 import eye from "@/assets/icons/eye.svg";
 import leftArrowWhite from "@/assets/icons/left-arrow-white.svg";
 import remove from "@/assets/icons/remove.svg";
+import logout from "@/assets/icons/logout.svg";
 
 
 
@@ -119,7 +120,8 @@ export const ICONS = {
     profileIcon,
     eye,
     leftArrowWhite,
-    remove
+    remove,
+    logout,
 
 };
 

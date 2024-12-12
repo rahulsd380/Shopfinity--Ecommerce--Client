@@ -39,7 +39,6 @@ const Signup = () => {
       formData.append("data", JSON.stringify(signupData));
 
       const response = await signup(formData);
-      console.log(response);
       toast.success("Signup successfully. Please login.");
       router.push("/login");
     } catch (error) {

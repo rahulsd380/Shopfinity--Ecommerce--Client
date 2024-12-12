@@ -38,8 +38,6 @@ const Login = () => {
       const response = await login(loginData);
       // const user = verifyToken(response.data?.accessToken);
       const user = response.data?.data?.user;
-      console.log(response);
-      console.log(user);
 
       dispatch(setUser({ user, token: response.data.accessToken }));
       toast.success("Logged in successfully.");
