@@ -46,6 +46,12 @@ export default {
           65 : "#F2F3F4"
         },
       },
+
+      backgroundImage: {
+        'footer-bg': 'linear-gradient(to right, #F8FAFC, #D1FAE5)',
+        'compare-products-bg' : 'bg-gradient-to-bl from-[#ffe4e6]  to-[#ccfbf1]',
+        'wishlist-bg' : 'bg-gradient-to-r from-green-100 to-green-200',
+      },
     },
   },
   plugins: [],

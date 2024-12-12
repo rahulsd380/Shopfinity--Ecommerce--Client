@@ -5,12 +5,14 @@ import React from "react";
 const Banner = ({
   title,
   description,
+  bgColor
 }: {
   title: string;
   description: string;
+  bgColor:string;
 }) => {
   return (
-    <div className="relative flex flex-col-reverse lg:flex-row justify-between bg-primary-20 py-10 mt-8 rounded-xl">
+    <div className={`relative flex flex-col-reverse lg:flex-row justify-between py-10 mt-8 rounded-xl ${bgColor}`}>
       {/* Background Image */}
       <Image
         src={IMAGES.bgVector}
