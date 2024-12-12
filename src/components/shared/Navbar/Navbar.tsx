@@ -9,16 +9,21 @@ import HamburgerMenu from "./HamburgerMenu";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [openCurrencyDropdown, setOpenCurrencyDropdown] = useState(false);
-  const dropDownRef = useRef(null);
+  const dropDownRef = useRef<HTMLDivElement | null>(null);
   const currencyDropdown = useRef(null);
   const items = ["Bangla", "Hindi", "Spanish"];
   const currency = ["BDT", "USD", "INR"];
 
   useEffect(() => {
-    const close = (e) => {
-      if (dropDownRef.current && !dropDownRef.current.contains(e.target))
+    const close = (e: MouseEvent) => {
+      if (
+        dropDownRef.current &&
+        !dropDownRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
+      }
     };
+
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, []);
@@ -128,8 +133,8 @@ const Navbar = () => {
       <div className="relative flex-grow">
           <Image src={ICONS.search} alt="send-icon" className="size-6 absolute right-3 top-3 bottom-0" />
             <input
-              type="email"
-              placeholder="Enter your email address"
+              type="text"
+              placeholder="Search for your product..."
               className="w-full px-4 py-3 pr-12 rounded focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-1 bg-neutral-65"
             />
           </div>

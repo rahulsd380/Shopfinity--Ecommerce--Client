@@ -14,7 +14,7 @@ const ProductCardListView = ({ isMenuActive }) => {
   };
   const id = "614234245";
   return (
-    <div className=" bg-white border border-neutral-45 rounded-lg flex items-center gap-4 font-Inter p-5 relative">
+    <div className=" bg-neutral-55/20 border border-neutral-45 rounded-lg flex items-center gap-4 font-Inter p-5 relative">
       {isMenuActive && (
         <button
           onClick={() => handleDropdownToggle(id)}

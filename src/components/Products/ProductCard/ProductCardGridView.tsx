@@ -14,7 +14,7 @@ const ProductCardGridView = () => {
   };
   const id = "614234245"
   return (
-    <div className=" bg-white border border-neutral-45 rounded-lg relative">
+    <div className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
 
                 <button
                   onClick={() => handleDropdownToggle(id)}

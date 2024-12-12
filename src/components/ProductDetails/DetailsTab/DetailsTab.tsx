@@ -15,7 +15,7 @@ const DetailsTab = () => {
   ];
 
   return (
-    <div className="mt-20">
+    <div className="w-full lg:w-[70%] p-4">
       {/* Tab buttons */}
       <div className="flex items-center gap-5 border-b border-neutral-40 pb-4 overflow-x-auto">
         {tabButtons.map((button, index) => (
