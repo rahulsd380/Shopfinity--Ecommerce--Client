@@ -27,13 +27,13 @@ const Navbar = () => {
     <Container>
       <div className="flex items-center justify-between py-3 border-b border-neutral-50/30">
         <div className="flex items-center gap-3 font-Sora text-neutral-30 text-sm font-medium">
-          <Link href={"/"} className="">
+          <Link href={"/"} className="hover:underline">
             About Us
           </Link>
-          <Link href={"/"} className="">
+          <Link href={"/"} className="hover:underline">
             My Account
           </Link>
-          <Link href={"/"} className="">
+          <Link href={"/"} className="hover:underline">
             Wishlist
           </Link>
           <p className="">|</p>
@@ -101,10 +101,10 @@ const Navbar = () => {
               ))}
             </ul>
           </div>
-          <Link href={"/"}>
+          <Link href={"/"} className="hover:underline">
             Order Tracking
           </Link>
-          <Link href={"/compare-products"} className="flex items-center gap-1">
+          <Link href={"/compare-products"} className="flex items-center gap-1 hover:underline">
           <Image src={ICONS.compare} alt="cart" className="size-6" />
             Compare Products
           </Link>
