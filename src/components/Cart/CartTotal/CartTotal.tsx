@@ -22,7 +22,7 @@ const CartTotal = () => {
                 </h1>
             <span className="text-xl">$26.77</span>
           </div>
-          <button className="w-full py-3 bg-primary-10 text-white font-semibold rounded-xl">
+          <button className="w-full py-3 bg-primary-10 text-white font-semibold rounded-3xl">
             Proceed to Checkout
           </button>
         </div>

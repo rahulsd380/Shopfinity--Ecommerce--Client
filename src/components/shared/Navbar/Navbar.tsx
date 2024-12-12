@@ -163,7 +163,7 @@ const Navbar = () => {
       </div>
 
       {/* Account */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
       <Image src={ICONS.profileIcon} alt="cart" className="size-9" />
       <div>
       <h1 className="text-neutral-15 font-Sora font-semibold">

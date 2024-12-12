@@ -47,7 +47,7 @@ const Login = () => {
           </div>
         </Link>
 
-        <form
+          <form
           onSubmit={handleSubmit(handleLogin)}
           className="flex flex-col gap-5 w-full"
         >

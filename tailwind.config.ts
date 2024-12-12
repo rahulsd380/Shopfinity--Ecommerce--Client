@@ -23,7 +23,8 @@ export default {
 
         secondary : {
           10 : '#FF9017',
-          15 : "#FFD480"
+          15 : "#FFD480",
+          20 : "#fff7e6",
         },
         
         primary : {

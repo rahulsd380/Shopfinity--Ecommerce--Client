@@ -21,7 +21,7 @@ const Banner = ({
       />
 
       <div className="flex flex-col gap-4 items-start z-10 px-5 md:px-10">
-        <h1 className="text-neutral-15 font-Sora text-[40px] md:text-[50px] 2xl:text-[60px] font-semibold leading-normal md:leading-[80px]">
+        <h1 className="text-neutral-15 font-Sora text-[40px] md:text-[45px] font-semibold">
           {title}
         </h1>
         <p className="text-neutral-60 font-Inter text-xl font-medium">
