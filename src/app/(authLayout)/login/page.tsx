@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { setUser } from "@/redux/features/Auth/authSlice";
 import CircleLoader from "@/components/Loaders/CircleLoader/CircleLoader";
 import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitButton";
+import { verifyToken } from "@/utils/verifyToken";
 
 type TFormValues = {
   email: string;
@@ -38,9 +39,12 @@ const Login = () => {
       };
       const response = await login(loginData);
       // const user = verifyToken(response.data?.accessToken);
-      const user = response.data?.data?.user;
+      // const user = response.data?.data?.user;
 
-      dispatch(setUser({ user, token: response.data.accessToken }));
+      const user = verifyToken(response.data?.data?.accessToken);
+      console.log(user)
+
+      dispatch(setUser({ user, token: response?.data?.data?.accessToken }));
       toast.success("Logged in successfully.");
       router.push("/");
     } catch (error) {

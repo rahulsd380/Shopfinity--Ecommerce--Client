@@ -1,7 +1,10 @@
 "use client";
 import TextInput from "@/components/reusable/TextInput/TextInput";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useCreateCategoryMutation } from "@/redux/features/Category/categoryApi";
+import { toast } from "sonner";
 import { useState } from "react";
+import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitButton";
 
 type TFormValues = {
   name: string;
@@ -18,38 +21,45 @@ const CreateCategory: React.FC<ConfirmationModalProps> = ({
   openModal,
   setOpenModal,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [createCategory, {isLoading}] = useCreateCategoryMutation();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<TFormValues>();
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const imageFile = e.target.files[0];
+      setSelectedFile(imageFile);
+    }
+  };
 
   const handleCreateCategory: SubmitHandler<TFormValues> = async (data) => {
     try {
       const formData = new FormData();
 
-      formData.append("name", data.name);
-      formData.append("description", data.description);
-      if (data.image) {
-        formData.append("image", data.image);
+      const categoryData = {
+        name : data.name,
+        description : data.description
       }
 
-      // Simulate API request
-      console.log("Submitting form data...");
-      console.log(Array.from(formData.entries()));
+      if (selectedFile) {
+        formData.append("file", selectedFile);
+      }
 
-      // Make your API request here
+      formData.append("data", JSON.stringify(categoryData));
+
+      const response =await createCategory(formData);
+      console.log(response);
+      if(response?.data?.data?.message){
+        toast.success("Category created successfully.");
+      setOpenModal(false);
+      }
     } catch (error) {
       console.error("Error submitting product:", error);
-    }
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setValue("image", e.target.files[0]);
     }
   };
 
@@ -63,7 +73,7 @@ const CreateCategory: React.FC<ConfirmationModalProps> = ({
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-[600px] p-5 rounded-3xl bg-white drop-shadow-2xl ${
+          className={`absolute w-[600px] max-h-[550px] overflow-y-auto p-5 rounded-3xl bg-white drop-shadow-2xl ${
             openModal
               ? "opacity-1 translate-y-0 duration-300"
               : "translate-y-20 opacity-0 duration-150"
@@ -153,19 +163,7 @@ const CreateCategory: React.FC<ConfirmationModalProps> = ({
                 >
                   No, Cancel
                 </button>
-                <button
-                  type="submit"
-                  className="px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold"
-                >
-                  {isLoading ? (
-                    <div className="flex items-center gap-1">
-                      <p>Loading</p>
-                      <div className="size-6 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-yellow-900 border-white"></div>
-                    </div>
-                  ) : (
-                    "Submit"
-                  )}
-                </button>
+                <FormSubmitButton label="Submit" isLoading={isLoading} classNames="w-fit" />
               </div>
             </form>
           </div>

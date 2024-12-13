@@ -7,8 +7,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { useEffect, useRef } from "react";
+import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
 
 const Categories = () => {
+  const {data} = useGetAllCategoriesQuery({});
+  console.log(data);
   const categories = [
     { name: "Vegetables", items: ["Potato", "Tomato", "Onion", "Carrot"], img: IMAGES.vegetable },
     { name: "Eggs", items: ["Chicken Egg", "Duck Egg"], img: IMAGES.egg },
