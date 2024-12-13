@@ -9,7 +9,7 @@ interface TextInputProps {
   type?: string;
   register: UseFormRegister<any>;
   error?: FieldError;
-  defaultValue:any
+  defaultValue?:any
 }
 
 const TextInput: React.FC<TextInputProps> = ({

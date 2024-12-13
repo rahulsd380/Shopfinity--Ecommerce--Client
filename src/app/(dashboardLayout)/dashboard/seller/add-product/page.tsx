@@ -1,10 +1,16 @@
 "use client";
 
 import UploadImage from "@/components/Dashboard/SellerDashboard/AddProduct/UploadImage/UploadImage";
+import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitButton";
 import TextInput from "@/components/reusable/TextInput/TextInput";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useCreateProductMutation } from "@/redux/features/Product/productApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type TFormValues = {
   name: string;
@@ -16,6 +22,8 @@ type TFormValues = {
 };
 
 const AddProduct = () => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const [createProduct, {isLoading}] = useCreateProductMutation();
   const {
     register,
     handleSubmit,
@@ -47,23 +55,29 @@ const AddProduct = () => {
     }
   };
 
-  const handleAddProduct: SubmitHandler<TFormValues> = async (data) => {
+  const handleCreateProduct: SubmitHandler<TFormValues> = async (data) => {
     try {
       const formData = new FormData();
+      const productData = {
+        name : data.name,
+        description : data.description,
+        price : data.price,
+        brand : data.brand,
+        stock : data.stock,
+        category : data.category,
+        vendorId : user?.userId,
+      }
+      for (const image of imageFiles) {
+        formData.append("files", image);
+      }
 
-      formData.append("name", data.name);
-      formData.append("price", data.price);
-      formData.append("brand", data.brand);
-      formData.append("stock", data.stock);
-      formData.append("description", data.description);
-      formData.append("vendorId", data.description); 
-      formData.append("category", data.category);
+      formData.append("data", JSON.stringify(productData));
 
-      imageFiles.forEach((file) => {
-        formData.append(`images`, file);
-      });
-
-      // Make your API request here
+      const response =await createProduct(formData);
+      console.log(response);
+      if(response?.data?.message){
+        toast.success("Product created successfully.");
+      }
     } catch (error) {
       console.error("Error submitting product:", error);
     }
@@ -98,7 +112,7 @@ const AddProduct = () => {
         </div>
         <div className="bg-white border border-neutral-45 p-5 rounded-xl w-[70%]">
           <form
-            onSubmit={handleSubmit(handleAddProduct)}
+            onSubmit={handleSubmit(handleCreateProduct)}
             className="flex flex-col gap-5 w-full"
           >
             <TextInput
@@ -193,14 +207,7 @@ const AddProduct = () => {
               )}
             </div>
 
-            
-
-            <button
-              type="submit"
-              className="px-6 py-3 text-white bg-primary-10 rounded-xl font-semibold w-full"
-            >
-              Submit
-            </button>
+            <FormSubmitButton label="Submit" isLoading={isLoading} />
           </form>
         </div>
       </div>

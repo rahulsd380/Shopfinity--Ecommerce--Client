@@ -1,6 +1,7 @@
 import DashboardHeader from "@/components/Dashboard/DashboardHeader/DashboardHeader";
 import DashboardSidebar from "@/components/Dashboard/DashboardSidebar/DashboardSidebar";
 import { ReactNode } from "react";
+import { Toaster } from "sonner";
 
 type TDashboardLayoutProps = {
     children : ReactNode
@@ -15,6 +16,7 @@ const DashboardLayout:React.FC<TDashboardLayoutProps> = ({children}) => {
             {children}
             </div>
             </div>
+            <Toaster position="bottom-right" richColors/>
         </div>
     );
 };
