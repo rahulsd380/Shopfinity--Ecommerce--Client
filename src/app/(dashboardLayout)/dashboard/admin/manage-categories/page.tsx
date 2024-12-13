@@ -5,18 +5,24 @@ import Image from "next/image";
 import { ICONS } from "@/assets";
 import { TbCategoryPlus } from "react-icons/tb";
 import CreateCategory from "@/components/Dashboard/AdminDashboard/ManageCategories/CreateCategory/CreateCategory";
-import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
-import UpdateCategoryForm from './../../../../../components/Dashboard/AdminDashboard/ManageCategories/UpdateCategoryForm/UpdateCategoryForm';
+import {
+  useDeleteCategoryMutation,
+  useGetAllCategoriesQuery,
+} from "@/redux/features/Category/categoryApi";
+import UpdateCategoryForm from "./../../../../../components/Dashboard/AdminDashboard/ManageCategories/UpdateCategoryForm/UpdateCategoryForm";
+import { toast } from "sonner";
 
 export type TCategory = {
   _id: string;
   name: string;
   description: string;
-  image:string;
+  image: string;
 };
 
 const ManageCategories = () => {
   const { data } = useGetAllCategoriesQuery({});
+  const [deleteCategory] = useDeleteCategoryMutation();
+
   const [categoryData, setCategoryData] = useState({});
   const [openCreateCategoryModal, setOpenCreateCategoryModal] = useState(false);
   const [openUpdateCategoryModal, setOpenUpdateCategoryModal] = useState(false);
@@ -26,6 +32,14 @@ const ManageCategories = () => {
   const handleDropdownToggle = (_id: string) => {
     setActiveDropdown((prev) => (prev === _id ? null : _id));
     console.log(_id);
+  };
+
+  const handleDeleteCategory = async (id: string) => {
+    toast.promise(deleteCategory(id), {
+      loading: "Deleting category...",
+      success: "Category deleted successfully.",
+      error: "Something went wrong.",
+    });
   };
 
   return (
@@ -69,11 +83,11 @@ const ManageCategories = () => {
                 {category._id}
               </td>
               <td className="text-[#6E7883] font-Poppins p-4">
-              <img
-              src={category?.image}
-              alt="three-dots"
-              className="size-16 rounded-lg"
-              />
+                <img
+                  src={category?.image}
+                  alt="three-dots"
+                  className="size-16 rounded-lg"
+                />
               </td>
               <td className="text-[#6E7883] font-Poppins p-4">
                 {category.name}
@@ -99,15 +113,15 @@ const ManageCategories = () => {
                   <div className="absolute right-0 mt-2 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
                     <button
                       onClick={() => {
-                        setCategoryData(category)
-                        setOpenUpdateCategoryModal(true)
+                        setCategoryData(category);
+                        setOpenUpdateCategoryModal(true);
                       }}
                       className="block text-left w-full p-[10px] text-sm text-[#3B82F6] hover:bg-blue-100"
                     >
                       Edit Category
                     </button>
                     <button
-                      // onClick={() => handleDeleteCategory(category._id)}
+                      onClick={() => handleDeleteCategory(category._id)}
                       className="block text-left w-full p-[10px] text-sm text-[#DE3C4B] hover:bg-red-100 mt-1"
                     >
                       Delete Category
@@ -131,8 +145,8 @@ const ManageCategories = () => {
         setOpenModal={setOpenCreateCategoryModal}
       />
       <UpdateCategoryForm
-      setActiveDropdown={setActiveDropdown}
-      categoryData={categoryData}
+        setActiveDropdown={setActiveDropdown}
+        categoryData={categoryData}
         openModal={openUpdateCategoryModal}
         setOpenModal={setOpenUpdateCategoryModal}
       />
