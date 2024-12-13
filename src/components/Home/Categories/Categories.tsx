@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
-import { ICONS, IMAGES } from "@/assets";
+import { ICONS } from "@/assets";
 import Image from "next/image";
 import CategoryCard from "./CategoryCard";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,23 +9,10 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { useEffect, useRef } from "react";
 import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
+import { TCategory } from "@/app/(dashboardLayout)/dashboard/admin/manage-categories/page";
 
 const Categories = () => {
   const {data} = useGetAllCategoriesQuery({});
-  console.log(data);
-  const categories = [
-    { name: "Vegetables", items: ["Potato", "Tomato", "Onion", "Carrot"], img: IMAGES.vegetable },
-    { name: "Eggs", items: ["Chicken Egg", "Duck Egg"], img: IMAGES.egg },
-    { name: "Chicken", items: ["Broiler", "Country Chicken", "Chicken Wings"], img: IMAGES.chicken },
-    { name: "Mutton", items: ["Goat Meat", "Sheep Meat"], img: IMAGES.mutton },
-    { name: "Fruits", items: ["Apple", "Banana", "Orange", "Grapes"], img: IMAGES.fruits },
-    { name: "Strawberries", items: ["Fresh Strawberries"], img: IMAGES.strawberry },
-    { name: "Potatoes", items: ["Baby Potatoes", "Sweet Potatoes"], img: IMAGES.potato },
-    { name: "Apples", items: ["Red Apple", "Green Apple"], img: IMAGES.apple },
-    { name: "Strawberries", items: ["Fresh Strawberries"], img: IMAGES.strawberry },
-    { name: "Potatoes", items: ["Baby Potatoes", "Sweet Potatoes"], img: IMAGES.potato },
-    { name: "Apples", items: ["Red Apple", "Green Apple"], img: IMAGES.apple },
-  ];
 
   const colors = ["#FEEFEA", "#FFF3FF", "#F2FCE4", "#FEEFEA", "#ECFFEC", "#FFFCEB", "#DEF9EC"];
 
@@ -96,7 +84,7 @@ const Categories = () => {
         modules={[ Navigation]}
         className="carousel mt-10"
       >
-        {categories.map((category, index) => (
+        {data?.data?.categories.map((category:TCategory, index:number) => (
           <SwiperSlide key={index}>
             <CategoryCard
               category={category}
