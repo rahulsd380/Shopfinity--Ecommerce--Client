@@ -1,22 +1,25 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import { ICONS } from "@/assets";
 import { TbCategoryPlus } from "react-icons/tb";
-import CreateCategory from "@/components/Dashboard/AdminDashboard/CreateCategory/CreateCategory";
+import CreateCategory from "@/components/Dashboard/AdminDashboard/ManageCategories/CreateCategory/CreateCategory";
 import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
+import UpdateCategoryForm from './../../../../../components/Dashboard/AdminDashboard/ManageCategories/UpdateCategoryForm/UpdateCategoryForm';
 
-type TCategory = {
+export type TCategory = {
   _id: string;
   name: string;
   description: string;
+  image:string;
 };
 
 const ManageCategories = () => {
-   const {data} = useGetAllCategoriesQuery({});
-    console.log(data);
-
+  const { data } = useGetAllCategoriesQuery({});
+  const [categoryData, setCategoryData] = useState({});
   const [openCreateCategoryModal, setOpenCreateCategoryModal] = useState(false);
+  const [openUpdateCategoryModal, setOpenUpdateCategoryModal] = useState(false);
 
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
@@ -28,18 +31,25 @@ const ManageCategories = () => {
   return (
     <div className="mt-8 overflow-x-auto min-h-screen">
       <div className="flex items-center justify-between">
-      <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
-        Manage Categories
-      </h1>
-      <button onClick={() => setOpenCreateCategoryModal(true)} className="bg-primary-10 px-4 py-3 rounded text-white font-Inter font-medium flex items-center gap-2">
-      <TbCategoryPlus />
-        Add New Category</button>
+        <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
+          Manage Categories
+        </h1>
+        <button
+          onClick={() => setOpenCreateCategoryModal(true)}
+          className="bg-primary-10 px-4 py-3 rounded text-white font-Inter font-medium flex items-center gap-2"
+        >
+          <TbCategoryPlus />
+          Add New Category
+        </button>
       </div>
       <table className="bg-white w-full rounded-3xl shadow border-collapse mt-5">
         <thead className="bg-gray-100">
           <tr className="bg-white border-b">
             <th className="text-[#293241] font-Poppins font-medium p-4 text-left rounded-tl-3xl">
               Category ID
+            </th>
+            <th className="text-[#293241] font-Poppins font-medium p-4 text-left rounded-tl-3xl">
+              Image
             </th>
             <th className="text-[#293241] font-Poppins font-medium p-4 text-left">
               Category Name
@@ -53,15 +63,25 @@ const ManageCategories = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data?.categories.map((category:TCategory) => (
+          {data?.data?.categories.map((category: TCategory) => (
             <tr key={category._id} className="border-b">
-              <td className="text-[#6E7883] font-Poppins p-4">{category._id}</td>
-              <td className="text-[#6E7883] font-Poppins p-4">{category.name}</td>
               <td className="text-[#6E7883] font-Poppins p-4">
-              {category.description.length > 50
-  ? `${category.description.slice(0, 50)}...`
-  : category.description}
-
+                {category._id}
+              </td>
+              <td className="text-[#6E7883] font-Poppins p-4">
+              <img
+              src={category?.image}
+              alt="three-dots"
+              className="size-16 rounded-lg"
+              />
+              </td>
+              <td className="text-[#6E7883] font-Poppins p-4">
+                {category.name}
+              </td>
+              <td className="text-[#6E7883] font-Poppins p-4">
+                {category.description.length > 50
+                  ? `${category.description.slice(0, 50)}...`
+                  : category.description}
               </td>
               <td className="text-[#6E7883] font-Poppins p-4 relative">
                 <button
@@ -78,7 +98,10 @@ const ManageCategories = () => {
                 {activeDropdown === category._id && (
                   <div className="absolute right-0 mt-2 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
                     <button
-                      // onClick={() => handleEditCategory(category._id)}
+                      onClick={() => {
+                        setCategoryData(category)
+                        setOpenUpdateCategoryModal(true)
+                      }}
                       className="block text-left w-full p-[10px] text-sm text-[#3B82F6] hover:bg-blue-100"
                     >
                       Edit Category
@@ -103,7 +126,16 @@ const ManageCategories = () => {
         </p>
       )}
 
-      <CreateCategory openModal={openCreateCategoryModal} setOpenModal={setOpenCreateCategoryModal}/>
+      <CreateCategory
+        openModal={openCreateCategoryModal}
+        setOpenModal={setOpenCreateCategoryModal}
+      />
+      <UpdateCategoryForm
+      setActiveDropdown={setActiveDropdown}
+      categoryData={categoryData}
+        openModal={openUpdateCategoryModal}
+        setOpenModal={setOpenUpdateCategoryModal}
+      />
     </div>
   );
 };
