@@ -1,67 +1,28 @@
-"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-interface ProductCardProps {
-  _id: string;
-  images: string[];
-  category: string;
-  name: string;
-  rating: number;
-  reviews: number;
-  brand: string;
-  price: string;
-  originalPrice: string;
-}
+  
+  type TWishlistProductCard = {
+    _id: string;
+    name: string;
+    image: string;
+    price: string;
+    brand: string;
+    rating: number;
+    handleRemoveFromWishlist : (productId: string) => void
+  }
 
-const FeaturedProductCard: React.FC<ProductCardProps> = ({
+const WishlistProductCard: React.FC<TWishlistProductCard> = ({
   _id,
-  images,
-  category,
+  image,
   name,
   rating,
-  reviews,
   brand,
   price,
+  handleRemoveFromWishlist
 }) => {
-  const [wishlist, setWishlist] = useState<any[]>([]);
-
-  // Load the wishlist from localStorage when the component mounts
-  useEffect(() => {
-    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    setWishlist(storedWishlist);
-  }, []);
-
-  const wishlistData = {
-    _id,
-    name,
-    image: images[0],
-    price,
-    brand,
-    rating,
-  };
-
-  const handleAddToWishlist = () => {
-    // Check if the product is already in the wishlist
-    const isProductInWishlist = wishlist.some(
-      (item) => item._id === wishlistData._id
-    );
-
-    if (isProductInWishlist) {
-      alert("This product is already in your wishlist!");
-    } else {
-      // Add the new product to the wishlist
-      const updatedWishlist = [...wishlist, wishlistData];
-      setWishlist(updatedWishlist); // Update the state immediately
-
-      // Save the updated wishlist back to localStorage
-      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-
-      alert("Product added to wishlist!");
-    }
-  };
+    
 
   return (
     <div className="relative flex flex-col justify-center px-3 py-4 border-r border-[rgba(173,173,173,0.25)] bg-white group">
@@ -86,22 +47,23 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
           <Image src={ICONS.compare} className="size-4" alt="Compare" />
         </Link>
         <button
-          onClick={handleAddToWishlist}
+        onClick={() => handleRemoveFromWishlist(_id)}
           className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-500 flex items-center justify-center"
           style={{ transitionDelay: "0.5s" }}
         >
-          <Image src={ICONS.wishlist2} className="size-4" alt="Compare" />
+          <Image src={ICONS.cross} className="size-4" alt="Compare" />
         </button>
+        
       </div>
       <Image
-        src={images && images[0]}
+        src={image}
         width={100}
         height={100}
         alt={name}
         className="w-full h-40 object-cover rounded-lg"
       />
       <div className="mt-4">
-        <p className="text-neutral-40 font-Inter text-xs">{category}</p>
+        {/* <p className="text-neutral-40 font-Inter text-xs">{category}</p> */}
         <h3 className="text-neutral-10 font-Sora font-semibold leading-normal mt-[7px]">
           {name}
         </h3>
@@ -127,7 +89,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
               </svg>
             ))}
           </div>
-          <p className="text-sm text-neutral-10 ml-2">({reviews})</p>
+          <p className="text-sm text-neutral-10 ml-2">({rating})</p>
         </div>
         <p className="text-neutral-40 font-Inter text-[12px]">
           Brand{" "}
@@ -141,7 +103,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
               ${price}
             </p>
             <p className="text-neutral-40 text-sm line-through ml-2">
-              ${price + 10}
+              ${price +10}
             </p>
           </div>
           <button className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
@@ -154,4 +116,4 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   );
 };
 
-export default FeaturedProductCard;
+export default WishlistProductCard;

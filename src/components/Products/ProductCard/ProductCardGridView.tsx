@@ -8,7 +8,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const ProductCardGridView = ({ product, isMenuActive }) => {
+type TProductCardGridViewProps = {
+  isMenuActive? : boolean
+}
+const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMenuActive=false }) => {
   const [deleteProduct, {isLoading}] = useDeleteProductMutation()
   const [productId, setProductId] = useState("");
   const [openModal, setOpenModal] = useState(false);

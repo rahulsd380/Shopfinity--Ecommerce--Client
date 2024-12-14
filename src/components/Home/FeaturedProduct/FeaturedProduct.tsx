@@ -2,97 +2,17 @@
 
 import React, { useRef } from "react";
 import FeaturedProductCard from "./FeaturedProductCard";
-import { IMAGES, ICONS } from "@/assets";
+import { ICONS } from "@/assets";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Link from "next/link";
+import { useGetAllProductsQuery } from "@/redux/features/Product/productApi";
 
 const FeaturedProduct = () => {
-  const products = [
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Redish 500g",
-      rating: 3,
-      reviews: 3,
-      author: "Mr.food",
-      price: "2",
-      originalPrice: "3.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-  ];
+  const { data } = useGetAllProductsQuery({});
 
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
@@ -172,7 +92,7 @@ const FeaturedProduct = () => {
           modules={[ Navigation]}
           className="rounded-xl border border-[rgba(173,173,173,0.25)] mt-10"
         >
-          {products.map((product, index) => (
+          {data?.data?.products?.slice(0,15)?.map((product, index:number) => (
             <SwiperSlide key={index}>
               <FeaturedProductCard {...product} />
             </SwiperSlide>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const Images = ({ images }) => {
+const Images = ({ images }:{images:string[]}) => {
   // Ensure images is an array before proceeding
   const [currentSlider, setCurrentSlider] = useState(0);
 

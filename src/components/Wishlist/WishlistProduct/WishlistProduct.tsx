@@ -1,95 +1,30 @@
-import { IMAGES } from "@/assets";
-import FeaturedProductCard from "@/components/Home/FeaturedProduct/FeaturedProductCard";
-import React from "react";
+import WishlistProductCard from "./WishlistProductCard";
 
-const WishlistProduct = () => {
-  const products = [
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Redish 500g",
-      rating: 3,
-      reviews: 3,
-      author: "Mr.food",
-      price: "2",
-      originalPrice: "3.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-    {
-      imageUrl: IMAGES.product,
-      category: "Vegetables",
-      name: "Tomato 1kg",
-      rating: 4,
-      reviews: 4,
-      author: "VeggieShop",
-      price: "4",
-      originalPrice: "5.99",
-    },
-  ];
+type TWishlistItem= {
+  _id: string;
+  name: string;
+  image: string;
+  price: string;
+  brand: string;
+  rating: number;
+}
+
+type TWishlistProduct = {
+  products : TWishlistItem[];
+  handleRemoveFromWishlist : (productId: string) => void
+}
+const WishlistProduct:React.FC<TWishlistProduct> = ({products, handleRemoveFromWishlist}) => {
+  
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7 gap-7 mt-[50px]">
-      {products.map((product, index) => (
-        <FeaturedProductCard key={index} {...product} />
-      ))}
+      {products?.length > 0 ? (
+        products?.map((product:TWishlistItem) => (
+          <WishlistProductCard key={product._id} {...product} handleRemoveFromWishlist={handleRemoveFromWishlist} />
+        ))
+      ) : (
+        <p>Your wishlist is empty.</p>
+      )}
     </div>
   );
 };
