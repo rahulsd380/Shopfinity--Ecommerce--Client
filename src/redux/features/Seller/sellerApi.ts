@@ -13,13 +13,13 @@ const sellerApi = baseApi.injectEndpoints({
       invalidatesTags: ["sellers"]
     }),
 
-    // getAllProducts: builder.query({
-    //   query: () => ({
-    //     method: "GET",
-    //     url: `/product`,
-    //   }),
-    //   providesTags: ["products"],
-    // }),
+    getAllShops: builder.query({
+      query: () => ({
+        method: "GET",
+        url: `/seller`,
+      }),
+      providesTags: ["sellers"],
+    }),
 
     getSingleSellerById: builder.query({
       query: (id) => ({
@@ -46,15 +46,37 @@ const sellerApi = baseApi.injectEndpoints({
       invalidatesTags: ["sellers"]
     }),
 
+    approveSeller: builder.mutation({
+      query: (id) => ({
+        method: "PUT",
+        url: `/seller/approve-seller/${id}`,
+      }),
+      invalidatesTags: ["sellers"]
+    }),
 
+    rejectRequest: builder.mutation({
+      query: (id) => ({
+        method: "PUT",
+        url: `/seller/reject-request/${id}`,
+      }),
+      invalidatesTags: ["sellers"]
+    }),
 
-    // deleteProduct: builder.mutation({
-    //   query: (id) => ({
-    //     method: "DELETE",
-    //     url: `/product/delete-product/${id}`,
-    //   }),
-    //   invalidatesTags: ["products"]
-    // }),
+    blacklistSeller: builder.mutation({
+      query: (id) => ({
+        method: "PUT",
+        url: `/seller/blacklist-seller/${id}`,
+      }),
+      invalidatesTags: ["sellers"]
+    }),
+
+    removeSeller: builder.mutation({
+      query: (id) => ({
+        method: "DELETE",
+        url: `/product/remove-seller/${id}`,
+      }),
+      invalidatesTags: ["sellers"]
+    }),
 
 
   }),
@@ -62,7 +84,12 @@ const sellerApi = baseApi.injectEndpoints({
 
 export const { 
     useBecomeSellerMutation,
+    useGetAllShopsQuery,
     useGetSingleSellerByIdQuery,
     useUpdateShopMutation,
     useGetMyShopQuery,
+    useApproveSellerMutation,
+    useRejectRequestMutation,
+    useBlacklistSellerMutation,
+    useRemoveSellerMutation,
 } = sellerApi;

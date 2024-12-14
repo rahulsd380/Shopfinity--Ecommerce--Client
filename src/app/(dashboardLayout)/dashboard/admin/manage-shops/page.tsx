@@ -1,50 +1,58 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { ICONS } from "@/assets";
+import {
+  useApproveSellerMutation,
+  useBlacklistSellerMutation,
+  useGetAllShopsQuery,
+  useRejectRequestMutation,
+  useRemoveSellerMutation,
+} from "@/redux/features/Seller/sellerApi";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 
-type TShop = {
-  shopId: string;
-  logo: string;
+export type TSeller = {
+  _id: string;
+  userId: string;
   shopName: string;
+  shopLogo: string;
+  tagline: string;
+  supplierName: string;
   sellerName: string;
-  status: "Approved" | "Blocked";
+  shopDescription: string;
+  phoneNumber: string;
+  products: string[];
+  followers: string[];
+  isVerified: boolean;
+  status: "pending" | "approved" | "blacklisted" | "rejected";
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    country: string;
+    zipCode: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 };
 
 const ManageShops = () => {
+  const { data } = useGetAllShopsQuery({});
+  const [approveSeller] = useApproveSellerMutation();
+  const [rejectRequest] = useRejectRequestMutation();
+  const [blacklistSeller] = useBlacklistSellerMutation();
+  const [removeSeller] = useRemoveSellerMutation();
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  const shops: TShop[] = [
-    {
-      shopId: "S123456",
-      logo: "/images/shop1.png",
-      shopName: "Gadget World",
-      sellerName: "John Doe",
-      status: "Approved",
-    },
-    {
-      shopId: "S789012",
-      logo: "/images/shop2.png",
-      shopName: "Home Essentials",
-      sellerName: "Jane Smith",
-      status: "Blocked",
-    },
-    {
-      shopId: "S345678",
-      logo: "/images/shop3.png",
-      shopName: "Fashion Hub",
-      sellerName: "Alice Johnson",
-      status: "Approved",
-    },
-  ];
-
   const sortedShops =
     sortOrder === "asc"
-      ? [...shops].sort((a, b) => a.status.localeCompare(b.status))
+      ? [...data?.data].sort((a, b) => a.status.localeCompare(b.status))
       : sortOrder === "desc"
-      ? [...shops].sort((a, b) => b.status.localeCompare(a.status))
-      : shops;
+      ? [...data?.data].sort((a, b) => b.status.localeCompare(a.status))
+      : data?.data;
 
   const handleSortToggle = () => {
     setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
@@ -52,6 +60,38 @@ const ManageShops = () => {
 
   const handleDropdownToggle = (shopId: string) => {
     setActiveDropdown((prev) => (prev === shopId ? null : shopId));
+  };
+
+  const handleApproveSeller = async (id: string) => {
+    toast.promise(approveSeller(id), {
+      loading: "Please wait...",
+      success: "Seller request approved.",
+      error: "Something went wrong.",
+    });
+  };
+
+  const handleRejectRequest = async (id: string) => {
+    toast.promise(rejectRequest(id), {
+      loading: "Please wait...",
+      success: "Seller request rejected.",
+      error: "Something went wrong.",
+    });
+  };
+
+  const handleBlacklistSeller = async (id: string) => {
+    toast.promise(blacklistSeller(id), {
+      loading: "Please wait...",
+      success: "Seller blacklisted",
+      error: "Something went wrong.",
+    });
+  };
+
+  const handleRemoveSeller = async (id: string) => {
+    toast.promise(removeSeller(id), {
+      loading: "Please wait...",
+      success: "Seller removed from Shopfinity!",
+      error: "Something went wrong.",
+    });
   };
 
   return (
@@ -90,14 +130,16 @@ const ManageShops = () => {
         </thead>
 
         <tbody>
-          {sortedShops.map((shop) => (
-            <tr key={shop.shopId} className="border-b relative">
-              <td className="text-[#6E7883] font-Poppins p-4">{shop.shopId}</td>
+          {sortedShops?.map((shop: TSeller) => (
+            <tr key={shop._id} className="border-b relative">
+              <td className="text-[#6E7883] font-Poppins p-4">{shop._id}</td>
               <td className="text-[#6E7883] font-Poppins p-4">
                 <Image
-                  src={shop.logo}
+                  src={shop.shopLogo ? shop.shopLogo : ICONS.user}
                   alt={shop.shopName}
-                  className="w-10 h-10 rounded-full"
+                  className="size-10 rounded-full"
+                  width={40}
+                  height={40}
                 />
               </td>
               <td className="text-[#6E7883] font-Poppins p-4">
@@ -109,17 +151,21 @@ const ManageShops = () => {
               <td className="text-[#6E7883] font-Poppins p-4">
                 <div
                   className={`${
-                    shop.status === "Approved"
+                    shop.status === "approved"
                       ? "bg-[#DCFFD6]"
+                      : shop.status === "rejected"
+                      ? "bg-orange-100"
+                      : shop.status === "blacklisted"
+                      ? "bg-yellow-100"
                       : "bg-red-100"
-                  } rounded-3xl py-[10px] px-5 text-[#24461F] font-Poppins leading-6 flex items-center justify-center`}
+                  } rounded-3xl py-[10px] px-5 text-[#24461F] font-Poppins leading-6 flex items-center justify-center capitalize`}
                 >
                   {shop.status}
                 </div>
               </td>
               <td className="text-[#6E7883] font-Poppins p-4 relative">
                 <button
-                  onClick={() => handleDropdownToggle(shop.shopId)}
+                  onClick={() => handleDropdownToggle(shop._id)}
                   className="p-2 hover:bg-gray-100 rounded-md"
                 >
                   <Image
@@ -129,18 +175,28 @@ const ManageShops = () => {
                   />
                 </button>
 
-                {activeDropdown === shop.shopId && (
+                {activeDropdown === shop._id && (
                   <div className="absolute right-0 mt-2 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
                     <button
-                      onClick={() => console.log(`Removing shop ${shop.shopId}`)}
+                      onClick={() => handleApproveSeller(shop._id)}
+                      className="block text-left w-full p-[10px] text-sm text-primary-10 hover:bg-primary-10/20"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => handleRejectRequest(shop._id)}
+                      className="block text-left w-full p-[10px] text-sm text-orange-500 hover:bg-orange-100"
+                    >
+                      Reject
+                    </button>
+                    <button
+                      onClick={() => handleRemoveSeller(shop._id)}
                       className="block text-left w-full p-[10px] text-sm text-[#DE3C4B] hover:bg-red-100"
                     >
                       Remove Shop
                     </button>
                     <button
-                      onClick={() =>
-                        console.log(`Blacklisting shop ${shop.shopId}`)
-                      }
+                      onClick={() => handleBlacklistSeller(shop._id)}
                       className="block text-left w-full p-[10px] text-sm text-[#F59E0B] hover:bg-yellow-100 mt-1"
                     >
                       Blacklist Shop
@@ -153,7 +209,7 @@ const ManageShops = () => {
         </tbody>
       </table>
 
-      {sortedShops.length === 0 && (
+      {sortedShops?.length === 0 && (
         <p className="text-[#6E7883] font-Poppins text-center w-full mt-4">
           No Shops Available
         </p>
