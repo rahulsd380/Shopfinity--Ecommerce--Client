@@ -1,35 +1,61 @@
-import { IMAGES } from "@/assets";
+"use client"
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useRemoveProductFromCartMutation } from "@/redux/features/cart/cartApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const CartProductCard = ({
+  data,
   decrementQuantity,
   incrementQuantity,
   quantity,
 }) => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const [removeProductFromCart] = useRemoveProductFromCartMutation();
+  const userId = user?._id
+  const productId = data?.productId
+
+  const handleRemoveProductFromCart = async () => {
+    try {
+      const response = await removeProductFromCart({ userId, productId }).unwrap();
+      console.log(response)
+  
+      if (response?.message) {
+        toast.success("Product added to cart successfully.");
+      }
+    } catch (error) {
+      // Handle error and display a toast message if necessary
+      toast.error("Failed to add product to cart. Please try again.");
+      console.error("Error adding to cart:", error);
+    }
+  }
+
+
   return (
     <div className="font-Inter flex flex-col md:flex-row justify-between border-b border-neutral-40/80 pb-3">
       <div className="flex gap-5">
         <div className="size-20 rounded-md border border-neutral-40/60 flex items-center justify-center">
-          <Image src={IMAGES.product} alt="" className="size-[60px]" />
+          <Image src={data?.image} alt="" className="size-[60px]" width={60} height={60} />
         </div>
 
         <div>
           <h1 className="font-Inter text-lg font-semibold leading-5 text-neutral-15">
-            Iphone 13 Pro max
+            {data?.name}
           </h1>
 
           <p className="text-neutral-20 font-semibold mt-3">
-            Category : <span className="font-normal">Phone</span>, Brand :{" "}
-            <span className="font-normal">Iphone</span>, Stock :{" "}
-            <span className="font-normal">100 Items</span>
+            Category : <span className="font-normal">{data?.category}</span>, Brand :{" "}
+            <span className="font-normal">{data?.brand}</span>
           </p>
 
           <p className="text-neutral-20 font-semibold mt-1">
-            Seller : <span className="font-normal">Rahul SD</span>
+            Stock : <span className="font-normal">{data?.stock} Items</span>
           </p>
 
           <div className="flex items-center gap-2 mt-3">
-            <button className="px-3 py-[10px] border border-neutral-40/60 rounded-md text-warning-10">
+            <button onClick={handleRemoveProductFromCart} className="px-3 py-[10px] border border-neutral-40/60 rounded-md text-warning-10">
               Remove
             </button>
             <button className="px-3 py-[10px] border border-neutral-40/60 rounded-md text-secondary-10">
@@ -41,7 +67,7 @@ const CartProductCard = ({
 
       <div className="flex flex-row md:flex-col items-center gap-7 mt-5 md:mt-0">
         <h1 className="font-Inter text-lg font-bold leading-5 text-neutral-15 text-end">
-          $999
+          ${data?.price}
         </h1>
 
         <div className="flex items-center gap-3">

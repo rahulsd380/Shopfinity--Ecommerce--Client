@@ -9,16 +9,16 @@ const cartApi = baseApi.injectEndpoints({
         method: "POST",
         body: cartData,
       }),
-      invalidatesTags: ["products"]
+      invalidatesTags: ["cart"]
     }),
 
-    // getAllProducts: builder.query({
-    //   query: (category) => ({
-    //     method: "GET",
-    //     url: `/product?category=${category}`,
-    //   }),
-    //   providesTags: ["products"],
-    // }),
+    getAllCartProducts: builder.query({
+      query: (userId) => ({
+        method: "GET",
+        url: `/cart/${userId}`,
+      }),
+      providesTags: ["cart"],
+    }),
 
     // getSingleProductById: builder.query({
     //   query: (id) => ({
@@ -39,13 +39,13 @@ const cartApi = baseApi.injectEndpoints({
 
 
 
-    // deleteProduct: builder.mutation({
-    //   query: (id) => ({
-    //     method: "DELETE",
-    //     url: `/product/delete-product/${id}`,
-    //   }),
-    //   invalidatesTags: ["products"]
-    // }),
+    removeProductFromCart: builder.mutation({
+      query: ({userId, productId}) => ({
+        method: "DELETE",
+        url: `/cart/remove-product/${userId}/product/${productId}`,
+      }),
+      invalidatesTags: ["cart"]
+    }),
 
 
   }),
@@ -53,4 +53,6 @@ const cartApi = baseApi.injectEndpoints({
 
 export const { 
     useAddToCartMutation,
+    useGetAllCartProductsQuery,
+    useRemoveProductFromCartMutation
 } = cartApi;

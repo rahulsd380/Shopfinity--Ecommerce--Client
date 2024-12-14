@@ -4,11 +4,19 @@ import CartProductCard from "@/components/Cart/CartProductCard/CartProductCard";
 import CartTotal from "@/components/Cart/CartTotal/CartTotal";
 import FreeShippingBar from "@/components/Cart/FreeShippingBar/FreeShippingBar";
 import WhatWeOffer from "@/components/Home/WhatWeOffer/WhatWeOffer";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useGetAllCartProductsQuery } from "@/redux/features/cart/cartApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 const CartPage = () => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const userId = user?._id
+  const {data} = useGetAllCartProductsQuery(userId);
+  console.log(data)
   const [quantity, setQuantity] = useState(1);
 
   const incrementQuantity = () => setQuantity(quantity + 1);
@@ -28,16 +36,17 @@ const CartPage = () => {
       <div className="flex flex-col lg:flex-row gap-7 mt-5">
         {/* Cart Details */}
         <div className="w-full lg:w-[70%] bg-neutral-55/20 p-4 rounded-xl border border-neutral-45 flex flex-col gap-5">
-          <CartProductCard
+          {
+            data?.data?.items?.map((item) =>
+              <CartProductCard
+              key={item?.productId}
+              data={item}
             quantity={quantity}
             incrementQuantity={incrementQuantity}
             decrementQuantity={decrementQuantity}
           />
-          <CartProductCard
-            quantity={quantity}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-          />
+            )
+          }
 
           <div className="flex items-center justify-between w-full ">
             <Link
