@@ -2,28 +2,40 @@
 "use client";
 import { ICONS } from "@/assets";
 import ConfirmDelete from "@/components/Dashboard/SellerDashboard/OrderHistory/ConfirmDelete/ConfirmDelete";
+import { useDeleteProductMutation } from "@/redux/features/Product/productApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const ProductCardGridView = ({ product }) => {
+  const [deleteProduct, {isLoading}] = useDeleteProductMutation()
   const [productId, setProductId] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
   const handleDropdownToggle = (rowId: string) => {
     setActiveDropdown((prev) => (prev === rowId ? null : rowId));
   };
-  const id = "614234245";
+
+  const handleDeleteProduct = async (id: string) => {
+    toast.promise(deleteProduct(id), {
+      loading: "Deleting product...",
+      success: "Product deleted successfully.",
+      error: "Something went wrong.",
+    });
+  };
+
   return (
     <div className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
       <button
-        onClick={() => handleDropdownToggle(id)}
+        onClick={() => handleDropdownToggle(product?._id)}
         className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2"
       >
         <Image src={ICONS.threeDots} alt="three-dots" className="size-6" />
       </button>
 
-      {activeDropdown === id && (
+      {activeDropdown === product?._id && (
         <div className="absolute right-0 mt-12 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
           <Link
             href={`/dashboard/seller/edit-product/${product?._id}`}
@@ -35,7 +47,7 @@ const ProductCardGridView = ({ product }) => {
           <button
             onClick={() => {
               setOpenModal(true);
-              setProductId(id);
+              setProductId(product?._id);
             }}
             className="block text-left w-full p-[10px] text-sm text-[#DE3C4B] hover:bg-red-100 mt-1"
           >
@@ -99,6 +111,8 @@ const ProductCardGridView = ({ product }) => {
         setOpenModal={setOpenModal}
         openModal={openModal}
         id={productId}
+        handleDeleteProduct={handleDeleteProduct}
+        isLoading={isLoading}
       />
     </div>
   );

@@ -4,25 +4,16 @@ type ConfirmationModalProps = {
   id: string;
   openModal: boolean;
   setOpenModal: (value: boolean) => void;
+  isLoading:boolean;
 };
 
 const ConfirmDelete: React.FC<ConfirmationModalProps> = ({
   id,
   openModal,
   setOpenModal,
+  handleDeleteProduct,
+  isLoading,
 }) => {
-//   const [deleteProduct, {isLoading}] = useDeleteProductMutation();
-  const handleDeleteProduct = async () => {
-    // try {
-    //   const result = await deleteProduct(id).unwrap();
-    //   toast.success(result.message);
-    //   setOpenModal(false);
-    // } catch (error) {
-    //   toast.error("Error deleting product");
-    // }
-  };
-
-  const isLoading = false
   
   return (
     <div className="mx-auto flex w-72 items-center justify-center">
@@ -57,7 +48,7 @@ const ConfirmDelete: React.FC<ConfirmationModalProps> = ({
               </button>
               <button
               onClick={() => {
-                handleDeleteProduct()
+                handleDeleteProduct(id)
               }}
                 type="submit"
                 className="px-6 py-[14px] text-white bg-[#E28413] rounded-xl text-lg leading-6 font-semibold"
