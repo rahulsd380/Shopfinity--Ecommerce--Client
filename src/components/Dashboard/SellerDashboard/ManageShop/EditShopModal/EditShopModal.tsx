@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS } from "@/assets";
 import Image from "next/image";
 import EditShopForm from "./EditShopForm";
@@ -12,19 +13,9 @@ const EditShopModal: React.FC<ConfirmationModalProps> = ({
   // id,
   openModal,
   setOpenModal,
+  data
 }) => {
-  //   const [deleteProduct, {isLoading}] = useDeleteProductMutation();
-  const handleDeleteProduct = async () => {
-    // try {
-    //   const result = await deleteProduct(id).unwrap();
-    //   toast.success(result.message);
-    //   setOpenModal(false);
-    // } catch (error) {
-    //   toast.error("Error deleting product");
-    // }
-  };
-
-  const isLoading = false;
+ 
 
   return (
     <div className="mx-auto flex w-72 items-center justify-center">
@@ -56,33 +47,9 @@ const EditShopModal: React.FC<ConfirmationModalProps> = ({
               </button>
             </div>
 
-            <EditShopForm />
+            <EditShopForm setOpenModal={setOpenModal} data={data} />
 
-            <div className="flex items-center justify-end gap-4">
-              <button
-                onClick={() => setOpenModal(false)}
-                type="submit"
-                className="px-6 py-[14px] text-white bg-[#8D9095] rounded-xl text-lg leading-6 font-semibold"
-              >
-                No, Cancel
-              </button>
-              <button
-                onClick={() => {
-                  handleDeleteProduct();
-                }}
-                type="submit"
-                className="px-6 py-[14px] text-white bg-primary-10 rounded-xl text-lg leading-6 font-semibold"
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-1">
-                    <p>Loading</p>
-                    <div className="size-6 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-yellow-900 border-white"></div>
-                  </div>
-                ) : (
-                  "Submit"
-                )}
-              </button>
-            </div>
+            
           </div>
         </div>
       </div>

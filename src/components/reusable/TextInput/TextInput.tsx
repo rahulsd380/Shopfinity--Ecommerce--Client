@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge, RegisterOptions, UseFormRegister } from "react-hook-form";
 
 interface TextInputProps {
   label: string;
@@ -8,7 +8,7 @@ interface TextInputProps {
   validation?: RegisterOptions;
   type?: string;
   register: UseFormRegister<any>;
-  error?: FieldError;
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   defaultValue?:any
 }
 

@@ -1,10 +1,17 @@
 "use client";
 import EditShopModal from "@/components/Dashboard/SellerDashboard/ManageShop/EditShopModal/EditShopModal";
 import SellerProfile from "@/components/Seller/SellerProfile/SellerProfile";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useGetMyShopQuery } from "@/redux/features/Seller/sellerApi";
+import { useAppSelector } from "@/redux/hooks";
 import React, { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 
 const ManageShop = () => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const {data} = useGetMyShopQuery(user._id)
+  console.log(data)
   const [openEditShopModal, setOpenEditShopModal] = useState(false);
   return (
     <div>
@@ -20,9 +27,10 @@ const ManageShop = () => {
           Edit Info
         </button>
       </div>
-      <SellerProfile isFollowVisible={false} />
+      <SellerProfile isFollowVisible={false} data={data?.data} />
 
       <EditShopModal
+      data={data?.data}
         setOpenModal={setOpenEditShopModal}
         openModal={openEditShopModal}
       />

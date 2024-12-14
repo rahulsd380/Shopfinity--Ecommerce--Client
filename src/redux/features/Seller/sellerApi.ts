@@ -29,14 +29,22 @@ const sellerApi = baseApi.injectEndpoints({
       providesTags: ["sellers"]
     }),
 
-    // updateProduct: builder.mutation({
-    //   query: ({ id, formData }) => ({
-    //     method: "PUT",
-    //     url: `/product/update-product/${id}`,
-    //     body: formData,
-    //   }),
-    //   invalidatesTags: ["products"]
-    // }),
+    getMyShop: builder.query({
+      query: (id) => ({
+        method: "GET",
+        url: `/seller/my-shop/${id}`,
+      }),
+      providesTags: ["sellers"]
+    }),
+
+    updateShop: builder.mutation({
+      query: ({ id, formData }) => ({
+        method: "PUT",
+        url: `/seller/update-seller/${id}`,
+        body: formData,
+      }),
+      invalidatesTags: ["sellers"]
+    }),
 
 
 
@@ -55,4 +63,6 @@ const sellerApi = baseApi.injectEndpoints({
 export const { 
     useBecomeSellerMutation,
     useGetSingleSellerByIdQuery,
+    useUpdateShopMutation,
+    useGetMyShopQuery,
 } = sellerApi;

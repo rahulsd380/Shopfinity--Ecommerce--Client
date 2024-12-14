@@ -13,7 +13,7 @@ type TAdditionalInfo = {
     zipCode: string;
   }
 }
-const AdditionalInfoReact.FC<TAdditionalInfo> = ({shopLogo, supplier, address}) => {
+const AdditionalInfo :React.FC<TAdditionalInfo> = ({shopLogo, supplier, address}) => {
     return (
         <div className="bg-white border border-neutral-45 rounded-xl p-4 font-Inter w-full xl:w-[25%] h-fit">
       <div className="flex items-center gap-3">

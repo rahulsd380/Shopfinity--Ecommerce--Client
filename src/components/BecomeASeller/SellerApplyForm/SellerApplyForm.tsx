@@ -3,15 +3,19 @@
 import FileInput from "@/components/reusable/FileInput/FileInput";
 import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitButton";
 import TextInput from "@/components/reusable/TextInput/TextInput";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useBecomeSellerMutation } from "@/redux/features/Seller/sellerApi";
+import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 type TFormValues = {
+  userId: string;
   shopLogo: any;
-  bannerImg: any;
+  // bannerImg: any;
   sellerName: string;
   phoneNumber: string;
   shopName: string;
@@ -25,6 +29,8 @@ type TFormValues = {
   shopDescription: string;
 };
 const SellerApplyForm = () => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  
   const [becomeSeller, { isLoading }] = useBecomeSellerMutation();
   const {
     register,
@@ -45,7 +51,8 @@ const SellerApplyForm = () => {
     try {
       const formData = new FormData();
       const sellerData = {
-        bannerImg: data.bannerImg,
+        userId: user?._id,
+        // bannerImg: data.bannerImg,
         sellerName: data.sellerName,
         phoneNumber: data.phoneNumber,
         shopName: data.shopName,
