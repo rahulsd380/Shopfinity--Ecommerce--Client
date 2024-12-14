@@ -39,10 +39,10 @@ const Login = () => {
       };
       const response = await login(loginData);
       // const user = verifyToken(response.data?.accessToken);
-      // const user = response.data?.data?.user;
+      const user = response.data?.data?.user;
 
-      const user = verifyToken(response.data?.data?.accessToken);
-      console.log(user)
+      // const user = verifyToken(response.data?.data?.accessToken);
+      // console.log(user)
 
       dispatch(setUser({ user, token: response?.data?.data?.accessToken }));
       toast.success("Logged in successfully.");

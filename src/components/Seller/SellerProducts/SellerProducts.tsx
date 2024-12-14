@@ -2,7 +2,7 @@
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
 import { useState } from "react";
 
-const SellerProducts = () => {
+const SellerProducts = ({products}) => {
   const [sellerTab, setSellerTab] = useState("Seller Products");
   const tabButtons = [
     "Seller Products",
@@ -63,9 +63,16 @@ const SellerProducts = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5 mt-7">
-        <ProductCardGridView />
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
+          {
+            products?.length > 0 ?
+          products?.map((product) => (
+            <ProductCardGridView key={product._id} product={product} />
+          ))
+          :
+          <p>No products available!</p>
+          }
+        </div>
     </div>
   );
 };

@@ -3,9 +3,9 @@ import Image from "next/image";
 import AdditionalInfo from "./AdditionalInfo";
 
 type TSellerProfileProps = {
-  isFollowVisible:boolean
+  isFollowVisible?:boolean
 }
-const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true}) => {
+const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true, data}) => {
   return (
         <div className="flex flex-col xl:flex-row gap-5">
     <div className="rounded-xl w-full xl:w-[80%]">
@@ -27,10 +27,10 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true}) =
 
         <div className="w-full">
           <h1 className="text-neutral-15 font-Inter text-2xl font-semibold">
-            The Grocery Harvor
+            {data?.shopName}
           </h1>
           <p className="text-neutral-25 font-Inter">
-            The home of fresh & pure grocery items.
+          {data?.tagline}
           </p>
 
             {/* Address and info */}
@@ -46,7 +46,7 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true}) =
                   className="size-5"
                 />
                 <p className="text-neutral-25 font-Inter">
-                  Cumilla, Bangladesh
+                {data?.address?.city}, {data?.address?.country}
                 </p>
               </div>
             </div>
@@ -60,7 +60,7 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true}) =
                   alt="location-icon"
                   className="size-5"
                 />
-                <p className="text-neutral-25 font-Inter">25th January, 2023</p>
+                <p className="text-neutral-25 font-Inter">{data?.createdAt}</p>
               </div>
             </div>
             <div>
@@ -73,7 +73,7 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true}) =
                   alt="location-icon"
                   className="size-5"
                 />
-                <p className="text-neutral-25 font-Inter">225 products</p>
+                <p className="text-neutral-25 font-Inter">{data?.products?.length} products</p>
               </div>
             </div>
 
@@ -87,7 +87,7 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true}) =
         </div>
       </div>
     </div>
-    <AdditionalInfo/>
+    <AdditionalInfo shopLogo={data?.shopLogo} supplier={data?.supplierName} address={data?.address}/>
     </div>
   );
 };

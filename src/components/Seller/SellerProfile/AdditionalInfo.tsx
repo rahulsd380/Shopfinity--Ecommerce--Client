@@ -1,15 +1,26 @@
-import { ICONS, IMAGES } from '@/assets';
+import { ICONS } from '@/assets';
 import Image from 'next/image';
 import React from 'react';
 
-const AdditionalInfo = () => {
+type TAdditionalInfo = {
+  shopLogo:string;
+  supplier:string;
+  address : {
+    city: string;
+    country: string;
+    street: string;
+    state: string;
+    zipCode: string;
+  }
+}
+const AdditionalInfoReact.FC<TAdditionalInfo> = ({shopLogo, supplier, address}) => {
     return (
         <div className="bg-white border border-neutral-45 rounded-xl p-4 font-Inter w-full xl:w-[25%] h-fit">
       <div className="flex items-center gap-3">
-        <Image src={IMAGES.logo} alt="product-img" className="size-10" />
+        <Image src={shopLogo ? shopLogo : ICONS.user} alt="product-img" className="size-10" />
         <div>
           <p className="text-neutral-15 font-Inter">Supplier</p>
-          <p className="text-neutral-15 font-Inter">Guanjoi Trading LLC</p>
+          <p className="text-neutral-15 font-Inter">{supplier}</p>
         </div>
       </div>
 
@@ -22,7 +33,7 @@ const AdditionalInfo = () => {
             alt="product-img"
             className="size-5"
           />
-          <p className="text-neutral-30">Cumilla, Bangladesh</p>
+          <p className="text-neutral-30">{address?.city}, {address?.country}</p>
         </div>
         <div className="flex items-center gap-4">
           <Image

@@ -15,6 +15,7 @@ const FileInput: React.FC<FileInputProps> = ({
   validation,
   register,
   error,
+  onChange
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -25,6 +26,7 @@ const FileInput: React.FC<FileInputProps> = ({
       <input
         type="file"
         id={name}
+        onChange={onChange}
         className={`bg-[#6e788305] px-[18px] py-[14px] rounded-lg border ${
           error ? "border-[#DE3C4B]" : "border-[#6e78831f]"
         } focus:outline-none`}
