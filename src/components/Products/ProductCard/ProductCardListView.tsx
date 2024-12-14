@@ -37,7 +37,7 @@ const ProductCardListView = ({ isMenuActive, product }) => {
         </button>
       )}
 
-      {activeDropdown === product?._id && (
+      {activeDropdown === product?._id && isMenuActive && (
         <div className="absolute right-2 top-11 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
           <Link
             href={`/dashboard/seller/edit-product/${product?._id}`}
@@ -66,7 +66,7 @@ const ProductCardListView = ({ isMenuActive, product }) => {
         />
       </div>
 
-      <div className="relative">
+      <div className="relative w-full">
         <h1 className="text-neutral-25 font-Inter text-lg font-semibold">
         {product?.name}
         </h1>
@@ -117,13 +117,16 @@ const ProductCardListView = ({ isMenuActive, product }) => {
           </button>
         )}
       </div>
+     {
+      isMenuActive &&
       <ConfirmDelete
-        setOpenModal={setOpenModal}
-        openModal={openModal}
-        id={productId}
-        handleDeleteProduct={handleDeleteProduct}
-        isLoading={isLoading}
-      />
+      setOpenModal={setOpenModal}
+      openModal={openModal}
+      id={productId}
+      handleDeleteProduct={handleDeleteProduct}
+      isLoading={isLoading}
+    />
+     }
     </div>
   );
 };

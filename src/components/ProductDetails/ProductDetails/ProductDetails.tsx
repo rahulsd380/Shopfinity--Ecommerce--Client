@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 import { IoBagHandleOutline } from "react-icons/io5";
 
-const ProductDetails = () => {
+const ProductDetails = ({product}) => {
   const socialMediaIcons = [
     {
       icon: <FaFacebook className="text-xl" />,
@@ -49,7 +49,7 @@ const ProductDetails = () => {
       {/* Name and availablity */}
       <div className="flex items-center gap-2">
         <h1 className="text-2xl md:text-[36px] text-neutral-10 font-bold font-Poppins">
-          Fast Runner Cycle
+          {product?.name}
         </h1>
         <div className="bg-primary-20 p-2 rounded text-primary-30 font-Poppins text-sm w-fit">
           In Stock
@@ -64,11 +64,11 @@ const ProductDetails = () => {
           <Image src={ICONS.star} alt="star-icon" className="size-5" />
           <Image src={ICONS.star} alt="star-icon" className="size-5" />
           <Image src={ICONS.star} alt="star-icon" className="size-5" />
-          <p className="text-neutral-30 font-Poppins text-sm">4 Review</p>
+          <p className="text-neutral-30 font-Poppins text-sm">{product?.rating ? product?.rating : 0} Review</p>
         </div>
         <h1 className="text-black font-Poppins text-sm font-semibold">
           Product ID:{" "}
-          <span className="text-neutral-30 font-normal">#28734g82374gasdf</span>
+          <span className="text-neutral-30 font-normal">{product?._id}</span>
         </h1>
       </div>
 
@@ -76,10 +76,10 @@ const ProductDetails = () => {
       <div className="flex items-center gap-3 mt-5">
         <div className="flex items-center gap-1">
           <h1 className="text-neutral-40 font-Poppins text-xl line-through">
-            $48.00
+            ${product?.price + 10}
           </h1>
           <h1 className="text-primary-30 font-Poppins text-2xl font-semibold">
-            $48.00
+            ${product?.price}
           </h1>
         </div>
         <div className="bg-warning-20 px-[10px] py-2 rounded-3xl text-warning-10 font-Poppins text-sm font-medium w-fit">
@@ -93,8 +93,8 @@ const ProductDetails = () => {
       <div className="flex items-center justify-between mt-6">
         {/* Brand */}
         <div className="flex items-center gap-2">
-          <p className="text-neutral-10 text-sm font-medium">Brand:</p>
-          <Image src={ICONS.star} alt="star-icon" className="size-5" />
+          <p className="text-neutral-10 text-sm font-medium">Brand: <span className="font-bold">{product?.brand}</span></p>
+          
         </div>
 
         {/* Social media icons */}
@@ -112,12 +112,7 @@ const ProductDetails = () => {
       </div>
 
       <p className="text-neutral-20 font-Poppins text-sm mt-4">
-        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-        inceptos himenaeos. Nulla nibh diam, blandit vel consequat nec, ultrices
-        et ipsum. Nulla varius magna a consequat pulvinar. Class aptent taciti
-        sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-        Nulla nibh diam, blandit vel consequat nec, ultrices et ipsum. Nulla
-        varius magna a consequat pulvinar.
+        {product?.description}
       </p>
       <hr className="border border-neutral-40/40 mt-5" />
 
@@ -152,7 +147,7 @@ const ProductDetails = () => {
       </div>
 
       <h1 className="text-black font-Poppins text-sm font-semibold mt-6">
-        Category: <span className="text-neutral-30 font-normal">Riding</span>
+        Category: <span className="text-neutral-30 font-normal">{product?.category}</span>
       </h1>
       <h1 className="text-black font-Poppins text-sm font-semibold mt-3">
         Tag:{" "}

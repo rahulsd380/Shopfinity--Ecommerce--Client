@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const ProductCardGridView = ({ product }) => {
+const ProductCardGridView = ({ product, isMenuActive }) => {
   const [deleteProduct, {isLoading}] = useDeleteProductMutation()
   const [productId, setProductId] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -27,13 +27,16 @@ const ProductCardGridView = ({ product }) => {
   };
 
   return (
-    <div className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
-      <button
+    <Link href={`/products/${product?._id}`} className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
+      {
+        isMenuActive &&
+        <button
         onClick={() => handleDropdownToggle(product?._id)}
         className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2"
       >
         <Image src={ICONS.threeDots} alt="three-dots" className="size-6" />
       </button>
+      }
 
       {activeDropdown === product?._id && (
         <div className="absolute right-0 mt-12 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
@@ -114,7 +117,7 @@ const ProductCardGridView = ({ product }) => {
         handleDeleteProduct={handleDeleteProduct}
         isLoading={isLoading}
       />
-    </div>
+    </Link>
   );
 };
 

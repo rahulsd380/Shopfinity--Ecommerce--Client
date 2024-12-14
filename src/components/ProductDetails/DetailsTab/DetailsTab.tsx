@@ -4,7 +4,7 @@ import Description from "./Description";
 import Specification from "./Specification";
 import Reviews from "./Reviews";
 
-const DetailsTab = () => {
+const DetailsTab = ({product}) => {
   const [detailsTab, setDetailsTab] = useState<"Description" | "Specification" | "Reviews">("Description");
 
   // Tab buttons
@@ -35,7 +35,7 @@ const DetailsTab = () => {
 
       <div className="mt-6">
         {detailsTab === "Description" ? (
-          <Description />
+          <Description description={product?.description}/>
         ) : detailsTab === "Specification" ? (
           <Specification />
         ) : (

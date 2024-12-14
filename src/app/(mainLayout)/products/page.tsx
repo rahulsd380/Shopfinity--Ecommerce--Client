@@ -4,11 +4,13 @@ import Filters from "@/components/Products/Filter/Filter";
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
 import ProductCardListView from "@/components/Products/ProductCard/ProductCardListView";
 import Container from "@/components/shared/Container/Container";
+import { useGetAllProductsQuery } from "@/redux/features/Product/productApi";
 import Image from "next/image";
 import { useState } from "react";
 // import Link from "next/link";
 
 const Products = () => {
+  const { data } = useGetAllProductsQuery({});
   const [viewType, setViewType] = useState("grid");
   const viewButtons = [
     {
@@ -81,14 +83,22 @@ const Products = () => {
           </div>
 
           {viewType === "grid" ? (
-            <div className="grid grid-cols-3 gap-5 mt-5">
-              <ProductCardGridView />
-            </div>
-          ) : (
-            <div className="flex flex-col gap-5 mt-5">
-              <ProductCardListView />
-            </div>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
+          {data?.data?.products?.map((product) => (
+            <ProductCardGridView key={product._id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-5 mt-7">
+          {data?.data?.products?.map((product) => (
+            <ProductCardListView
+              key={product._id}
+              isMenuActive={false}
+              product={product}
+            />
+          ))}
+        </div>
+      )}
         </div>
       </div>
     </Container>

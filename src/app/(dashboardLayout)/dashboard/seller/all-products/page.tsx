@@ -8,8 +8,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 const AllProductsBySeller = () => {
-  const { data } = useGetAllProductsQuery();
-  console.log(data?.data?.products);
+  const { data } = useGetAllProductsQuery({});
   const [viewType, setViewType] = useState("grid");
   const viewButtons = [
     {
@@ -86,7 +85,7 @@ const AllProductsBySeller = () => {
       {viewType === "grid" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
           {data?.data?.products?.map((product) => (
-            <ProductCardGridView key={product._id} product={product} />
+            <ProductCardGridView key={product._id} product={product} isMenuActive={true} />
           ))}
         </div>
       ) : (
