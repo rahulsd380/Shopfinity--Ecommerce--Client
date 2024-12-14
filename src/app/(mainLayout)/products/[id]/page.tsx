@@ -5,7 +5,7 @@ import Images from "@/components/ProductDetails/Images/Images";
 import ProductDetails from "@/components/ProductDetails/ProductDetails/ProductDetails";
 import SellerCard from "@/components/ProductDetails/SellerCard/SellerCard";
 import Container from "@/components/shared/Container/Container";
-import { useGetSingleProductByIdQuery } from "@/redux/features/Product/productApi";
+import { useGetAllProductsQuery, useGetSingleProductByIdQuery } from "@/redux/features/Product/productApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -13,8 +13,8 @@ import { useParams } from "next/navigation";
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleProductByIdQuery(id);
-
-  console.log(id);
+  const { data:categorizedProducts } = useGetAllProductsQuery(data?.data?.category);
+  console.log(categorizedProducts)
   return (
     <Container>
       <div className="mt-10">
@@ -34,24 +34,29 @@ const ProductDetailsPage = () => {
               You may like
             </h1>
             <div className="flex flex-col gap-5 mt-5">
-              <Link
-                href={`/products/${1}`}
+              {
+                categorizedProducts?.data?.products?.map((product) => 
+                  <Link
+                  key={product?._id}
+                href={`/products/${product?._id}`}
                 className="flex items-center gap-5 border-b border-neutral-40/60 pb-2"
               >
                 <div className="size-16 rounded-md border border-neutral-40/60 flex items-center justify-center">
-                  <Image src={IMAGES.product} alt="" className="size-14" />
+                  <Image src={product?.images && product?.images[0]} alt="" className="size-14" width={56} height={56} />
                 </div>
 
                 <div className="flex flex-col">
                   <h1 className="font-Inter text-lg font-semibold leading-5 text-neutral-15">
-                    Iphone 13 Pro max
+                    {product?.name}
                   </h1>
 
                   <p className="text-neutral-20 font-semibold mt-2">
-                    Price : <span className="font-normal">$10</span>
+                    Price : <span className="font-normal">${product?.price}</span>
                   </p>
                 </div>
               </Link>
+                )
+              }
             </div>
           </div>
         </div>

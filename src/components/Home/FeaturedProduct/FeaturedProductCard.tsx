@@ -1,9 +1,15 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ICONS } from "@/assets";
+import { ICONS, IMAGES } from "@/assets";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useAddToCartMutation } from "@/redux/features/cart/cartApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
+
 interface ProductCardProps {
   _id: string;
   images: string[];
@@ -26,9 +32,10 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   brand,
   price,
 }) => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const [addToCart, {isLoading}] = useAddToCartMutation();
   const [wishlist, setWishlist] = useState<any[]>([]);
 
-  // Load the wishlist from localStorage when the component mounts
   useEffect(() => {
     const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
     setWishlist(storedWishlist);
@@ -63,6 +70,31 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  const id = user?._id
+  const productId = _id
+
+  const handleAddToCart = async () => {
+    try {
+      const cartData = {
+        userId: id,
+        quantity : 1
+      };
+  
+      // Make API request to add to cart
+      const response = await addToCart({ cartData, productId }).unwrap();
+      console.log(response)
+  
+      if (response?.message) {
+        toast.success("Product added to cart successfully.");
+      }
+    } catch (error) {
+      // Handle error and display a toast message if necessary
+      toast.error("Failed to add product to cart. Please try again.");
+      console.error("Error adding to cart:", error);
+    }
+  };
+  
+
   return (
     <div className="relative flex flex-col justify-center px-3 py-4 border-r border-[rgba(173,173,173,0.25)] bg-white group">
       <div className="px-2 py-1 bg-warning-10 text-white font-semibold font-Sora absolute top-3 left-0 rounded-r-2xl rounded-l-md text-xs">
@@ -94,7 +126,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
         </button>
       </div>
       <Image
-        src={images && images[0]}
+        src={images ? images[0] : IMAGES.product}
         width={100}
         height={100}
         alt={name}
@@ -144,7 +176,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
               ${price + 10}
             </p>
           </div>
-          <button className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
+          <button onClick={handleAddToCart} className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
             <Image src={ICONS.cart} alt="" className="size-4" />
             Add
           </button>
