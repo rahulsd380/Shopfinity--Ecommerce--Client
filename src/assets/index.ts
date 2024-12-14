@@ -73,6 +73,7 @@ import eye from "@/assets/icons/eye.svg";
 import leftArrowWhite from "@/assets/icons/left-arrow-white.svg";
 import remove from "@/assets/icons/remove.svg";
 import logout from "@/assets/icons/logout.svg";
+import image from "@/assets/icons/image.svg";
 
 
 
@@ -122,6 +123,7 @@ export const ICONS = {
     leftArrowWhite,
     remove,
     logout,
+    image,
 
 };
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 const DashboardHeader = () => {
     return (
-        <div className="bg-white border-b border-neutral-45 px-4 py-3 flex items-center justify-between sticky top-0">
+        <div className="bg-white z-10 border-b border-neutral-45 px-4 py-3 flex items-center justify-between sticky top-0">
             <div>
             <h1 className="text-2xl text-neutral-15 font-bold font-Inter">
          Welcome Back, <span className="font-semibold text-primary-10">Rahul</span>

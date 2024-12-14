@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export type TUser = {
-  _id: string;
+  userId: string;
   name: string;
   email: string;
   role: string;
