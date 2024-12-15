@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Images = ({ images }:{images:string[]}) => {
-  // Ensure images is an array before proceeding
   const [currentSlider, setCurrentSlider] = useState(0);
 
   useEffect(() => {
@@ -14,7 +13,6 @@ const Images = ({ images }:{images:string[]}) => {
     }
   }, [currentSlider, images]);
 
-  // Return loading or error message if images is not available
   if (!images || images.length === 0) {
     return <div>Loading images...</div>;
   }
@@ -27,7 +25,7 @@ const Images = ({ images }:{images:string[]}) => {
           src={images[currentSlider]}
           alt={`Product Image ${currentSlider}`}
           className="object-cover w-[400px] h-[400px]"
-          width={500} // Define the size of the image
+          width={500}
           height={500}
           
         />

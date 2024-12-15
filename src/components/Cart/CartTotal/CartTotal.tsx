@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-const CartTotal = ({ data }) => {
+const CartTotal = ({ data }:{data:any}) => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     if (data?.data?.items) {
-      const totalPrice = data.data.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      const totalPrice = data.data.items.reduce((acc:any, item:any) => acc + (item.price * item.quantity), 0);
       setTotal(totalPrice);
     }
   }, [data]);

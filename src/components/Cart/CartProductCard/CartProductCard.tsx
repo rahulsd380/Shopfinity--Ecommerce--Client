@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { TUser } from "@/components/shared/Navbar/Navbar";
 import { useCurrentUser } from "@/redux/features/Auth/authSlice";
@@ -6,7 +7,11 @@ import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import { toast } from "sonner";
 
-const CartProductCard = ({
+type TCartProductCard = {
+  data : any;
+  onUpdateQuantity : any;
+}
+const CartProductCard : React.FC<TCartProductCard> = ({
   data,
   onUpdateQuantity
 }) => {

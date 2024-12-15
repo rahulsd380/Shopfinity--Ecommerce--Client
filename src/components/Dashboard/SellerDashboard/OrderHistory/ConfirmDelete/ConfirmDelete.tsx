@@ -1,9 +1,10 @@
-import { toast } from "sonner";
+
 
 type ConfirmationModalProps = {
   id: string;
   openModal: boolean;
   setOpenModal: (value: boolean) => void;
+  handleDeleteProduct: (id: string) => void;
   isLoading:boolean;
 };
 

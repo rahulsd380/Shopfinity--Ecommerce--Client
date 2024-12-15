@@ -2,7 +2,12 @@ import { ICONS } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
 
-const PaymentSuccess = ({
+type TPaymentSuccessProps ={
+  openPaymentSuccessModal: boolean;
+  setOpenPaymentSuccessModal: (open: boolean) => void;
+}
+
+const PaymentSuccess:React.FC<TPaymentSuccessProps> = ({
   openPaymentSuccessModal,
   setOpenPaymentSuccessModal,
 }) => {

@@ -3,14 +3,17 @@
 import { ICONS } from "@/assets";
 import ConfirmDelete from "@/components/Dashboard/SellerDashboard/OrderHistory/ConfirmDelete/ConfirmDelete";
 import { useDeleteProductMutation } from "@/redux/features/Product/productApi";
+import { TProduct } from "@/types/product.types";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
 type TProductCardGridViewProps = {
-  isMenuActive? : boolean
+  isMenuActive? : boolean;
+  product : TProduct;
 }
+
 const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMenuActive=false }) => {
   const [deleteProduct, {isLoading}] = useDeleteProductMutation()
   const [productId, setProductId] = useState("");
@@ -100,7 +103,7 @@ const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMe
               <Image src={ICONS.star} alt="star-icon" className="size-4" />
               <Image src={ICONS.star} alt="star-icon" className="size-4" />
               <p className="text-secondary-10">
-                {product?.rating ? product?.rating : 0}
+                {product?.ratings ? product?.ratings : 0}
               </p>
             </div>
           </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ICONS, IMAGES } from "@/assets";
 import PaymentSuccess from "@/components/Payment/PaymentSuccess/PaymentSuccess";
@@ -51,13 +52,13 @@ const OlaceOrder = () => {
     if (data?.data?.items) {
       // Calculating total price
       const totalPrice = data.data.items.reduce(
-        (acc, item) => acc + item.price * item.quantity,
+        (acc:any, item:any) => acc + item.price * item.quantity,
         0
       );
       setTotal(totalPrice);
   
       // Extract and store product IDs
-      const ids = data.data.items.map((item) => item.productId);
+      const ids = data.data.items.map((item:any) => item.productId);
       setProductIds(ids);
     }
   }, [data]);
@@ -88,6 +89,7 @@ const OlaceOrder = () => {
       // toast.success("Order placed successfully.");
       // setOpenPaymentSuccessModal(true);
     } catch (error) {
+      console.log(error)
       toast.error("Something went wrong! Please try again.");
     }
   };
@@ -228,7 +230,7 @@ const OlaceOrder = () => {
 
             {/* Product Card */}
             <div className="flex flex-col gap-3 my-2">
-              {data?.data?.items?.map((item) => (
+              {data?.data?.items?.map((item:any) => (
                 <div
                   key={item?.productId}
                   className="flex items-center justify-between border-b border-neutral-40 pb-1"

@@ -1,8 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Dropdown from "@/components/reusable/Dropdown/Dropdown";
 import React, { useState } from "react";
 
-const Filters = () => {
+type TFiltersProps = {
+  setCategory: (category: string | undefined) => void;
+  setSearch: (search: string | undefined) => void;
+  setBrand: (brand: string | undefined) => void;
+  setRating: (rating: number | undefined) => void;
+  setPriceRange: (priceRange: string | undefined) => void;
+};  
+const Filters:React.FC<TFiltersProps> = ({
+  setCategory,
+  setSearch,
+  setBrand,
+  setRating,
+  setPriceRange,
+}) => {
   const categories = ["Electronics", "Clothing", "Books", "Furniture"];
   const brands = ["Apple", "Samsung", "Nike", "Sony"];
   const prices = ["$0 - $50", "$50 - $100", "$100 - $200", "$200+"];

@@ -10,7 +10,7 @@ import { AiFillEdit } from "react-icons/ai";
 
 const ManageShop = () => {
   const user = useAppSelector(useCurrentUser) as TUser | null;
-  const {data} = useGetMyShopQuery(user._id)
+  const {data} = useGetMyShopQuery(user?._id)
   console.log(data)
   const [openEditShopModal, setOpenEditShopModal] = useState(false);
   return (

@@ -23,7 +23,7 @@ const ManageCategories = () => {
   const { data } = useGetAllCategoriesQuery({});
   const [deleteCategory] = useDeleteCategoryMutation();
 
-  const [categoryData, setCategoryData] = useState({});
+  const [categoryData, setCategoryData] = useState<TCategory | null>(null);
   const [openCreateCategoryModal, setOpenCreateCategoryModal] = useState(false);
   const [openUpdateCategoryModal, setOpenUpdateCategoryModal] = useState(false);
 

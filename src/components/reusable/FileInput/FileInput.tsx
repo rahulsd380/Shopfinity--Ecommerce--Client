@@ -7,6 +7,7 @@ interface FileInputProps {
   validation?: RegisterOptions;
   register: UseFormRegister<any>;
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+  onChange?: any;
 }
 
 const FileInput: React.FC<FileInputProps> = ({

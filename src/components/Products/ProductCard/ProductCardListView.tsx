@@ -7,9 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
+import { TProduct } from '@/types/product.types';
 
-
-const ProductCardListView = ({ isMenuActive, product }) => {
+type TProductCardListView = {
+  isMenuActive?:boolean;
+  product : TProduct
+}
+const ProductCardListView:React.FC<TProductCardListView> = ({ isMenuActive, product }) => {
   const [deleteProduct, {isLoading}] = useDeleteProductMutation()
   const [productId, setProductId] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -87,7 +91,7 @@ const ProductCardListView = ({ isMenuActive, product }) => {
             <Image src={ICONS.star} alt="star-icon" className="size-4" />
             <Image src={ICONS.star} alt="star-icon" className="size-4" />
             <Image src={ICONS.star} alt="star-icon" className="size-4" />
-            <p className="text-secondary-10">{product?.rating ? product?.rating : 0}</p>
+            <p className="text-secondary-10">{product?.ratings ? product?.ratings : 0}</p>
           </div>
 
           <div className="flex items-center gap-2">

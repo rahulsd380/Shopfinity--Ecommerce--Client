@@ -3,7 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const DropdownMenu = ({
+type TDropdownMenuProps= {
+  label: string;
+  categoryList: string[];
+  closeMenu: () => void;
+}
+
+const DropdownMenu:React.FC<TDropdownMenuProps> = ({
   label,
   categoryList,
   closeMenu,

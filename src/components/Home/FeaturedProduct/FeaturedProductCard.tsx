@@ -33,7 +33,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   price,
 }) => {
   const user = useAppSelector(useCurrentUser) as TUser | null;
-  const [addToCart, {isLoading}] = useAddToCartMutation();
+  const [addToCart] = useAddToCartMutation();
   const [compareProducts, setCompareProducts] = useState<any[]>([]);
   const [wishlist, setWishlist] = useState<any[]>([]);
 

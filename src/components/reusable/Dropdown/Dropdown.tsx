@@ -4,13 +4,13 @@ import { ICONS } from "@/assets";
 import Image from "next/image";
 
 interface DropdownProps {
-  title: string; // Title of the dropdown
-  children: ReactNode; // Dropdown content (e.g., filter options)
-  defaultOpen?: boolean; // Determines if the dropdown is open by default
+  title: string;
+  children: ReactNode;
+  defaultOpen?: boolean;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ title, children, defaultOpen = false }) => {
-  const [isOpen, setIsOpen] = useState(defaultOpen); // Initialize based on `defaultOpen`
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);

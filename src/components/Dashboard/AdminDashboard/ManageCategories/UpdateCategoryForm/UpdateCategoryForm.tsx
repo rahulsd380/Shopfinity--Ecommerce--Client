@@ -18,7 +18,7 @@ type ConfirmationModalProps = {
   openModal: boolean;
   setOpenModal: (value: boolean) => void;
   setActiveDropdown: (value: null | string) => void;
-  categoryData: TCategory;
+  categoryData: TCategory | null;
 };
 
 const UpdateCategoryForm: React.FC<ConfirmationModalProps> = ({

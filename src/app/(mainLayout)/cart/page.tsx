@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ICONS } from "@/assets";
 import CartProductCard from "@/components/Cart/CartProductCard/CartProductCard";
@@ -75,7 +76,7 @@ const CartPage = () => {
 
       <div className="flex flex-col lg:flex-row gap-7 mt-5">
         <div className="w-full lg:w-[70%] bg-neutral-55/20 p-4 rounded-xl border border-neutral-45 flex flex-col gap-5">
-          {data?.data?.items?.map((item) => {
+          {data?.data?.items?.map((item:any) => {
             return (
               <CartProductCard
                 key={item.productId}

@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoLogOutOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
 // import { useAppDispatch } from "@/redux/hooks";
 // import { toast } from "sonner";
 // import { logout } from "@/redux/features/Auth/authSlice";
@@ -15,6 +14,9 @@ import { MdOutlineForwardToInbox } from "react-icons/md";
 import { RiContactsBook2Line } from "react-icons/ri";
 import { FaChalkboardUser, FaChevronDown } from "react-icons/fa6";
 import { ICONS } from "@/assets";
+import { useAppSelector } from "@/redux/hooks";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { TUser } from "../Navbar/Navbar";
 
 
 
@@ -59,7 +61,7 @@ const UserDropdown = () => {
 //     toast.success("Logged out successfully.");
 //   };
 
-const data = {}
+const user = useAppSelector(useCurrentUser) as TUser | null;
 
   return (
     <div ref={dropDownRef} className="relative w-fit">
@@ -68,24 +70,14 @@ const data = {}
         className="bg-primary-70 px-2 py-[6px] rounded-3xl border border-primary-10 focus:outline-none transition duration-300 focus:shadow flex items-center gap-3 w-[220px]"
       >
         <div className="size-8 rounded-full bg-primary-10 border border-primary-10/50 flex items-center justify-center">
-        {
-          data?.data?.profilePicture ?
-          <Image
-          width={40}
-          height={40}
-        className="size-8 rounded-full object-cover"
-          src={data?.data?.profilePicture}
-          alt=""
-        />
-        :
+       
         <Image
           className="size-6"
           src={ICONS.user}
           alt=""
         />
-        }
         </div>
-          <h1 className="font-medium text-neutral-10">{data?.data?.name ? data?.data?.name : "Rahul Sutrdahar"}</h1>
+          <h1 className="font-medium text-neutral-10">{user?.name ? user?.name : "N/A"}</h1>
           <p><FaChevronDown className="text-neutral-45" /></p>
       </button>
 

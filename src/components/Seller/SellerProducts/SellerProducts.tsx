@@ -1,8 +1,9 @@
 "use client";
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
+import { TProduct } from "@/types/product.types";
 import { useState } from "react";
 
-const SellerProducts = ({products}) => {
+const SellerProducts = ({products}:{products : TProduct[]}) => {
   const [sellerTab, setSellerTab] = useState("Seller Products");
   const tabButtons = [
     "Seller Products",
@@ -66,7 +67,7 @@ const SellerProducts = ({products}) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
           {
             products?.length > 0 ?
-          products?.map((product) => (
+          products?.map((product:TProduct) => (
             <ProductCardGridView key={product._id} product={product} />
           ))
           :

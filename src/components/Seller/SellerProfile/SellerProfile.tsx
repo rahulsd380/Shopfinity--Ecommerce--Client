@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
 import AdditionalInfo from "./AdditionalInfo";
 
 type TSellerProfileProps = {
-  isFollowVisible?:boolean
+  isFollowVisible?:boolean;
+  data:any;
 }
 const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true, data}) => {
   return (

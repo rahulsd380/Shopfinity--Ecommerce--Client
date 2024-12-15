@@ -23,7 +23,10 @@ type TCompareProduct = {
     sellerName: string;
     createdAt: Date;
   };
+  handleRemoveFromCompareList:(_id:string) => void;
 };
+
+
 const CompareProductCard: React.FC<TCompareProduct> = ({ product, handleRemoveFromCompareList }) => {
   return (
     <div className="shadow-md rounded-md">

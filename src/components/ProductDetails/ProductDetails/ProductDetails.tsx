@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ICONS } from "@/assets";
 import { TUser } from "@/components/shared/Navbar/Navbar";
@@ -18,7 +19,7 @@ import {
 import { IoBagHandleOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
-const ProductDetails = ({product}) => {
+const ProductDetails = ({product}:{product:any}) => {
   const socialMediaIcons = [
     {
       icon: <FaFacebook className="text-xl" />,
@@ -39,7 +40,7 @@ const ProductDetails = ({product}) => {
   ];
 
   const user = useAppSelector(useCurrentUser) as TUser | null;
-    const [addToCart, {isLoading}] = useAddToCartMutation();
+    const [addToCart] = useAddToCartMutation();
   const [quantity, setQuantity] = useState(1);
   const [wishlist, setWishlist] = useState<any[]>([]);
   

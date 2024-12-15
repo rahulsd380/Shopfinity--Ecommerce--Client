@@ -19,6 +19,7 @@ export type TUser = {
   role: string;
   iat: number;
   exp: number;
+  _id? : string;
 };
 
 const Navbar = () => {
@@ -47,7 +48,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (data?.data?.items) {
-      const totalPrice = data.data.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      const totalPrice = data.data.items.reduce((acc:any, item:any) => acc + (item.price * item.quantity), 0);
       setTotal(totalPrice);
     }
   }, [data]);

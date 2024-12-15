@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
 import Description from "./Description";
 import Specification from "./Specification";
 import Reviews from "./Reviews";
 
-const DetailsTab = ({product}) => {
+const DetailsTab = ({product}:{product:any}) => {
   const [detailsTab, setDetailsTab] = useState<"Description" | "Specification" | "Reviews">("Description");
 
   // Tab buttons

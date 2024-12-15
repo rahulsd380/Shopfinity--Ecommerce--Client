@@ -4,9 +4,9 @@ import Image from "next/image";
 import EditShopForm from "./EditShopForm";
 
 type ConfirmationModalProps = {
-  id: string;
   openModal: boolean;
   setOpenModal: (value: boolean) => void;
+  data:any;
 };
 
 const EditShopModal: React.FC<ConfirmationModalProps> = ({

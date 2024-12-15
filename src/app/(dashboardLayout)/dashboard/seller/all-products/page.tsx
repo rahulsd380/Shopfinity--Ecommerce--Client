@@ -4,6 +4,7 @@ import { ICONS } from "@/assets";
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
 import ProductCardListView from "@/components/Products/ProductCard/ProductCardListView";
 import { useGetAllProductsQuery } from "@/redux/features/Product/productApi";
+import { TProduct } from "@/types/product.types";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -84,13 +85,13 @@ const AllProductsBySeller = () => {
       </div>
       {viewType === "grid" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
-          {data?.data?.products?.map((product) => (
+          {data?.data?.products?.map((product:TProduct) => (
             <ProductCardGridView key={product._id} product={product} isMenuActive={true} />
           ))}
         </div>
       ) : (
         <div className="flex flex-col gap-5 mt-7">
-          {data?.data?.products?.map((product) => (
+          {data?.data?.products?.map((product:TProduct) => (
             <ProductCardListView
               key={product._id}
               isMenuActive={true}

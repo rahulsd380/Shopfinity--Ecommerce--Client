@@ -5,6 +5,7 @@ import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGr
 import ProductCardListView from "@/components/Products/ProductCard/ProductCardListView";
 import Container from "@/components/shared/Container/Container";
 import { useGetAllProductsQuery } from "@/redux/features/Product/productApi";
+import { TProduct } from "@/types/product.types";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -18,14 +19,14 @@ const Products = () => {
   const [priceRange, setPriceRange] = useState<string | undefined>(undefined);
 
   // Fetching products with filters
-  const { data, error, isLoading } = useGetAllProductsQuery({
+  const { data } = useGetAllProductsQuery({
     category,
     search,
     brand,
     rating,
     priceRange,
-    page: 1,  // Example pagination, modify as needed
-    limit: 20, // Example limit, modify as needed
+    page: 1,
+    limit: 20,
   });
 
   console.log(data)
@@ -41,9 +42,6 @@ const Products = () => {
       icon: ICONS.listView,
     },
   ];
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Container>
@@ -110,13 +108,13 @@ const Products = () => {
 
           {viewType === "grid" ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
-              {data?.data?.products?.map((product) => (
+              {data?.data?.products?.map((product:TProduct) => (
                 <ProductCardGridView key={product._id} product={product} />
               ))}
             </div>
           ) : (
             <div className="flex flex-col gap-5 mt-7">
-              {data?.data?.products?.map((product) => (
+              {data?.data?.products?.map((product:TProduct) => (
                 <ProductCardListView key={product._id} product={product} />
               ))}
             </div>

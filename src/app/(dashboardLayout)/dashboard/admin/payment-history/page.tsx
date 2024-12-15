@@ -3,6 +3,25 @@
 "use client";
 import { useGetAllPaymentsHistoriesQuery } from "@/redux/features/Payment/paymentApi";
 
+export type TPaymentHistory = {
+  _id: string;
+  address: string;
+  altPhoneNumber: string;
+  amount: string;
+  country: string;
+  createdAt: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  state: string;
+  streetAddress: string;
+  transactionId: string;
+  updatedAt: string;
+  userId: string;
+  zipCode: string;
+  __v: number;
+};
+
 const PaymentHistory = () => {
   const {data} = useGetAllPaymentsHistoriesQuery({});
   console.log(data)
@@ -38,21 +57,21 @@ const PaymentHistory = () => {
         </thead>
 
         <tbody>
-          {data?.data?.map((user: TUser) => (
-            <tr key={user._id} className="border-b relative">
-              <td className="text-[#6E7883] font-Poppins p-4">{user.transactionId}</td>
-              <td className="text-[#6E7883] font-Poppins p-4">${user.amount}</td>
+          {data?.data?.map((history:TPaymentHistory) => (
+            <tr key={history._id} className="border-b relative">
+              <td className="text-[#6E7883] font-Poppins p-4">{history.transactionId}</td>
+              <td className="text-[#6E7883] font-Poppins p-4">${history.amount}</td>
               {/* <td className="text-[#6E7883] font-Poppins p-4">
                 <img
-                  src={user.profilePhoto}
-                  alt={user.name}
+                  src={history.profilePhoto}
+                  alt={history.name}
                   className="w-10 h-10 rounded-full"
                 />
               </td> */}
-              <td className="text-[#6E7883] font-Poppins p-4">{user.name}</td>
-              <td className="text-[#6E7883] font-Poppins p-4">{user.phoneNumber}</td>
+              <td className="text-[#6E7883] font-Poppins p-4">{history.name}</td>
+              <td className="text-[#6E7883] font-Poppins p-4">{history.phoneNumber}</td>
               <td className="text-[#6E7883] font-Poppins p-4">
-                {user?.address}
+                {history?.address}
               </td>
              
             </tr>

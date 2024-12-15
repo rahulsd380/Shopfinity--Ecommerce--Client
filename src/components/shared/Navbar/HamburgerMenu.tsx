@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +19,7 @@ const HamburgerMenu = () => {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
+    const handleOutsideClick = (event:any) => {
       const closestDropdown = event.target.closest(".hamburgerMenu");
       if (isHamburgerOpen && closestDropdown === null) {
         setIsHamburgerOpen(false);
