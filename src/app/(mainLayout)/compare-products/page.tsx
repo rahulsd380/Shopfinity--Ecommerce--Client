@@ -72,7 +72,7 @@ const CompareProducts = () => {
         description="Easily Compare Features, Prices, and Reviews to Make the Best Choice"
       />
 
-      <div className="mt-[100px] grid grid-cols-3 gap-7">
+      <div className="mt-[100px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
         {compareProducts.map((product) => (
           <CompareProductCard key={product?._id} product={product} />
         ))}

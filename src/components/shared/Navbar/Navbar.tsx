@@ -61,7 +61,7 @@ const Navbar = () => {
 
   return (
     <Container>
-      <div className="flex items-center justify-between py-3 border-b border-neutral-50/30">
+      <div className="hidden xl:flex items-center justify-between py-3 border-b border-neutral-50/30">
         <div className="flex items-center gap-3 font-Sora text-neutral-30 text-sm font-medium">
           <Link href={"/"} className="hover:underline">
             About Us
@@ -166,7 +166,7 @@ const Navbar = () => {
           </div>
         </Link>
 
-        <div className="relative flex-grow">
+        <div className="relative flex-grow hidden md:block">
           <Image
             src={ICONS.search}
             alt="send-icon"
@@ -183,20 +183,20 @@ const Navbar = () => {
           {/* Become a seller */}
           <Link
             href={"/become-seller"}
-            className="bg-primary-20/30 px-4 py-3 text-neutral-15 font-medium font-Sora flex items-center gap-3 rounded-md w-fit"
+            className="bg-primary-20/30 px-4 py-3 text-neutral-15 font-medium font-Sora hidden xl:flex items-center gap-3 rounded-md w-fit"
           >
             Become a Seller
             <Image src={ICONS.rightArrow} alt="cart" className="size-4" />
           </Link>
           {/* Wishlist */}
-          <Link href={"/wishlist"} className="relative w-fit">
+          <Link href={"/wishlist"} className="hidden md:block relative w-fit">
             <Image src={ICONS.wishlist2} alt="cart" className="size-10" />
             <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
               10
             </div>
           </Link>
           {/* Cart */}
-          <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             <Link href={"/cart"} className="relative w-fit">
               <Image src={ICONS.cart3} alt="cart" className="size-10" />
               <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
@@ -216,7 +216,7 @@ const Navbar = () => {
             </div>
           </div>
           {clientUser ? (
-            <div className="flex items-center gap-2">
+            <div className="hidden xl:flex items-center gap-2">
               <Image src={ICONS.profileIcon} alt="cart" className="size-9" />
               <div>
                 <h1 className="text-neutral-15 font-Sora font-semibold">
@@ -236,7 +236,7 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-4">
+            <div className="hidden xl:flex items-center gap-4">
               <Link
                 href={"/login"}
                 className="border border-primary-10 hover:bg-primary-10 transition duration-300 hover:text-white px-4 py-3 text-primary-10 font-medium font-Sora flex items-center gap-3 rounded-md w-fit"
@@ -256,7 +256,7 @@ const Navbar = () => {
               </Link>
             </div>
           )}
-          {/* <HamburgerMenu /> */}
+          <HamburgerMenu />
         </div>
       </div>
     </Container>

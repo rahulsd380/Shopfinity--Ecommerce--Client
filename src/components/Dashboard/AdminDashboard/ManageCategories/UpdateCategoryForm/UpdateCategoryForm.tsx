@@ -87,7 +87,7 @@ const UpdateCategoryForm: React.FC<ConfirmationModalProps> = ({
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-[600px] max-h-[550px] overflow-y-auto p-5 rounded-3xl bg-white drop-shadow-2xl ${
+          className={`absolute  w-full max-w-[600px] max-h-[550px] overflow-y-auto p-5 rounded-3xl bg-white drop-shadow-2xl ${
             openModal
               ? "opacity-1 translate-y-0 duration-300"
               : "translate-y-20 opacity-0 duration-150"

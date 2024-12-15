@@ -19,12 +19,12 @@ const FeaturedProduct = () => {
 
   return (
     <div className="mt-[100px]">
-      <div className="flex items-center justify-between">
-        <h1 className="text-neutral-10 text-[32px] font-semibold font-Sora mt-4">
+      <div className="flex flex-col md:flex-row gap-2 md:gap-0 items-start md:items-center justify-between">
+        <h1 className="text-neutral-10 text-2xl md:text-[32px] font-semibold font-Sora">
           Our Featured Products
         </h1>
         <div className="flex items-center gap-8">
-          <div className="hidden lg:flex items-center gap-5">
+          <div className="hidden xl:flex items-center gap-5">
             <button className="font-Inter font-medium">All</button>
             <button className="font-Inter font-medium">Vegetables</button>
             <button className="font-Inter font-medium">Fruits</button>

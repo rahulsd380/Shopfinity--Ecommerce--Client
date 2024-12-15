@@ -30,7 +30,7 @@ const Categories = () => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mt-[100px]">
-        <h1 className="text-neutral-10 text-[32px] font-semibold font-Sora mt-4">Our Top Categories</h1>
+        <h1 className="text-neutral-10 text-2xl md:text-[32px] font-semibold font-Sora mt-4">Our Top Categories</h1>
         <div className="flex items-center gap-5">
           <button
           ref={prevRef}

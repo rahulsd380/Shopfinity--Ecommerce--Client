@@ -95,10 +95,11 @@ const ManageShops = () => {
   };
 
   return (
-    <div className="mt-5 overflow-x-auto min-h-screen">
+    <div className="mt-5 min-h-screen">
       <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
         Manage Shops
       </h1>
+      <div className="overflow-x-auto w-full">
       <table className="bg-white w-full rounded-3xl shadow border-collapse mt-5">
         <thead className="bg-gray-100">
           <tr className="bg-white border-b">
@@ -208,6 +209,7 @@ const ManageShops = () => {
           ))}
         </tbody>
       </table>
+      </div>
 
       {sortedShops?.length === 0 && (
         <p className="text-[#6E7883] font-Poppins text-center w-full mt-4">

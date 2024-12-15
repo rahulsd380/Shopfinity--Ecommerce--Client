@@ -10,9 +10,9 @@ const MainLayout:React.FC<TMainLayoutProps> = ({children}) => {
     return (
         <div>
             <AnimatedHeader/>
-            {/* <Navbar/> */}
+            <Navbar/>
             {children}
-            {/* <Footer/> */}
+            <Footer/>
         </div>
     );
 };
