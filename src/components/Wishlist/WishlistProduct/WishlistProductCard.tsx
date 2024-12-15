@@ -58,7 +58,7 @@ const WishlistProductCard: React.FC<TWishlistProductCard> = ({
     
 
   return (
-    <div className="relative flex flex-col justify-center px-3 py-4 border-r border-[rgba(173,173,173,0.25)] bg-white group">
+    <div className="relative flex flex-col justify-center px-3 py-4 border md:border-r border-[rgba(173,173,173,0.25)] bg-white group">
       <div className="px-2 py-1 bg-warning-10 text-white font-semibold font-Sora absolute top-3 left-0 rounded-r-2xl rounded-l-md text-xs">
         10%
       </div>
