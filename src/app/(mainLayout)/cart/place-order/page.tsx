@@ -13,6 +13,7 @@ import {
 import { useMakePaymentMutation } from "@/redux/features/Payment/paymentApi";
 import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -28,7 +29,8 @@ type TFormValues = {
   altPhoneNumber: string;
 };
 const OlaceOrder = () => {
-  const [openPaymentSuccessModal, setOpenPaymentSuccessModal] = useState(true);
+  const router = useRouter();
+  const [openPaymentSuccessModal, setOpenPaymentSuccessModal] = useState(false);
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const userId = user?._id;
   const [paymentMode, setPaymentMode] = useState<"cod" | "amarPay">("cod");
@@ -80,8 +82,11 @@ const OlaceOrder = () => {
       };
       const response = await makePayment(paymentData).unwrap();
       console.log(response);
-      toast.success("Order placed successfully.");
-      setOpenPaymentSuccessModal(true);
+      if (response?.success) {
+        router.push(response?.data?.payment_url);
+      }
+      // toast.success("Order placed successfully.");
+      // setOpenPaymentSuccessModal(true);
     } catch (error) {
       toast.error("Something went wrong! Please try again.");
     }

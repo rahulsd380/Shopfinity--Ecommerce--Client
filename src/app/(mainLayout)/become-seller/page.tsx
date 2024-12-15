@@ -53,7 +53,7 @@ const BecomeASeller = () => {
         </div>
 
         {/* Right side container */}
-        <div className="bg-neutral-55 rounded-xl w-full lg:w-[70%] max-h-[800px] overflow-y-auto">
+        <div className="bg-neutral-55 rounded-xl w-full lg:w-[70%] max-h-full xl:max-h-[800px] overflow-y-auto">
           <Image
             src={IMAGES.bgImg}
             alt="bg-img"

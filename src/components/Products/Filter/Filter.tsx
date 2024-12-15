@@ -12,9 +12,9 @@ const Filters = () => {
 
   const handleCheckboxChange = (brand: string) => {
     if (selectedBrands.includes(brand)) {
-      setSelectedBrands(selectedBrands.filter((item) => item !== brand)); // Remove from selection
+      setSelectedBrands(selectedBrands.filter((item) => item !== brand));
     } else {
-      setSelectedBrands([...selectedBrands, brand]); // Add to selection
+      setSelectedBrands([...selectedBrands, brand]);
     }
   };
 

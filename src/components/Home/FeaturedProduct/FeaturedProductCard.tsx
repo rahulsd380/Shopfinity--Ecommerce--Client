@@ -74,6 +74,10 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   const productId = _id
 
   const handleAddToCart = async () => {
+    if (!user) {
+      toast.error("Please log in to add products to your cart.");
+      return;
+    }
     try {
       const cartData = {
         userId: id,

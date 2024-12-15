@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS } from "@/assets";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useAddToCartMutation } from "@/redux/features/cart/cartApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "sonner";
   
   type TWishlistProductCard = {
     _id: string;
@@ -22,6 +27,34 @@ const WishlistProductCard: React.FC<TWishlistProductCard> = ({
   price,
   handleRemoveFromWishlist
 }) => {
+   const user = useAppSelector(useCurrentUser) as TUser | null;
+   const [addToCart] = useAddToCartMutation();
+
+   const productId = _id
+  const handleAddToCart = async () => {
+    if (!user) {
+      toast.error("Please log in to add products to your cart.");
+      return;
+    }
+    try {
+      const cartData = {
+        userId: user?._id,
+        quantity : 1
+      };
+  
+      // Make API request to add to cart
+      const response = await addToCart({ cartData, productId }).unwrap();
+      console.log(response)
+  
+      if (response?.message) {
+        toast.success("Product added to cart successfully.");
+      }
+    } catch (error) {
+      // Handle error and display a toast message if necessary
+      toast.error("Failed to add product to cart. Please try again.");
+      console.error("Error adding to cart:", error);
+    }
+  };
     
 
   return (
@@ -106,7 +139,7 @@ const WishlistProductCard: React.FC<TWishlistProductCard> = ({
               ${price +10}
             </p>
           </div>
-          <button className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
+          <button  onClick={handleAddToCart} className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
             <Image src={ICONS.cart} alt="" className="size-4" />
             Add
           </button>

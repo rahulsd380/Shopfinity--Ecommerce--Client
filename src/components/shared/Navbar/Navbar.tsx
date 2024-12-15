@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout, useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useGetAllCartProductsQuery } from "@/redux/features/cart/cartApi";
 
 export type TUser = {
   userId: string;
@@ -24,6 +25,8 @@ const Navbar = () => {
   const router = useRouter();
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const [clientUser, setClientUser] = useState<TUser | null>(null);
+  const userId = user?._id ? user?._id : "";
+  const { data } = useGetAllCartProductsQuery(userId);
 
   useEffect(() => {
     setClientUser(user);
@@ -197,7 +200,12 @@ const Navbar = () => {
             <Link href={"/cart"} className="relative w-fit">
               <Image src={ICONS.cart3} alt="cart" className="size-10" />
               <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
-                5
+                {
+                  user?
+                data?.data?.items?.length || 0
+                :
+                0
+                }
               </div>
             </Link>
             <div>

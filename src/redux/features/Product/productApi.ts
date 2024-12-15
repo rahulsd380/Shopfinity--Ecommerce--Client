@@ -14,12 +14,39 @@ const productApi = baseApi.injectEndpoints({
     }),
 
     getAllProducts: builder.query({
-      query: (category) => ({
-        method: "GET",
-        url: `/product?category=${category}`,
-      }),
+      query: ({ category, page, limit, search, brand, rating, priceRange }: {
+        category?: string;
+        page: number;
+        limit: number;
+        search?: string;
+        brand?: string;
+        rating?: number;
+        priceRange?: string;
+      }) => {
+        // Dynamically building the URL with query parameters
+        let url = '/product?';
+    
+        // Adding each query parameter to the URL if it exists
+        if (category) url += `category=${category}&`;
+        if (search) url += `search=${search}&`;
+        if (brand) url += `brand=${brand}&`;
+        if (rating !== undefined) url += `rating=${rating}&`;
+        if (priceRange) url += `priceRange=${priceRange}&`;
+    
+        // Always include pagination
+        url += `page=${page}&limit=${limit}`;
+    
+        // Removing the last '&' if any query parameter was added
+        url = url.endsWith('&') ? url.slice(0, -1) : url;
+    
+        return {
+          method: 'GET',
+          url,
+        };
+      },
       providesTags: ["products"],
     }),
+    
 
     getSingleProductById: builder.query({
       query: (id) => ({

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const CartTotal = ({ data }) => {
@@ -32,9 +33,9 @@ const CartTotal = ({ data }) => {
         <h1 className="text-neutral-20 font-semibold">Total:</h1>
         <span className="text-xl">${total + 10}</span>
       </div>
-      <button className="w-full py-3 bg-primary-10 text-white font-semibold rounded-3xl">
+      <Link href={"/cart/place-order"} className="w-full py-3 bg-primary-10 text-white font-semibold rounded-3xl text-center">
         Proceed to Checkout
-      </button>
+      </Link>
     </div>
   );
 };
