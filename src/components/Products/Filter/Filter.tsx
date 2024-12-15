@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Dropdown from "@/components/reusable/Dropdown/Dropdown";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 type TFiltersProps = {
   setCategory: (category: string | undefined) => void;
-  setSearch: (search: string | undefined) => void;
+  setSearch: Dispatch<SetStateAction<string>>;
   setBrand: (brand: string | undefined) => void;
   setRating: (rating: number | undefined) => void;
   setPriceRange: (priceRange: string | undefined) => void;

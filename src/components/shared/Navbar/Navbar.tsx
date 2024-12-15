@@ -84,6 +84,16 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  // Handle the search click
+  const handleSearchClick = () => {
+    if (searchQuery.trim()) {
+      // Redirect to the /products page with the search query as a query parameter
+      router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   return (
     <Container>
       <div className="hidden xl:flex items-center justify-between py-3 border-b border-neutral-50/30">
@@ -193,11 +203,14 @@ const Navbar = () => {
 
         <div className="relative flex-grow hidden md:block">
           <Image
+          onClick={handleSearchClick}
             src={ICONS.search}
             alt="send-icon"
             className="size-6 absolute right-3 top-3 bottom-0"
           />
           <input
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             placeholder="Search for your product..."
             className="w-full px-4 py-3 pr-12 rounded focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-1 bg-neutral-65"

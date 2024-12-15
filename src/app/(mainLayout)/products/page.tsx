@@ -7,13 +7,22 @@ import Container from "@/components/shared/Container/Container";
 import { useGetAllProductsQuery } from "@/redux/features/Product/productApi";
 import { TProduct } from "@/types/product.types";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Products = () => {
+  const [search, setSearchQuery] = useState('');
+  useEffect(() => {
+    const { search } = window.location;
+    const params = new URLSearchParams(search);
+    const query = params.get('search');
+    if (query) {
+      setSearchQuery(query);
+    }
+  }, []);
   // State for view type and filter options
   const [viewType, setViewType] = useState("grid");
   const [category, setCategory] = useState<string | undefined>(undefined);
-  const [search, setSearch] = useState<string | undefined>(undefined);
+  // const [search, setSearch] = useState<string | undefined>(searchQuery || "");
   const [brand, setBrand] = useState<string | undefined>(undefined);
   const [rating, setRating] = useState<number | undefined>(undefined);
   const [priceRange, setPriceRange] = useState<string | undefined>(undefined);
@@ -46,25 +55,25 @@ const Products = () => {
   return (
     <Container>
       <div className="mt-10 flex gap-4 ">
-        <div className="w-[20%]">
+        <div className="hidden xl:block w-[20%]">
           <Filters
             setCategory={setCategory}
-            setSearch={setSearch}
+            setSearch={setSearchQuery}
             setBrand={setBrand}
             setRating={setRating}
             setPriceRange={setPriceRange}
           />
         </div>
 
-        <div className="w-[80%]">
-          <div className="bg-neutral-55/20 border border-neutral-45 p-5 rounded-lg flex items-center justify-between">
+        <div className="w-full xl:w-[80%]">
+          <div className="bg-neutral-55/20 border border-neutral-45 p-5 rounded-lg flex flex-col md:flex-row items-center justify-between">
             <p className="font-Inter text-neutral-15">
               {data?.data?.products?.length} items in{" "}
               <span className="font-semibold capitalize">{search ? search : "All"}</span>
             </p>
 
             <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
+              <div className="hidden lg:flex items-center gap-2">
                 {/* Checkbox Input */}
                 <input
                   type="checkbox"
@@ -84,9 +93,10 @@ const Products = () => {
                 />
                 <input
                   type="text"
+                  value={search}
                   placeholder="Search for your product..."
                   className="w-full px-4 py-2 pr-12 rounded focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-1 bg-neutral-65"
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
