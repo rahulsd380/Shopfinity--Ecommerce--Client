@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 
 const CartTotal = ({ data }) => {
   const [total, setTotal] = useState(0);
-  console.log(data);
 
   useEffect(() => {
     if (data?.data?.items) {

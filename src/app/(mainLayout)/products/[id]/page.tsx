@@ -26,7 +26,7 @@ const ProductDetailsPage = () => {
           <ProductDetails product={data?.data} />
           <SellerCard />
         </div>
-        <div className="flex gap-7 justify-between mt-20 w-full">
+        <div className="flex flex-col lg:flex-row gap-7 justify-between mt-20 w-full">
           <DetailsTab product={data?.data} />
 
           <div className="bg-neutral-55/20 p-4 rounded-xl border border-neutral-45 w-full lg:w-[25%] h-fit">

@@ -1,7 +1,11 @@
 "use client";
 import { ICONS } from "@/assets";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useAddToCartMutation } from "@/redux/features/cart/cartApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaFacebook,
   FaHeart,
@@ -12,6 +16,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { IoBagHandleOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 const ProductDetails = ({product}) => {
   const socialMediaIcons = [
@@ -32,7 +37,45 @@ const ProductDetails = ({product}) => {
       href: "",
     },
   ];
+
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+    const [addToCart, {isLoading}] = useAddToCartMutation();
   const [quantity, setQuantity] = useState(1);
+  const [wishlist, setWishlist] = useState<any[]>([]);
+  
+    useEffect(() => {
+      const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+      setWishlist(storedWishlist);
+    }, []);
+  
+    const wishlistData = {
+      _id : product?._id,
+      name : product?.name,
+      image: product?.images[0],
+      price : product?.price,
+      brand : product?.brand,
+      rating : product?.rating,
+    };
+  
+    const handleAddToWishlist = () => {
+      // Check if the product is already in the wishlist
+      const isProductInWishlist = wishlist.some(
+        (item) => item._id === wishlistData._id
+      );
+  
+      if (isProductInWishlist) {
+        toast.error("This product is already in your wishlist!");
+      } else {
+        // Add the new product to the wishlist
+        const updatedWishlist = [...wishlist, wishlistData];
+        setWishlist(updatedWishlist); // Update the state immediately
+  
+        // Save the updated wishlist back to localStorage
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+  
+        toast.success("Product added to wishlist!");
+      }
+    };
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
@@ -41,6 +84,34 @@ const ProductDetails = ({product}) => {
   const handleDecrease = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
+    }
+  };
+
+  const id = user?._id
+  const productId = product?._id
+
+  const handleAddToCart = async () => {
+    if (!user) {
+      toast.error("Please log in to add products to your cart.");
+      return;
+    }
+    try {
+      const cartData = {
+        userId: id,
+        quantity : quantity
+      };
+  
+      // Make API request to add to cart
+      const response = await addToCart({ cartData, productId }).unwrap();
+      console.log(response)
+  
+      if (response?.message) {
+        toast.success("Product added to cart successfully.");
+      }
+    } catch (error) {
+      // Handle error and display a toast message if necessary
+      toast.error("Failed to add product to cart. Please try again.");
+      console.error("Error adding to cart:", error);
     }
   };
   return (
@@ -136,12 +207,12 @@ const ProductDetails = ({product}) => {
         </div>
 
         {/* Add to Cart Button */}
-        <button className="flex items-center justify-center bg-primary-10 text-white rounded-full px-6 py-3 w-full hover:bg-green-600 transition-all">
+        <button onClick={handleAddToCart} className="flex items-center justify-center bg-primary-10 text-white rounded-full px-6 py-3 w-full hover:bg-green-600 transition-all">
           Add to Cart <IoBagHandleOutline className="ml-2" />
         </button>
 
         {/* Wishlist Button */}
-        <button className="flex items-center justify-center bg-green-100 text-primary-10 rounded-full p-3 hover:bg-green-200 transition-all">
+        <button onClick={handleAddToWishlist} className="flex items-center justify-center bg-green-100 text-primary-10 rounded-full p-3 hover:bg-green-200 transition-all">
           <FaHeart />
         </button>
       </div>
@@ -151,7 +222,7 @@ const ProductDetails = ({product}) => {
       </h1>
       <h1 className="text-black font-Poppins text-sm font-semibold mt-3">
         Tag:{" "}
-        <span className="text-neutral-30 font-normal">Riding, Cycle, Ride</span>
+        <span className="text-neutral-30 font-normal">{product?.tags ? product?.tags : "No tags"}</span>
       </h1>
     </div>
   );

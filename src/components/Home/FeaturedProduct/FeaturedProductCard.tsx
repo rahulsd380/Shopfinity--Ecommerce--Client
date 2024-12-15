@@ -34,6 +34,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const [addToCart, {isLoading}] = useAddToCartMutation();
+  const [compareProducts, setCompareProducts] = useState<any[]>([]);
   const [wishlist, setWishlist] = useState<any[]>([]);
 
   useEffect(() => {
@@ -41,7 +42,21 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
     setWishlist(storedWishlist);
   }, []);
 
+  useEffect(() => {
+    const storedProducts = JSON.parse(localStorage.getItem("compareProducts") || "[]");
+    setCompareProducts(storedProducts);
+  }, []);
+
   const wishlistData = {
+    _id,
+    name,
+    image: images[0],
+    price,
+    brand,
+    rating,
+  };
+
+  const compareProductData = {
     _id,
     name,
     image: images[0],
@@ -57,7 +72,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
     );
 
     if (isProductInWishlist) {
-      alert("This product is already in your wishlist!");
+      toast.error("This product is already in your wishlist!");
     } else {
       // Add the new product to the wishlist
       const updatedWishlist = [...wishlist, wishlistData];
@@ -66,9 +81,32 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
       // Save the updated wishlist back to localStorage
       localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
 
-      alert("Product added to wishlist!");
+      toast.success("Product added to wishlist!");
     }
   };
+
+  const handleAddToCompareList = () => {
+    // Check if the product is already in the compare list
+    const isProductInCompareList = compareProducts.some(
+      (item) => item._id === compareProductData._id
+    );
+  
+    if (isProductInCompareList) {
+      toast.error("This product is already in your compare list!");
+    } else if (compareProducts.length >= 3) {
+      toast.error("You can only add up to 3 products to the compare list!");
+    } else {
+      // Add the new product to the compare list
+      const updatedCompareList = [...compareProducts, compareProductData];
+      setCompareProducts(updatedCompareList); // Update the state immediately
+  
+      // Save the updated compare list back to localStorage
+      localStorage.setItem("compareProducts", JSON.stringify(updatedCompareList));
+  
+      toast.success("Product added to compare list!");
+    }
+  };
+  
 
   const id = user?._id
   const productId = _id
@@ -114,13 +152,12 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
         >
           <Image src={ICONS.eye} className="size-4" alt="View" />
         </Link>
-        <Link
-          href={"/"}
+        <button onClick={handleAddToCompareList}
           className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-500 flex items-center justify-center"
           style={{ transitionDelay: "0.5s" }}
         >
           <Image src={ICONS.compare} className="size-4" alt="Compare" />
-        </Link>
+        </button>
         <button
           onClick={handleAddToWishlist}
           className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-500 flex items-center justify-center"

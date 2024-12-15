@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
@@ -24,9 +25,32 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const user = useAppSelector(useCurrentUser) as TUser | null;
+
+  const [wishlist, setWishlist] = useState<any[]>([]);
+
+  const fetchWishlist = () => {
+    const storedWishlist = localStorage.getItem("wishlist");
+    if (storedWishlist) {
+      setWishlist(JSON.parse(storedWishlist));
+    }
+  };
+
+  // Load wishlist on initial render
+  useEffect(() => {
+    fetchWishlist();
+  }, []);
+
   const [clientUser, setClientUser] = useState<TUser | null>(null);
   const userId = user?._id ? user?._id : "";
   const { data } = useGetAllCartProductsQuery(userId);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    if (data?.data?.items) {
+      const totalPrice = data.data.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      setTotal(totalPrice);
+    }
+  }, [data]);
 
   useEffect(() => {
     setClientUser(user);
@@ -69,7 +93,7 @@ const Navbar = () => {
           <Link href={"/"} className="hover:underline">
             My Account
           </Link>
-          <Link href={"/"} className="hover:underline">
+          <Link href={"/wishlist"} className="hover:underline">
             Wishlist
           </Link>
           <p className="">|</p>
@@ -192,7 +216,7 @@ const Navbar = () => {
           <Link href={"/wishlist"} className="hidden md:block relative w-fit">
             <Image src={ICONS.wishlist2} alt="cart" className="size-10" />
             <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
-              10
+              {wishlist?.length}
             </div>
           </Link>
           {/* Cart */}
@@ -211,7 +235,12 @@ const Navbar = () => {
             <div>
               <h1 className="text-neutral-15 font-Sora font-semibold">Total</h1>
               <p className="text-neutral-60 font-Inter text-sm font-medium mt-1">
-                $0.00
+                ${
+                  user?
+                  total
+                  :
+                  "0.00"
+                }
               </p>
             </div>
           </div>

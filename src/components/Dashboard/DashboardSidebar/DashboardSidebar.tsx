@@ -93,7 +93,7 @@ const DashboardSidebar = () => {
       </div>
 
       <div className="flex flex-col gap-3 mt-7 font-Inter">
-        {sellerSidebarLinks.map((link, index) => (
+        {adminSidebarLinks.map((link, index) => (
           <Link
             key={index}
             href={link.path}
