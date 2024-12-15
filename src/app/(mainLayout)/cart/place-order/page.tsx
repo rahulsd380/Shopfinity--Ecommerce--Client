@@ -1,11 +1,20 @@
 "use client";
-import { IMAGES } from "@/assets";
+import { ICONS, IMAGES } from "@/assets";
 import Banner from "@/components/reusable/Banner/Banner";
 import TextInput from "@/components/reusable/TextInput/TextInput";
 import Container from "@/components/shared/Container/Container";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import {
+  useGetAllCartProductsQuery,
+  useRemoveProductFromCartMutation,
+} from "@/redux/features/cart/cartApi";
+import { useMakePaymentMutation } from "@/redux/features/Payment/paymentApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type TFormValues = {
   name: string;
@@ -18,6 +27,8 @@ type TFormValues = {
   altPhoneNumber: string;
 };
 const OlaceOrder = () => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const userId = user?._id;
   const [paymentMode, setPaymentMode] = useState<"cod" | "amarPay">("cod");
   const {
     register,
@@ -25,22 +36,76 @@ const OlaceOrder = () => {
     formState: { errors },
   } = useForm<TFormValues>();
 
+  const { data } = useGetAllCartProductsQuery(userId);
+  const [removeProductFromCart] = useRemoveProductFromCartMutation();
+  const [makePayment] = useMakePaymentMutation();
+  const [total, setTotal] = useState(0);
+
+  const [productIds, setProductIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (data?.data?.items) {
+      // Calculating total price
+      const totalPrice = data.data.items.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+      setTotal(totalPrice);
+  
+      // Extract and store product IDs
+      const ids = data.data.items.map((item) => item.productId);
+      setProductIds(ids);
+    }
+  }, [data]);
+
+  console.log(productIds)
+
   const handlePlaceOrder: SubmitHandler<TFormValues> = async (data) => {
-    // try {
-    //   const loginData = {
-    //     email: data.email,
-    //     password: data.password,
-    //   };
-    //   const response = await axiosInstance.post("/auth/login", loginData);
-    //   console.log(response.data);
-    //   toast.success("Welcome back!");
-    // } catch (error) {
-    //   toast.error("Something went wrong! Please try again.");
-    // }
+    try {
+      const paymentData = {
+        userId,
+        name: data.name,
+        email: data.email,
+        streetAddress: data.streetAddress,
+        country: data.country,
+        state: data.state,
+        zipCode: data.zipCode,
+        address : `${data.streetAddress}, ${data.state}, ${data.zipCode}, ${data.country}`,
+        phoneNumber: data.phoneNumber,
+        altPhoneNumber: data.altPhoneNumber,
+        productIds,
+        amount : total + 10
+      };
+      const response = await makePayment(paymentData).unwrap();
+      console.log(response);
+      toast.success("Order placed successfully.");
+    } catch (error) {
+      toast.error("Something went wrong! Please try again.");
+    }
   };
+
+  const handleRemoveProductFromCart = async (productId: string) => {
+    try {
+      const response = await removeProductFromCart({
+        userId,
+        productId,
+      }).unwrap();
+      if (response?.message) {
+        toast.success("Product removed from cart successfully.");
+      }
+    } catch (error) {
+      toast.error("Failed to remove product from cart. Please try again.");
+      console.error("Error removing product:", error);
+    }
+  };
+
   return (
     <Container>
-      <Banner title="Complete Your Order Seamlessly" description="Fill in Billing Details and Review Your Summary Before Placing the Order" bgColor="bg-secondary-20" />
+      <Banner
+        title="Complete Your Order Seamlessly"
+        description="Fill in Billing Details and Review Your Summary Before Placing the Order"
+        bgColor="bg-secondary-20"
+      />
       <div className="">
         <form
           onSubmit={handleSubmit(handlePlaceOrder)}
@@ -155,20 +220,43 @@ const OlaceOrder = () => {
 
             {/* Product Card */}
             <div className="flex flex-col gap-3 my-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Image src={IMAGES.product} alt="" className="size-10" />
-                  <p className="text-neutral-10 font-medium">
-                    Iphone 13 pro max
-                  </p>
+              {data?.data?.items?.map((item) => (
+                <div
+                  key={item?.productId}
+                  className="flex items-center justify-between border-b border-neutral-40 pb-1"
+                >
+                  <div className="flex items-center gap-3">
+                    <Image src={IMAGES.product} alt="" className="size-10" />
+                    <div>
+                      <p className="text-neutral-10 font-medium">
+                        {item?.name}
+                      </p>
+                      <p className="text-neutral-10 text-sm">
+                        Quantity : {item?.quantity}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-neutral-15 font-bold">
+                      ${item?.price * item?.quantity}
+                    </p>
+
+                    <Image
+                      onClick={() =>
+                        handleRemoveProductFromCart(item?.productId)
+                      }
+                      src={ICONS.cross}
+                      alt="cross-icon"
+                      className="size-4 cursor-pointer"
+                    />
+                  </div>
                 </div>
-                <p className="text-neutral-15 font-bold">$999</p>
-              </div>
+              ))}
             </div>
 
             <div className="flex justify-between pb-4 border-b border-neutral-200">
               <span className="text-neutral-10 font-medium">Subtotal:</span>
-              <span className="font-medium">$11.77</span>
+              <span className="font-medium">${total}</span>
             </div>
 
             <div className="flex justify-between pb-4 border-b border-neutral-200">
@@ -178,7 +266,7 @@ const OlaceOrder = () => {
 
             <div className="flex justify-between font-bold border-b border-neutral-200 pb-4">
               <h1 className="text-neutral-20 font-semibold">Total:</h1>
-              <span className="text-xl">$26.77</span>
+              <span className="text-xl">${total + 10}</span>
             </div>
 
             <h1 className="text-neutral-20 text-xl font-semibold pb-4 border-b border-neutral-200 mt-5">

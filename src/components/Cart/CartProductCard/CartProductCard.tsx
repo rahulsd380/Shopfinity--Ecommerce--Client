@@ -59,7 +59,7 @@ const CartProductCard = ({
 
       <div className="flex flex-row md:flex-col items-center gap-7 mt-5 md:mt-0">
         <h1 className="font-Inter text-lg font-bold leading-5 text-neutral-15 text-end">
-          ${data?.price}
+          ${data?.price * data?.quantity}
         </h1>
 
         <div className="flex items-center gap-3">

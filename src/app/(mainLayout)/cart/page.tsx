@@ -116,7 +116,7 @@ const CartPage = () => {
               </button>
             </div>
           </div>
-          <CartTotal />
+          <CartTotal data={data} />
         </div>
       </div>
 
