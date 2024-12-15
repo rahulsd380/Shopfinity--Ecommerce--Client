@@ -15,8 +15,8 @@ const roleBaseRoutes = {
     /^\/wishlist/,
   ],
   admin: [
-    /^\/admin/, // Only admin should have access to this
-    /^\/become-seller/, // Admin can still access 'become-seller' (adjust if needed)
+    /^\/admin/,
+    /^\/become-seller/,
     /^\/cart/,
     /^\/compare-products/,
     /^\/products/,
@@ -24,7 +24,7 @@ const roleBaseRoutes = {
     /^\/manage-categories/,
     /^\/manage-shops/,
     /^\/manage-users/,
-    /^\/payment-history/,
+    /^\/payment-history/
   ],
   seller: [
     /^\/seller/,
@@ -34,7 +34,6 @@ const roleBaseRoutes = {
     /^\/wishlist/,
     /^\/manage-categories/,
     /^\/add-product/,
-    /^\/dashboard\/seller/,
   ],
 };
 
@@ -79,5 +78,10 @@ export function middleware(request: NextRequest) {
 
 // Middleware configuration
 export const config = {
-  matcher: ["/admin", "/login", "/signup", "/seller", "/dashboard/seller"],
+  matcher: [
+    "/admin", 
+    "/login", 
+    "/signup", 
+    "/seller", 
+  ],
 };

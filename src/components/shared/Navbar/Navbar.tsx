@@ -240,9 +240,9 @@ const Navbar = () => {
               <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
                 {
                   user?
-                data?.data?.items?.length || 0
+                data?.data?.items?.length || "0"
                 :
-                0
+                "0"
                 }
               </div>
             </Link>

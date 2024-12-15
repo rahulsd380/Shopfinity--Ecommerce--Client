@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Dropdown from "@/components/reusable/Dropdown/Dropdown";
+import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 type TFiltersProps = {
@@ -17,7 +19,7 @@ const Filters:React.FC<TFiltersProps> = ({
   setRating,
   setPriceRange,
 }) => {
-  const categories = ["Electronics", "Clothing", "Books", "Furniture"];
+  const {data} = useGetAllCategoriesQuery({});
   const brands = ["Apple", "Samsung", "Nike", "Sony"];
   const prices = ["$0 - $50", "$50 - $100", "$100 - $200", "$200+"];
   const ratings = ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"];
@@ -36,12 +38,13 @@ const Filters:React.FC<TFiltersProps> = ({
     <div className="space-y-4 bg-neutral-55/20 border border-neutral-45 p-5 rounded-lg">
       {/* Category Filter */}
       <Dropdown title="Category" defaultOpen>
-        {categories.map((item, index) => (
+        {data?.data?.categories?.map((item:any, index:number) => (
           <li
+          onClick={() => setCategory(item?.name)}
             key={index}
             className="py-[9px] px-4 hover:bg-gray-100 cursor-pointer"
           >
-            {item}
+            {item?.name}
           </li>
         ))}
       </Dropdown>

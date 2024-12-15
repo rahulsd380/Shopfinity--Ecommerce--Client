@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import UploadImage from "@/components/Dashboard/SellerDashboard/AddProduct/UploadImage/UploadImage";
@@ -5,6 +6,7 @@ import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitB
 import TextInput from "@/components/reusable/TextInput/TextInput";
 import { TUser } from "@/components/shared/Navbar/Navbar";
 import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
 import { useCreateProductMutation } from "@/redux/features/Product/productApi";
 import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
@@ -22,6 +24,7 @@ type TFormValues = {
 };
 
 const AddProduct = () => {
+  const {data} = useGetAllCategoriesQuery({});
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const [createProduct, {isLoading}] = useCreateProductMutation();
   const {
@@ -32,14 +35,6 @@ const AddProduct = () => {
 
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-
-  // Dummy category array
-  const categories = [
-    { id: "1", name: "Electronics" },
-    { id: "2", name: "Clothing" },
-    { id: "3", name: "Home Appliances" },
-    { id: "4", name: "Sports" },
-  ];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -139,9 +134,9 @@ const AddProduct = () => {
                 } focus:outline-none`}
               >
                 <option value="">Select Category</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
+                {data?.data?.categories?.map((category:any) => (
+                  <option key={category?._id} value={category?.name}>
+                    {category?.name}
                   </option>
                 ))}
               </select>
