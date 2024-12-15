@@ -3,7 +3,7 @@
 "use client";
 import Dropdown from "@/components/reusable/Dropdown/Dropdown";
 import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
 
 type TFiltersProps = {
   setCategory: (category: string | undefined) => void;
@@ -11,36 +11,64 @@ type TFiltersProps = {
   setBrand: (brand: string | undefined) => void;
   setRating: (rating: number | undefined) => void;
   setPriceRange: (priceRange: string | undefined) => void;
-};  
-const Filters:React.FC<TFiltersProps> = ({
+  products: any;
+};
+
+const Filters: React.FC<TFiltersProps> = ({
   setCategory,
   setSearch,
   setBrand,
   setRating,
   setPriceRange,
+  products,
 }) => {
-  const {data} = useGetAllCategoriesQuery({});
-  const brands = ["Apple", "Samsung", "Nike", "Sony"];
-  const prices = ["$0 - $50", "$50 - $100", "$100 - $200", "$200+"];
-  const ratings = ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"];
+  const { data } = useGetAllCategoriesQuery({});
+  const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string | undefined>(undefined);
 
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [uniqueBrands, setUniqueBrands] = useState<string[]>([]);
+  const [uniqueRatings, setUniqueRatings] = useState<number[]>([]);
+  const [uniquePrices, setUniquePrices] = useState<string[]>([]);
 
-  const handleCheckboxChange = (brand: string) => {
-    if (selectedBrands.includes(brand)) {
-      setSelectedBrands(selectedBrands.filter((item) => item !== brand));
-    } else {
-      setSelectedBrands([...selectedBrands, brand]);
+  useEffect(() => {
+    if (products?.data?.products) {
+      const brandsSet = new Set<string>();
+      const ratingsSet = new Set<number>();
+      const pricesSet = new Set<string>();
+
+      products.data.products.forEach((product: any) => {
+        if (product.brand) brandsSet.add(product.brand);
+        if (product.rating) ratingsSet.add(product.rating);
+        if (product.price) pricesSet.add(product.price);
+      });
+
+      setUniqueBrands(Array.from(brandsSet));
+      setUniqueRatings(Array.from(ratingsSet));
+      setUniquePrices(Array.from(pricesSet));
     }
+  }, [products]);
+
+  const handleRatingCheckboxChange = (rating: number) => {
+    if (selectedRatings.includes(rating)) {
+      setSelectedRatings(selectedRatings.filter((item) => item !== rating));
+    } else {
+      setSelectedRatings([...selectedRatings, rating]);
+    }
+    setRating(rating);
+  };
+
+  const handlePriceChange = (priceRange: string) => {
+    setSelectedPriceRange(priceRange);
+    setPriceRange(priceRange);
   };
 
   return (
     <div className="space-y-4 bg-neutral-55/20 border border-neutral-45 p-5 rounded-lg">
       {/* Category Filter */}
       <Dropdown title="Category" defaultOpen>
-        {data?.data?.categories?.map((item:any, index:number) => (
+        {data?.data?.categories?.map((item: any, index: number) => (
           <li
-          onClick={() => setCategory(item?.name)}
+            onClick={() => setCategory(item?.name)}
             key={index}
             className="py-[9px] px-4 hover:bg-gray-100 cursor-pointer"
           >
@@ -48,50 +76,41 @@ const Filters:React.FC<TFiltersProps> = ({
           </li>
         ))}
       </Dropdown>
-
       {/* Brand Filter */}
-      <Dropdown title="Brand">
-        {brands.map((brand, index) => (
-          <li key={index} className="flex items-center gap-2 py-[9px] px-4">
-            {/* Checkbox Input */}
-            <input
-              type="checkbox"
-              id={`brand-${index}`}
-              className="w-4 h-4 text-primary-10 border-gray-300 rounded focus:ring-primary-10 focus:ring-2"
-              checked={selectedBrands.includes(brand)}
-              onChange={() => handleCheckboxChange(brand)}
-            />
-            {/* Label */}
-            <label
-              htmlFor={`brand-${index}`}
-              className="cursor-pointer text-gray-700"
-            >
-              {brand}
-            </label>
+      <Dropdown title="Brands" defaultOpen>
+        {uniqueBrands?.map((item: any, index: number) => (
+          <li
+            onClick={() => setBrand(item)}
+            key={index}
+            className="py-[9px] px-4 hover:bg-gray-100 cursor-pointer"
+          >
+            {item}
           </li>
         ))}
       </Dropdown>
 
       {/* Price Filter */}
       <Dropdown title="Price" defaultOpen>
-        {prices.map((item, index) => (
+        {uniquePrices.map((price, index) => (
           <li
             key={index}
+            onClick={() => handlePriceChange(price)}
             className="py-[9px] px-4 hover:bg-gray-100 cursor-pointer"
           >
-            {item}
+            {price}
           </li>
         ))}
       </Dropdown>
 
       {/* Rating Filter */}
       <Dropdown title="Rating">
-        {ratings.map((item, index) => (
+        {uniqueRatings.map((rating, index) => (
           <li
             key={index}
+            onClick={() => handleRatingCheckboxChange(rating)}
             className="py-[9px] px-4 hover:bg-gray-100 cursor-pointer"
           >
-            {item}
+            {rating} Stars
           </li>
         ))}
       </Dropdown>

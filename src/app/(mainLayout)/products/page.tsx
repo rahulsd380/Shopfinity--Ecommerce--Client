@@ -57,6 +57,7 @@ const Products = () => {
       <div className="mt-10 flex gap-4 ">
         <div className="hidden xl:block w-[20%]">
           <Filters
+          products={data}
             setCategory={setCategory}
             setSearch={setSearchQuery}
             setBrand={setBrand}
