@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-const UploadImage = ({handleImageChange}) => {
+const UploadImage = ({handleImageChange}:{handleImageChange:any}) => {
     return (
         <div className="">
         <label className=" mx-auto flex max-w-[600px] flex-col items-center justify-center space-y-3 rounded-lg border-2 border-dashed border-gray-400 p-6 bg-white" htmlFor="image">

@@ -9,7 +9,10 @@ import Image from "next/image";
 import { useState } from "react";
 
 const AllProductsBySeller = () => {
-  const { data } = useGetAllProductsQuery({});
+  const { data } = useGetAllProductsQuery({
+    page: 1,
+    limit: 30,
+  });
   const [viewType, setViewType] = useState("grid");
   const viewButtons = [
     {

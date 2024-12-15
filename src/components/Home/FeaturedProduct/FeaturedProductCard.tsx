@@ -15,11 +15,10 @@ interface ProductCardProps {
   images: string[];
   category: string;
   name: string;
-  rating: number;
-  reviews: number;
+  ratings: number;
+  reviews: any[];
   brand: string;
-  price: string;
-  originalPrice: string;
+  price: number;
 }
 
 const FeaturedProductCard: React.FC<ProductCardProps> = ({
@@ -27,7 +26,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   images,
   category,
   name,
-  rating,
+  ratings,
   reviews,
   brand,
   price,
@@ -53,7 +52,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
     image: images[0],
     price,
     brand,
-    rating,
+    ratings,
   };
 
   const compareProductData = {
@@ -62,7 +61,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
     image: images[0],
     price,
     brand,
-    rating,
+    ratings,
   };
 
   const handleAddToWishlist = () => {
@@ -186,7 +185,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
               <svg
                 key={i}
                 xmlns="http://www.w3.org/2000/svg"
-                fill={i < rating ? "currentColor" : "none"}
+                fill={i < ratings ? "currentColor" : "none"}
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 className="w-4 h-4"

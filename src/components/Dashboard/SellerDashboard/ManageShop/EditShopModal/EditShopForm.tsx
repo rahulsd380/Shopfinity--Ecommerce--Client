@@ -8,8 +8,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-
-const EditShopForm = ({ setOpenModal, data }) => {
+type TEditShopForm = {
+  setOpenModal:any;
+  data:any;
+}
+const EditShopForm:React.FC<TEditShopForm> = ({ setOpenModal, data }) => {
   const id = data?._id
   const [updateShop, { isLoading }] = useUpdateShopMutation();
   const {

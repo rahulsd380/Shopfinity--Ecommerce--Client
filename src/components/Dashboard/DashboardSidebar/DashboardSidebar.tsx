@@ -1,5 +1,8 @@
 "use client";
 import { IMAGES } from "@/assets";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,6 +14,7 @@ import { MdOutlineLibraryAdd, MdOutlinePayment } from "react-icons/md";
 import { TbCategoryPlus } from "react-icons/tb";
 
 const DashboardSidebar = () => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
   const pathname = usePathname();
 
   const sellerSidebarLinks = [
@@ -75,6 +79,8 @@ const DashboardSidebar = () => {
     },
   ];
 
+  const sidebarLinks = user?.role === "seller"? sellerSidebarLinks : adminSidebarLinks;
+
   return (
     <div className="w-[280px] bg-neutral-15 rounded-r-2xl h-screen sticky top-0 left-0">
       <div className="p-4">
@@ -93,7 +99,8 @@ const DashboardSidebar = () => {
       </div>
 
       <div className="flex flex-col gap-3 mt-7 font-Inter">
-        {sellerSidebarLinks.map((link, index) => (
+        {
+          sidebarLinks.map((link, index) => (
           <Link
             key={index}
             href={link.path}

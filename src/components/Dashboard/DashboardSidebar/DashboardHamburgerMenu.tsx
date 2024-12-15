@@ -1,4 +1,6 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+"use client";
 import { ICONS } from "@/assets";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -17,7 +19,7 @@ const DashboardHamburgerMenu = () => {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
+    const handleOutsideClick = (event:any) => {
       const closestDropdown = event.target.closest(".hamburgerMenu");
       if (isHamburgerOpen && closestDropdown === null) {
         setIsHamburgerOpen(false);
@@ -32,7 +34,7 @@ const DashboardHamburgerMenu = () => {
   }, [isHamburgerOpen]);
 
   const dispatch = useAppDispatch();
-    const router = useRouter();
+  const router = useRouter();
 
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const [clientUser, setClientUser] = useState<TUser | null>(null);
@@ -71,11 +73,7 @@ const DashboardHamburgerMenu = () => {
           isHamburgerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <DashboardSidebar/>
-
-
-
-       
+        <DashboardSidebar />
       </div>
     </div>
   );

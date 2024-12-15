@@ -17,7 +17,6 @@ import { toast } from "sonner";
     rating: number;
     handleRemoveFromWishlist : (productId: string) => void
   }
-
 const WishlistProductCard: React.FC<TWishlistProductCard> = ({
   _id,
   image,

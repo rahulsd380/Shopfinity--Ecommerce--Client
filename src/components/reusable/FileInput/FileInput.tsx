@@ -7,7 +7,7 @@ interface FileInputProps {
   validation?: RegisterOptions;
   register: UseFormRegister<any>;
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
-  onChange?: any;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const FileInput: React.FC<FileInputProps> = ({
@@ -16,7 +16,7 @@ const FileInput: React.FC<FileInputProps> = ({
   validation,
   register,
   error,
-  onChange
+  onChange,
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -27,11 +27,14 @@ const FileInput: React.FC<FileInputProps> = ({
       <input
         type="file"
         id={name}
-        onChange={onChange}
         className={`bg-[#6e788305] px-[18px] py-[14px] rounded-lg border ${
           error ? "border-[#DE3C4B]" : "border-[#6e78831f]"
         } focus:outline-none`}
         {...register(name, validation)}
+        onChange={(e) => {
+          register(name, validation)?.onChange?.(e); // react-hook-form's handler
+          onChange?.(e); // Custom handler
+        }}
       />
       {error && (
         <p className="text-[#DE3C4B] text-sm mt-1">{error.message as string}</p>
