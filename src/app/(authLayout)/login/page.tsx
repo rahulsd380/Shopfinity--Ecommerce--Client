@@ -15,6 +15,7 @@ import { setUser } from "@/redux/features/Auth/authSlice";
 import CircleLoader from "@/components/Loaders/CircleLoader/CircleLoader";
 import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitButton";
 import { verifyToken } from "@/utils/verifyToken";
+import Cookies from "js-cookie";
 
 type TFormValues = {
   email: string;
@@ -40,6 +41,16 @@ const Login = () => {
       const response = await login(loginData);
       // const user = verifyToken(response.data?.accessToken);
       const user = response.data?.data?.user;
+      const accessToken = response.data?.data?.accessToken;
+
+      if (accessToken) {
+        // Set the token in cookies (securely if the app is running on HTTPS)
+        Cookies.set("accessToken", accessToken, {
+          expires: 7, // Expires in 7 days
+          secure: typeof window !== "undefined" && window.location.protocol === "https:", // Secure if using HTTPS
+          sameSite: "strict", // Prevent CSRF attacks
+        });
+      }
 
       // const user = verifyToken(response.data?.data?.accessToken);
       // console.log(user)
