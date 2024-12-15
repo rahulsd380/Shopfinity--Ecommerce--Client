@@ -74,6 +74,7 @@ import leftArrowWhite from "@/assets/icons/left-arrow-white.svg";
 import remove from "@/assets/icons/remove.svg";
 import logout from "@/assets/icons/logout.svg";
 import image from "@/assets/icons/image.svg";
+import paymentSuccess from "@/assets/icons/payment-successfull.svg";
 
 
 
@@ -124,6 +125,7 @@ export const ICONS = {
     remove,
     logout,
     image,
+    paymentSuccess
 
 };
 

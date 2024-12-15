@@ -1,5 +1,6 @@
 "use client";
 import { ICONS, IMAGES } from "@/assets";
+import PaymentSuccess from "@/components/Payment/PaymentSuccess/PaymentSuccess";
 import Banner from "@/components/reusable/Banner/Banner";
 import TextInput from "@/components/reusable/TextInput/TextInput";
 import Container from "@/components/shared/Container/Container";
@@ -27,6 +28,7 @@ type TFormValues = {
   altPhoneNumber: string;
 };
 const OlaceOrder = () => {
+  const [openPaymentSuccessModal, setOpenPaymentSuccessModal] = useState(true);
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const userId = user?._id;
   const [paymentMode, setPaymentMode] = useState<"cod" | "amarPay">("cod");
@@ -79,6 +81,7 @@ const OlaceOrder = () => {
       const response = await makePayment(paymentData).unwrap();
       console.log(response);
       toast.success("Order placed successfully.");
+      setOpenPaymentSuccessModal(true);
     } catch (error) {
       toast.error("Something went wrong! Please try again.");
     }
@@ -325,6 +328,8 @@ const OlaceOrder = () => {
           </div>
         </form>
       </div>
+
+      <PaymentSuccess setOpenPaymentSuccessModal={setOpenPaymentSuccessModal} openPaymentSuccessModal={openPaymentSuccessModal} />
     </Container>
   );
 };
