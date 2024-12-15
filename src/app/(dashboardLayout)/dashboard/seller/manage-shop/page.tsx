@@ -21,7 +21,7 @@ const ManageShop = () => {
         </h1>
         <button
           onClick={() => setOpenEditShopModal(true)}
-          className="bg-primary-10 text-white py-3 px-6 font-medium mt-7 rounded-lg flex items-center gap-2"
+          className="bg-primary-10 text-white py-3 px-6 font-medium rounded-lg flex items-center gap-2"
         >
           <AiFillEdit className="text-xl" />
           Edit Info

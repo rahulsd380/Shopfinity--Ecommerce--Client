@@ -22,7 +22,7 @@ const AllProductsBySeller = () => {
   ];
   return (
     <div>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex flex-col lg:flex-row items-center justify-between w-full">
         <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
           All Products (28)
         </h1>

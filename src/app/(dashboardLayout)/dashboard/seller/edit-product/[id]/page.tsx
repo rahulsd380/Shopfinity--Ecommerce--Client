@@ -113,8 +113,8 @@ const EditProduct = () => {
       <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
         Edit Product Details
       </h1>
-      <div className="flex gap-5 w-full mt-5">
-        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-[30%] h-fit">
+      <div className="flex flex-col lg:flex-row gap-5 w-full mt-5">
+        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-full lg:w-[30%] h-fit">
           <UploadImage handleImageChange={handleImageChange} />
 
           {imagePreviews.length > 0 ? (
@@ -146,7 +146,7 @@ const EditProduct = () => {
           )}
         </div>
 
-        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-[70%]">
+        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-full lg:w-[70%]">
           <form
             onSubmit={handleSubmit(handleEditProduct)}
             className="flex flex-col gap-5 w-full"

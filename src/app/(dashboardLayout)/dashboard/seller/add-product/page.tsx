@@ -88,8 +88,8 @@ const AddProduct = () => {
       <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
         Add New Product
       </h1>
-      <div className="flex gap-5 w-full mt-5">
-        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-[30%] h-fit">
+      <div className="flex flex-col lg:flex-row gap-5 w-full mt-5">
+        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-full lg:w-[30%] h-fit">
           <UploadImage handleImageChange={handleImageChange} />
 
           {imagePreviews.length > 0 ? (
@@ -110,7 +110,7 @@ const AddProduct = () => {
             <p className="text-neutral-10 font-Inter mt-5">No image selected</p>
           )}
         </div>
-        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-[70%]">
+        <div className="bg-white border border-neutral-45 p-5 rounded-xl w-full lg:w-[70%]">
           <form
             onSubmit={handleSubmit(handleCreateProduct)}
             className="flex flex-col gap-5 w-full"
