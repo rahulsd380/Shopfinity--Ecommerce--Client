@@ -11,9 +11,10 @@ import { Navigation } from "swiper/modules";
 import Link from "next/link";
 import { useGetAllProductsQuery } from "@/redux/features/Product/productApi";
 import { TProduct } from "@/types/product.types";
+import FeaturedProductCardLoader from './../../Loaders/FeaturedProductCardLoader/FeaturedProductCardLoader';
 
 const FeaturedProduct = () => {
-  const { data } = useGetAllProductsQuery({page:1, limit:20});
+  const { data, isLoading } = useGetAllProductsQuery({page:1, limit:20});
 
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
@@ -93,13 +94,23 @@ const FeaturedProduct = () => {
           modules={[ Navigation]}
           className="rounded-xl border border-[rgba(173,173,173,0.25)] mt-10"
         >
-          {data?.data?.products?.slice(0,15)?.map((product:TProduct, index:number) => (
+          {
+          isLoading
+          ? [1,2,3,4,5,6,7].map((_, index) => (
+              <SwiperSlide key={index} className="">
+                <FeaturedProductCardLoader/>
+              </SwiperSlide>
+            ))
+          :
+          data?.data?.products?.slice(0,15)?.map((product:TProduct, index:number) => (
             <SwiperSlide key={index}>
               <FeaturedProductCard {...product} />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
+
+      
     </div>
   );
 };
