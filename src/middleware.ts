@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
+import Cookies  from 'js-cookie';
 
 type Role = keyof typeof roleBaseRoutes;
 
@@ -42,7 +43,9 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Retrieve the token from cookies
-  const token = request.cookies.get('authToken')?.value;
+  // const token = request.cookies.get('accessToken')?.value;
+  const token = Cookies.get("accessToken");
+  console.log(token)
 
   // If there is no token and the user is trying to access a protected route
   if (!token) {
@@ -82,6 +85,6 @@ export const config = {
     "/admin", 
     "/login", 
     "/signup", 
-    "/seller", 
+    "/dashboard/seller", 
   ],
 };

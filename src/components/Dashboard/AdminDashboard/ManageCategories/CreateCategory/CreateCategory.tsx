@@ -28,6 +28,7 @@ const CreateCategory: React.FC<ConfirmationModalProps> = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<TFormValues>();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,9 +55,10 @@ const CreateCategory: React.FC<ConfirmationModalProps> = ({
 
       const response =await createCategory(formData);
       console.log(response);
-      if(response?.data?.data?.message){
+      if(response?.data?.message){
         toast.success("Category created successfully.");
       setOpenModal(false);
+      reset();
       }
     } catch (error) {
       console.error("Error submitting product:", error);

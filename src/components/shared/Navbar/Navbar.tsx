@@ -211,7 +211,7 @@ const Navbar = () => {
             onClick={handleSearchClick}
             src={ICONS.search}
             alt="send-icon"
-            className="size-6 absolute right-3 top-3 bottom-0"
+            className="size-6 absolute right-3 top-3 bottom-0 cursor-pointer"
           />
           <input
             value={searchQuery}

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-"use client"
+"use client";
 import { ICONS } from "@/assets";
 import Image from "next/image";
 import CategoryCard from "./CategoryCard";
@@ -10,11 +10,20 @@ import { Navigation } from "swiper/modules";
 import { useEffect, useRef } from "react";
 import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
 import { TCategory } from "@/app/(dashboardLayout)/dashboard/admin/manage-categories/page";
+import CategoryCardLoader from "@/components/Loaders/CategoryCardLoader/CategoryCardLoader";
 
 const Categories = () => {
-  const {data} = useGetAllCategoriesQuery({});
+  const { data, isLoading } = useGetAllCategoriesQuery({});
 
-  const colors = ["#FEEFEA", "#FFF3FF", "#F2FCE4", "#FEEFEA", "#ECFFEC", "#FFFCEB", "#DEF9EC"];
+  const colors = [
+    "#FEEFEA",
+    "#FFF3FF",
+    "#F2FCE4",
+    "#FEEFEA",
+    "#ECFFEC",
+    "#FFFCEB",
+    "#DEF9EC",
+  ];
 
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
@@ -22,7 +31,7 @@ const Categories = () => {
   useEffect(() => {
     if (prevRef.current && nextRef.current) {
       import("swiper").then(({ Swiper }) => {
-        Swiper.use([Navigation]);
+  Swiper.use([Navigation]);
       });
     }
   }, []);
@@ -30,16 +39,18 @@ const Categories = () => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mt-[100px]">
-        <h1 className="text-neutral-10 text-2xl md:text-[32px] font-semibold font-Sora mt-4">Our Top Categories</h1>
+        <h1 className="text-neutral-10 text-2xl md:text-[32px] font-semibold font-Sora mt-4">
+          Our Top Categories
+        </h1>
         <div className="flex items-center gap-5">
           <button
-          ref={prevRef}
+            ref={prevRef}
             className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
           >
             <Image src={ICONS.leftArrow} className="size-6" alt="Previous" />
           </button>
           <button
-          ref={nextRef}
+            ref={nextRef}
             className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
           >
             <Image src={ICONS.rightArrow} className="size-6" alt="Next" />
@@ -81,17 +92,26 @@ const Categories = () => {
           }
         }}
         spaceBetween={20}
-        modules={[ Navigation]}
+        modules={[Navigation]}
         className="carousel mt-10"
       >
-        {data?.data?.categories.map((category:TCategory, index:number) => (
-          <SwiperSlide key={index}>
-            <CategoryCard
-              category={category}
-              bgColor={colors[index % colors.length]}
-            />
-          </SwiperSlide>
-        ))}
+        {
+  isLoading
+    ? [1,2,3,4,5,6,7].map((_, index) => (
+        <SwiperSlide key={index} className="">
+          <CategoryCardLoader />
+        </SwiperSlide>
+      ))
+    : data?.data?.categories.map((category: TCategory, index: number) => (
+        <SwiperSlide key={index} className="">
+          <CategoryCard
+            category={category}
+            bgColor={colors[index % colors.length]}
+          />
+        </SwiperSlide>
+      ))
+}
+
       </Swiper>
     </div>
   );

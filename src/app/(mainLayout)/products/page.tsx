@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 
 const Products = () => {
   const [search, setSearchQuery] = useState('');
+  const [category, setCategory] = useState<string | undefined>(undefined);
+
   useEffect(() => {
     const { search } = window.location;
     const params = new URLSearchParams(search);
@@ -18,10 +20,14 @@ const Products = () => {
     if (query) {
       setSearchQuery(query);
     }
+
+    const categoryFilter = params.get('category'); 
+    if (categoryFilter) {
+      setCategory(categoryFilter);
+    }
   }, []);
   // State for view type and filter options
   const [viewType, setViewType] = useState("grid");
-  const [category, setCategory] = useState<string | undefined>(undefined);
   // const [search, setSearch] = useState<string | undefined>(searchQuery || "");
   const [brand, setBrand] = useState<string | undefined>(undefined);
   const [rating, setRating] = useState<number | undefined>(undefined);

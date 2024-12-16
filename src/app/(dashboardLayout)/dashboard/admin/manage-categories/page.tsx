@@ -97,7 +97,7 @@ const ManageCategories = () => {
                 </td>
                 <td className="text-[#6E7883] font-Poppins p-4">
                   {category.description.length > 50
-                    ? `${category.description.slice(0, 50)}...`
+                    ? `${category.description.slice(0, 30)}...`
                     : category.description}
                 </td>
                 <td className="text-[#6E7883] font-Poppins p-4 relative">
