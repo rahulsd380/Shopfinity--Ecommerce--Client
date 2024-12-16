@@ -1,34 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
-import { ICONS, IMAGES } from "@/assets";
+import { ICONS } from "@/assets";
 import Image from "next/image";
 import ReviewCard from "./ReviewCard";
 import AddReviewForm from "./AddReviewForm";
+import { TReview } from "@/types/review.types";
 
-const Reviews = ({productId}:{productId:string}) => {
-  const review = [
-    {
-      reviewerName: "Alice Johnson",
-      reviewerImage: IMAGES.logo,
-      reviewDate: "2024-08-01",
-      review: "Great product! Highly recommend it.",
-    },
-    {
-      reviewerName: "Bob Smith",
-      reviewerImage: IMAGES.logo,
-      reviewDate: "2024-07-28",
-      review: "Not what I expected. The quality could be better.",
-    },
-    {
-      reviewerName: "Charlie Brown",
-      reviewerImage: IMAGES.logo,
-      reviewDate: "2024-07-15",
-      review: "Excellent service and fast delivery.",
-    },
-  ];
+const Reviews = ({
+  productId,
+  reviews,
+  isProductBought,
+}: {
+  productId: string;
+  reviews: any;
+  isProductBought: boolean;
+}) => {
+  const buttonStyles =
+    "flex items-center justify-center gap-2 px-4 py-2 border border-neutral-45 rounded-md font-Inter font-medium text-neutral-10 focus:outline-none hover:bg-neutral-45/40 transition duration-300";
   return (
     <div>
       <div className="bg-white border border-neutral-45 rounded-lg p-4">
-        <h1 className="text-xl font-bold text-primary-10">Here's What Our Customers Are Saying!</h1>
+        <h1 className="text-xl font-bold text-primary-10">
+          Here's What Our Customers Are Saying!
+        </h1>
 
         <hr className="border border-neutral-20/10 mt-3" />
 
@@ -125,15 +119,31 @@ const Reviews = ({productId}:{productId:string}) => {
         </div>
       </div>
 
-      
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-5 border-b border-neutral-40 py-6">
+        <div className="flex items-center gap-3">
+          <button className={buttonStyles}>
+            <Image src={ICONS.filter} alt="" className="size-5" />
+            Filter
+          </button>
+          <button className={buttonStyles}>
+            <Image src={ICONS.recent} alt="" className="size-5" />
+            Most Recent
+          </button>
+        </div>
+
+        <button className={buttonStyles}>
+          <Image src={ICONS.write} alt="" className="size-5" />
+          Write A Review
+        </button>
+      </div>
 
       <div className="flex flex-col gap-6 mt-10">
-        {review.map((review, index) => (
-          <ReviewCard key={index}/>
+        {reviews?.map((review: TReview, index: number) => (
+          <ReviewCard key={index} review={review} />
         ))}
       </div>
 
-      <AddReviewForm productId={productId}/>
+      {isProductBought && <AddReviewForm productId={productId} />}
     </div>
   );
 };

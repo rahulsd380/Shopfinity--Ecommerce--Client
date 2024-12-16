@@ -11,6 +11,7 @@ import { logout, useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useGetAllCartProductsQuery } from "@/redux/features/cart/cartApi";
+import Cookies from "js-cookie";
 
 export type TUser = {
   userId: string;
@@ -61,6 +62,7 @@ const Navbar = () => {
   }, [user]);
 
   const handleLogout = () => {
+    Cookies.remove("accessToken");
     dispatch(logout());
     router.push("/login");
     toast.success(`See you again ${clientUser?.name}!`);

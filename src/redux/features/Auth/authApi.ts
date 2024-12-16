@@ -19,14 +19,6 @@ const authApi = baseApi.injectEndpoints({
       // invalidatesTags : ["products"]
     }),
 
-    getMe: builder.query({
-      query: () => ({
-        method: "GET",
-        url: "/users/me",
-      }),
-      // invalidatesTags : ["products"]
-    }),
-
     getAllUsers: builder.query({
       query: () => ({
         method: "GET",
@@ -125,4 +117,4 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useSignupMutation, useGetMeQuery, useUpdateProfileMutation, useGetmyPostsQuery, useGetUserByIdQuery, useFollowUserMutation, useUnfollowUserMutation, useGetAllUsersQuery, useChangeUserRoleToAdminMutation, useChangeUserRoleToUserMutation, useDeleteUserMutation, useForgetPasswordMutation, useResetPasswordMutation } = authApi;
+export const { useLoginMutation, useSignupMutation, useUpdateProfileMutation, useGetmyPostsQuery, useGetUserByIdQuery, useFollowUserMutation, useUnfollowUserMutation, useGetAllUsersQuery, useChangeUserRoleToAdminMutation, useChangeUserRoleToUserMutation, useDeleteUserMutation, useForgetPasswordMutation, useResetPasswordMutation } = authApi;

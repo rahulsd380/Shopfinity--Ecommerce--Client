@@ -29,13 +29,13 @@ const userApi = baseApi.injectEndpoints({
     //   providesTags: ["users"]
     // }),
 
-    // getMyShop: builder.query({
-    //   query: (id) => ({
-    //     method: "GET",
-    //     url: `/seller/my-shop/${id}`,
-    //   }),
-    //   providesTags: ["users"]
-    // }),
+    getMe: builder.query({
+      query: () => ({
+        method: "GET",
+        url: `/user/me`,
+      }),
+      providesTags: ["users"]
+    }),
 
     // updateShop: builder.mutation({
     //   query: ({ id, formData }) => ({
@@ -104,4 +104,5 @@ export const {
     useChangeRoleToUserMutation,
     useSuspendUserMutation,
     useRemoveUserMutation,
+    useGetMeQuery,
 } = userApi;

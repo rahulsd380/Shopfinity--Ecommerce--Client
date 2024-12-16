@@ -75,7 +75,10 @@ import remove from "@/assets/icons/remove.svg";
 import logout from "@/assets/icons/logout.svg";
 import image from "@/assets/icons/image.svg";
 import paymentSuccess from "@/assets/icons/payment-successfull.svg";
-
+import userGray from "@/assets/icons/user-gray.svg";
+import filter from "@/assets/icons/filter.svg";
+import recent from "@/assets/icons/recent.svg";
+import write from "@/assets/icons/write.svg";
 
 
 export const ICONS = {
@@ -125,7 +128,11 @@ export const ICONS = {
     remove,
     logout,
     image,
-    paymentSuccess
+    paymentSuccess,
+    userGray,
+    filter,
+    recent,
+    write,
 
 };
 

@@ -5,7 +5,7 @@ import { useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useAddReviewMutation } from "@/redux/features/Product/productApi";
 import { useAppSelector } from "@/redux/hooks";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { FaStar } from "react-icons/fa6";
 import { toast } from "sonner";
 
@@ -14,10 +14,10 @@ type TFormValues = {
   email: string;
   description: string;
 };
-const AddReviewForm = ({productId}:{productId:string}) => {
+const AddReviewForm = ({ productId }: { productId: string }) => {
   // Authenticated user
   const user = useAppSelector(useCurrentUser) as TUser | null;
-  const [addReview, {isLoading}] = useAddReviewMutation();
+  const [addReview, { isLoading }] = useAddReviewMutation();
   const {
     register,
     handleSubmit,
@@ -25,25 +25,25 @@ const AddReviewForm = ({productId}:{productId:string}) => {
   } = useForm<TFormValues>();
 
   const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(null);
+  const [hover, setHover] = useState<number | null>(null);
 
-  const handleAddReview = async (data) => {
-    if(rating < 1){
+  const handleAddReview: SubmitHandler<TFormValues> = async (data) => {
+    if (rating < 1) {
       toast.error("Please select a rating!");
       return;
     }
     try {
       const reviewData = {
-        userId : user?._id,
-        name : data.name,
-        email : data.email,
-        reviewText : data.description,
+        userId: user?._id,
+        userName: user?.name,
+        name: data.name,
+        email: data.email,
+        reviewText: data.description,
         rating,
-
       };
 
-      const response =await addReview({productId, reviewData}).unwrap();
-      if(response?.message){
+      const response = await addReview({ productId, reviewData }).unwrap();
+      if (response?.message) {
         toast.success("Thanks for your review!!");
       }
     } catch (error) {
@@ -51,37 +51,41 @@ const AddReviewForm = ({productId}:{productId:string}) => {
     }
   };
 
- 
   return (
     <div className="mt-10 border border-neutral-45 rounded-lg p-4">
-       <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
+      <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
         Add a review
       </h1>
-      <p className="text-xs text-neutral-60 font-normal font-Inter mt-2">Your email address will not be published. Required fields are marked *</p>
-      <p className="text-sm text-neutral-60 font-normal font-Inter mt-5">Your rating *</p>
+      <p className="text-xs text-neutral-60 font-normal font-Inter mt-2">
+        Your email address will not be published. Required fields are marked *
+      </p>
+      <p className="text-sm text-neutral-60 font-normal font-Inter mt-5">
+        Your rating *
+      </p>
       <div className="flex items-center space-x-1 mt-1">
-            {[...Array(5)].map((_, index) => {
-                const starRating = index + 1;
-                return (
-                    <FaStar
-                        key={starRating}
-                        className={`cursor-pointer ${
-                            starRating <= (hover || rating) ? "text-yellow-400" : "text-gray-300"
-                        }`}
-                        size={17}
-                        onClick={() => setRating(starRating)}
-                        onMouseEnter={() => setHover(starRating)}
-                        onMouseLeave={() => setHover(null)}
-                    />
-                );
-            })}
-        </div>
-        {
-          rating < 1 ?
-          <p className="text-[#DE3C4B] text-sm mt-1">Select a rating</p>
-          :
-          ""
-        }
+        {[...Array(5)].map((_, index) => {
+          const starRating = index + 1;
+          return (
+            <FaStar
+              key={starRating}
+              className={`cursor-pointer ${
+                starRating <= (hover || rating)
+                  ? "text-yellow-400"
+                  : "text-gray-300"
+              }`}
+              size={17}
+              onClick={() => setRating(starRating)}
+              onMouseEnter={() => setHover(starRating)}
+              onMouseLeave={() => setHover(null)}
+            />
+          );
+        })}
+      </div>
+      {rating < 1 ? (
+        <p className="text-[#DE3C4B] text-sm mt-1">Select a rating</p>
+      ) : (
+        ""
+      )}
 
       <form
         onSubmit={handleSubmit(handleAddReview)}
@@ -135,7 +139,11 @@ const AddReviewForm = ({productId}:{productId:string}) => {
           )}
         </div>
 
-        <FormSubmitButton label="Submit" isLoading={isLoading} classNames="w-fit" />
+        <FormSubmitButton
+          label="Submit"
+          isLoading={isLoading}
+          classNames="w-fit"
+        />
       </form>
     </div>
   );
