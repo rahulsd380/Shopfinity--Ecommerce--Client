@@ -104,7 +104,7 @@ const Navbar = () => {
       <div className="hidden xl:flex items-center justify-between py-3 border-b border-neutral-50/30">
         <div className="flex items-center gap-3 font-Sora text-neutral-30 text-sm font-medium">
           <Link href={"/"} className="hover:underline">
-            About Us
+            Home
           </Link>
           <Link href={"/"} className="hover:underline">
             My Account
