@@ -19,7 +19,7 @@ export type TUser = {
   role: string;
   iat: number;
   exp: number;
-  _id? : string;
+  _id?: string;
 };
 
 const Navbar = () => {
@@ -48,7 +48,10 @@ const Navbar = () => {
 
   useEffect(() => {
     if (data?.data?.items) {
-      const totalPrice = data.data.items.reduce((acc:any, item:any) => acc + (item.price * item.quantity), 0);
+      const totalPrice = data.data.items.reduce(
+        (acc: any, item: any) => acc + item.price * item.quantity,
+        0
+      );
       setTotal(totalPrice);
     }
   }, [data]);
@@ -203,14 +206,14 @@ const Navbar = () => {
 
         <div className="relative flex-grow hidden md:block">
           <Image
-          onClick={handleSearchClick}
+            onClick={handleSearchClick}
             src={ICONS.search}
             alt="send-icon"
             className="size-6 absolute right-3 top-3 bottom-0"
           />
           <input
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             placeholder="Search for your product..."
             className="w-full px-4 py-3 pr-12 rounded focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-1 bg-neutral-65"
@@ -230,34 +233,31 @@ const Navbar = () => {
           <Link href={"/wishlist"} className="hidden md:block relative w-fit">
             <Image src={ICONS.wishlist2} alt="cart" className="size-10" />
             <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
-              {wishlist?.length}
+              <p>{wishlist?.length}</p>
             </div>
           </Link>
           {/* Cart */}
           <div className="hidden md:flex items-center gap-4">
             <Link href={"/cart"} className="relative w-fit">
               <Image src={ICONS.cart3} alt="cart" className="size-10" />
-              <div className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
-                {
-                  user?
-                data?.data?.items?.length || "0"
-                :
-                "0"
-                }
-              </div>
+              {user && data?.data?.items?.length ? (
+                <p className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
+                  {data?.data?.items?.length}
+                </p>
+              ) : (
+                <p className="size-5 text-xs rounded-full bg-primary-10 text-white flex items-center justify-center absolute top-0 -right-2">
+                  0
+                </p>
+              )}
             </Link>
             <div>
               <h1 className="text-neutral-15 font-Sora font-semibold">Total</h1>
               <p className="text-neutral-60 font-Inter text-sm font-medium mt-1">
-                ${
-                  user?
-                  total
-                  :
-                  "0.00"
-                }
+                ${user && total ? total.toFixed(2) : "0.00"}
               </p>
             </div>
           </div>
+
           {clientUser ? (
             <div className="hidden xl:flex items-center gap-2">
               <Image src={ICONS.profileIcon} alt="cart" className="size-9" />

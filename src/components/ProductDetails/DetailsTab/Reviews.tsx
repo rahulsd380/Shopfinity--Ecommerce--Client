@@ -1,7 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
+import ReviewCard from "./ReviewCard";
+import AddReviewForm from "./AddReviewForm";
 
-const Reviews = () => {
+const Reviews = ({productId}:{productId:string}) => {
   const review = [
     {
       reviewerName: "Alice Johnson",
@@ -25,7 +28,7 @@ const Reviews = () => {
   return (
     <div>
       <div className="bg-white border border-neutral-45 rounded-lg p-4">
-        <h1 className="text-xl font-bold text-neutral-55">Reviews</h1>
+        <h1 className="text-xl font-bold text-primary-10">Here's What Our Customers Are Saying!</h1>
 
         <hr className="border border-neutral-20/10 mt-3" />
 
@@ -122,47 +125,15 @@ const Reviews = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
-        {review.map((review, index) => (
-          <div
-            key={index}
-            className="bg-white border border-neutral-45 rounded-lg p-4 flex flex-col gap-3 mt-6"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Image src={review.reviewerImage} alt="" className="size-20" />
-                <p>
-                  <p className="font-semibold text-neutral-60 text-[15px]">
-                    {review.reviewerName}
-                  </p>
-                  <p className="font-normal text-neutral-60 text-[11px]">
-                    {review.reviewDate}
-                  </p>
-                </p>
-              </div>
+      
 
-              <div className="flex items-center gap-2">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <Image
-                    key={index}
-                    src={ICONS.star}
-                    alt=""
-                    className="size-4"
-                  />
-                ))}
-              </div>
-            </div>
-            <p className="text-body-text font-normal text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-              molestias, tempore sequi assumenda reprehenderit placeat
-              necessitatibus asperiores. Obcaecati soluta provident deserunt
-              odit quis similique unde non expedita placeat distinctio,
-              voluptatem totam minus quasi omnis pariatur in consequuntur, vitae
-              molestias quisquam!
-            </p>
-          </div>
+      <div className="flex flex-col gap-6 mt-10">
+        {review.map((review, index) => (
+          <ReviewCard key={index}/>
         ))}
       </div>
+
+      <AddReviewForm productId={productId}/>
     </div>
   );
 };

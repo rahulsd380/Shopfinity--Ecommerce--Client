@@ -75,6 +75,15 @@ const productApi = baseApi.injectEndpoints({
       invalidatesTags: ["products"]
     }),
 
+    addReview: builder.mutation({
+      query: ({productId, reviewData}) => ({
+        url: `/product/review/${productId}`,
+        method: "POST",
+        body: reviewData,
+      }),
+      invalidatesTags: ["products"]
+    }),
+
 
   }),
 });
@@ -84,5 +93,6 @@ export const {
     useGetAllProductsQuery, 
     useGetSingleProductByIdQuery,
     useDeleteProductMutation,
-    useUpdateProductMutation
+    useUpdateProductMutation,
+    useAddReviewMutation,
 } = productApi;

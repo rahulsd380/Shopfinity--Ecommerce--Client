@@ -40,7 +40,7 @@ const DetailsTab = ({product}:{product:any}) => {
         ) : detailsTab === "Specification" ? (
           <Specification />
         ) : (
-          <Reviews />
+          <Reviews productId={product?._id} />
         )}
       </div>
     </div>

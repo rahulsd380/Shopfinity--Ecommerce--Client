@@ -199,7 +199,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
               </svg>
             ))}
           </div>
-          <p className="text-sm text-neutral-10 ml-2">({reviews})</p>
+          <p className="text-sm text-neutral-10 ml-2">({reviews?.length})</p>
         </div>
         <p className="text-neutral-40 font-Inter text-[12px]">
           Brand{" "}
