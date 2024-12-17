@@ -43,25 +43,25 @@ const Login = () => {
       const user = response.data?.data?.user;
       const accessToken = response.data?.data?.accessToken;
 
+      const userRole = response?.data?.data?.user?.role;
       if (accessToken) {
-        // Set the token in cookies (securely if the app is running on HTTPS)
         Cookies.set("accessToken", accessToken, {
-          expires: 7, // Expires in 7 days
-          secure: typeof window !== "undefined" && window.location.protocol === "https:", // Secure if using HTTPS
-          sameSite: "strict", // Prevent CSRF attacks
+          expires: 7,
+          secure: typeof window !== "undefined" && window.location.protocol === "https:",
+          sameSite: "strict",
+        });
+        Cookies.set("role", userRole, {
+          expires: 7,
+          secure: window.location.protocol === "https:",
+          sameSite: "strict",
         });
       }
-      console.log(response)
-
-      // const user = verifyToken(response.data?.data?.accessToken);
-      // console.log(user)
-      console.log("User role:", response?.data?.data?.user?.role);
 
       if(response?.data?.success){
         dispatch(setUser({ user, token: response?.data?.data?.accessToken }));
         toast.success("Logged in successfully.");
       
-        const userRole = response?.data?.data?.user?.role;
+       
       
         if(userRole === "admin"){
           router.push("/dashboard/admin");

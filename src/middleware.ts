@@ -1,90 +1,27 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextResponse } from 'next/server';
-import { NextRequest } from 'next/server';
-import jwt from 'jsonwebtoken';
-import Cookies  from 'js-cookie';
+import { NextRequest, NextResponse } from "next/server";
 
-type Role = keyof typeof roleBaseRoutes;
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
 
-const AuthRoutes = ["/login", "/signup"];
-const roleBaseRoutes = {
-  user: [
-    /^\/become-seller/,
-    /^\/cart/,
-    /^\/compare-products/,
-    /^\/products/,
-    /^\/wishlist/,
-  ],
-  admin: [
-    /^\/admin/,
-    /^\/become-seller/,
-    /^\/cart/,
-    /^\/compare-products/,
-    /^\/products/,
-    /^\/wishlist/,
-    /^\/manage-categories/,
-    /^\/manage-shops/,
-    /^\/manage-users/,
-    /^\/payment-history/
-  ],
-  seller: [
-    /^\/seller/,
-    /^\/cart/,
-    /^\/compare-products/,
-    /^\/products/,
-    /^\/wishlist/,
-    /^\/manage-categories/,
-    /^\/add-product/,
-  ],
-};
+  const userRole = req.cookies.get("role")?.value || "guest";
 
-// Middleware function
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  // Retrieve the token from cookies
-  // const token = request.cookies.get('accessToken')?.value;
-  const token = Cookies.get("accessToken");
-  console.log(token)
-
-  // If there is no token and the user is trying to access a protected route
-  if (!token) {
-    if (AuthRoutes.includes(pathname)) {
-      return NextResponse.next();
-    }
-    return NextResponse.redirect(new URL('/', request.url));
-  }
-
-  try {
-    // Decode the token using JWT and a secret
-    const decodedToken: any = jwt.verify(token, "secret" as string);
-
-    const userRole = decodedToken.role as Role;
-
-    // Check if the user role has the necessary permissions for the requested route
-    if (userRole && roleBaseRoutes[userRole]) {
-      const routes = roleBaseRoutes[userRole];
-
-      // Check if the current pathname matches the user's role routes
-      if (routes.some((route) => route.test(pathname))) {
-        return NextResponse.next();
-      }
+  if (pathname.startsWith("/dashboard")) {
+    if (userRole === "user" && (pathname.includes("/dashboard/seller") || pathname.includes("/dashboard/admin"))) {
+      return NextResponse.redirect(new URL("/", req.url));
     }
 
-    // If no match, redirect to homepage or login
-    return NextResponse.redirect(new URL('/', request.url));
-  } catch (error) {
-    console.error('Invalid or expired token:', error);
-    return NextResponse.redirect(new URL('/login', request.url));
+    if (userRole === "seller" && pathname.includes("/dashboard/admin")) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    if (userRole === "admin" && pathname.includes("/dashboard/seller")) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
   }
+
+  return NextResponse.next();
 }
 
-// Middleware configuration
 export const config = {
-  matcher: [
-    "/admin", 
-    "/login", 
-    "/signup", 
-    "/dashboard/seller", 
-  ],
+  matcher: ["/dashboard/:path*"],
 };
