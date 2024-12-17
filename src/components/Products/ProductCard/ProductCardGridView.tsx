@@ -16,12 +16,14 @@ import { toast } from "sonner";
 
 type TProductCardGridViewProps = {
   isMenuActive?: boolean;
+  isCartIconVisible?: boolean;
   product: TProduct;
 };
 
 const ProductCardGridView: React.FC<TProductCardGridViewProps> = ({
   product,
   isMenuActive = false,
+  isCartIconVisible = true
 }) => {
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const [deleteProduct, { isLoading }] = useDeleteProductMutation();
@@ -104,12 +106,15 @@ const ProductCardGridView: React.FC<TProductCardGridViewProps> = ({
 
   return (
     <div className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
-      <button
+      {
+        isCartIconVisible &&
+        <button
         onClick={handleAddToCart}
         className="bg-neutral-55/20 border border-neutral-45 p-1 flex items-center justify-center rounded-md hover:bg-neutral-45/30 transition duration-300 absolute top-2 right-2"
       >
         <Image src={ICONS.cart} alt="star-icon" className="size-5" />
       </button>
+      }
 
       {isMenuActive && (
         <button

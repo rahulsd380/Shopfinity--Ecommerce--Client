@@ -57,6 +57,11 @@ const DashboardSidebar = () => {
       icon: <FaHome />,
     },
     {
+      label: "All Products",
+      path: "/dashboard/admin/all-products",
+      icon: <FaListUl/>,
+    },
+    {
       label: "Manage Users",
       path: "/dashboard/admin/manage-users",
       icon: <LiaUsersCogSolid/>,

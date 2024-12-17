@@ -1,5 +1,6 @@
 "use client"
 import { ICONS } from "@/assets";
+import NoProducts from "@/components/NoProducts/NoProducts";
 import Filters from "@/components/Products/Filter/Filter";
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
 import ProductCardListView from "@/components/Products/ProductCard/ProductCardListView";
@@ -43,8 +44,6 @@ const Products = () => {
     page: 1,
     limit: 20,
   });
-
-  console.log(data)
 
   // View buttons for toggling between grid and list view
   const viewButtons = [
@@ -123,19 +122,24 @@ const Products = () => {
             </div>
           </div>
 
-          {viewType === "grid" ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
-              {data?.data?.products?.map((product:TProduct) => (
-                <ProductCardGridView key={product._id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col gap-5 mt-7">
-              {data?.data?.products?.map((product:TProduct) => (
-                <ProductCardListView key={product._id} product={product} />
-              ))}
-            </div>
-          )}
+          {data?.data?.products?.length > 0 ? (
+  viewType === "grid" ? (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
+      {data?.data?.products?.map((product: TProduct) => (
+        <ProductCardGridView key={product._id} product={product} />
+      ))}
+    </div>
+  ) : (
+    <div className="flex flex-col gap-5 mt-7">
+      {data?.data?.products?.map((product: TProduct) => (
+        <ProductCardListView key={product._id} product={product} />
+      ))}
+    </div>
+  )
+) : (
+  <NoProducts />
+)}
+
         </div>
       </div>
     </Container>

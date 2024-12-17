@@ -4,6 +4,7 @@ import Footer from "@/components/shared/Footer/Footer";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Image from "next/image";
 import { ReactNode } from "react";
+import { Toaster } from "sonner";
 
 type TAuthLayoutProps = {
   children: ReactNode;
@@ -36,6 +37,7 @@ const AuthLayout: React.FC<TAuthLayoutProps> = ({ children }) => {
       </Container>
 
       <Footer />
+      <Toaster position="top-center" richColors/>
     </div>
   );
 };

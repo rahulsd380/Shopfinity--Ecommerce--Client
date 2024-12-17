@@ -4,17 +4,13 @@ import { ICONS } from "@/assets";
 import NoProducts from "@/components/NoProducts/NoProducts";
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
 import ProductCardListView from "@/components/Products/ProductCard/ProductCardListView";
-import { TUser } from "@/components/shared/Navbar/Navbar";
-import { useCurrentUser } from "@/redux/features/Auth/authSlice";
-import { useGetMyProductsQuery } from "@/redux/features/Seller/sellerApi";
-import { useAppSelector } from "@/redux/hooks";
+import { useGetAllProductsQuery } from "@/redux/features/Product/productApi";
 import { TProduct } from "@/types/product.types";
 import Image from "next/image";
 import { useState } from "react";
 
 const AllProductsBySeller = () => {
-  const user = useAppSelector(useCurrentUser) as TUser | null;
-  const { data } = useGetMyProductsQuery(user?._id);
+  const { data } = useGetAllProductsQuery({page:1, limit:100});
   const [viewType, setViewType] = useState("grid");
   const viewButtons = [
     {
@@ -30,7 +26,7 @@ const AllProductsBySeller = () => {
     <div>
       <div className="flex flex-col lg:flex-row items-center justify-between w-full">
         <h1 className="text-neutral-10 font-Inter text-xl font-semibold">
-          All Products ({data?.data?.length || 0})
+          All Products ({data?.data?.products?.length || 0})
         </h1>
         <div className="flex flex-col lg:flex-row items-center gap-3">
           {/* Search bar */}
@@ -84,25 +80,25 @@ const AllProductsBySeller = () => {
           </div>
         </div>
       </div>
-      {data?.data?.length > 0 ? (
+      {data?.data?.products?.length > 0 ? (
         viewType === "grid" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
-            {data?.data?.map((product: TProduct) => (
+            {data?.data?.products?.map((product: TProduct) => (
               <ProductCardGridView
                 key={product._id}
                 product={product}
-                isMenuActive={true}
+                isMenuActive={false}
                 isCartIconVisible={false}
               />
             ))}
           </div>
         ) : (
           <div className="flex flex-col gap-5 mt-7">
-            {data?.data?.map((product: TProduct) => (
+            {data?.data?.products?.map((product: TProduct) => (
               <ProductCardListView
                 key={product._id}
                 product={product}
-                isMenuActive={true}
+                isMenuActive={false}
               />
             ))}
           </div>

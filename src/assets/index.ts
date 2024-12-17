@@ -25,6 +25,7 @@ import fruits from "@/assets/images/fruits.png";
 import strawberry from "@/assets/images/strawberry.png";
 import potato from "@/assets/images/potato.png";
 import apple from "@/assets/images/apple.png";
+import emptyBag from "@/assets/images/empty-box.png";
 
 
 
@@ -163,4 +164,5 @@ export const IMAGES = {
     strawberry,
     potato,
     apple,
+    emptyBag,
 };

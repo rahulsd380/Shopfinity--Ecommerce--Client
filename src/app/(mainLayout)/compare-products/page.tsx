@@ -1,6 +1,7 @@
 "use client"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CompareProductCard from "@/components/CompareProducts/CompareProductCard/CompareProductCard";
+import NoProducts from "@/components/NoProducts/NoProducts";
 import Banner from "@/components/reusable/Banner/Banner";
 import Container from "@/components/shared/Container/Container";
 import { useEffect, useState } from "react";
@@ -29,11 +30,21 @@ const CompareProducts = () => {
         description="Easily Compare Features, Prices, and Reviews to Make the Best Choice"
       />
 
-      <div className="mt-[100px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
-        {compareList?.map((product) => (
-          <CompareProductCard key={product?._id} product={product} handleRemoveFromCompareList={handleRemoveFromCompareList} />
-        ))}
-      </div>
+<div className="mt-[100px]">
+      {compareList?.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
+          {compareList.map((product) => (
+            <CompareProductCard
+              key={product._id}
+              product={product}
+              handleRemoveFromCompareList={handleRemoveFromCompareList}
+            />
+          ))}
+        </div>
+      ) : (
+        <NoProducts />
+      )}
+    </div>
     </Container>
   );
 };

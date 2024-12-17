@@ -3,10 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoLogOutOutline } from "react-icons/io5";
-// import { useAppDispatch } from "@/redux/hooks";
-// import { toast } from "sonner";
-// import { logout } from "@/redux/features/Auth/authSlice";
-// import { useGetMeQuery } from "@/redux/features/Auth/authApi";
 import {IoNotificationsOutline,} from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { GoPerson } from "react-icons/go";
@@ -14,16 +10,19 @@ import { MdOutlineForwardToInbox } from "react-icons/md";
 import { RiContactsBook2Line } from "react-icons/ri";
 import { FaChalkboardUser, FaChevronDown } from "react-icons/fa6";
 import { ICONS } from "@/assets";
-import { useAppSelector } from "@/redux/hooks";
-import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logout, useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { TUser } from "../Navbar/Navbar";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 
 
 const UserDropdown = () => {
 //   const {data} = useGetMeQuery({});
-//   const dispatch = useAppDispatch();
-//   const router = useRouter();
+const dispatch = useAppDispatch();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,24 +41,26 @@ const UserDropdown = () => {
   }, []);
 
   const userMenuItems = [
-    { label: "Dashboard", path: "/dashboard", icon: <RxDashboard /> },
+    { label: "Dashboard", path: "/", icon: <RxDashboard /> },
     {
       label: "View Profile",
-      path: "/dashboard/my-profile",
+      path: "/",
       icon: <GoPerson className="text-[1.3rem]" />,
     },
-    { label: "Inbox", path: "/inbox", icon: <MdOutlineForwardToInbox /> },
-    { label: "Notifications", path: "/notifications", icon: <IoNotificationsOutline className="text-" /> },
-    { label: "Contact Us", path: "/contact-us", icon: <RiContactsBook2Line /> },
-    { label: "About Us", path: "/about-us", icon: <FaChalkboardUser />
+    { label: "Inbox", path: "/", icon: <MdOutlineForwardToInbox /> },
+    { label: "Notifications", path: "/", icon: <IoNotificationsOutline className="text-" /> },
+    { label: "Contact Us", path: "/", icon: <RiContactsBook2Line /> },
+    { label: "About Us", path: "/", icon: <FaChalkboardUser />
     },
   ];
 
-//   const handleLogout = () => {
-//     dispatch(logout());
-//     router.push("/login");
-//     toast.success("Logged out successfully.");
-//   };
+  const handleLogout = () => {
+    Cookies.remove("accessToken");
+    Cookies.remove("role");
+    dispatch(logout());
+    router.push("/login");
+    toast.success(`See you again!`);
+  };
 
 const user = useAppSelector(useCurrentUser) as TUser | null;
 
@@ -78,7 +79,7 @@ const user = useAppSelector(useCurrentUser) as TUser | null;
         />
         </div>
           <h1 className="font-medium text-neutral-10">{user?.name ? user?.name : "N/A"}</h1>
-          <p><FaChevronDown className="text-neutral-45" /></p>
+          <p><FaChevronDown className="text-neutral-10" /></p>
       </button>
 
       <div
@@ -104,7 +105,7 @@ const user = useAppSelector(useCurrentUser) as TUser | null;
 
         {/* Logout button */}
         <button
-        //   onClick={handleLogout}
+          onClick={handleLogout}
           className={`rounded-sm px-3 py-2 ${
             open ? "opacity-100 duration-500" : "opacity-0 duration-150"
           } hover:bg-primary-gradient hover:text-primary-10 flex items-center gap-3 text-neutral-10`}

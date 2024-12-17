@@ -5,6 +5,7 @@ import CartProductCard from "@/components/Cart/CartProductCard/CartProductCard";
 import CartTotal from "@/components/Cart/CartTotal/CartTotal";
 import FreeShippingBar from "@/components/Cart/FreeShippingBar/FreeShippingBar";
 import WhatWeOffer from "@/components/Home/WhatWeOffer/WhatWeOffer";
+import NoProducts from "@/components/NoProducts/NoProducts";
 import { TUser } from "@/components/shared/Navbar/Navbar";
 import { useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useGetAllCartProductsQuery, useUpdateQuantityMutation } from "@/redux/features/cart/cartApi";
@@ -76,7 +77,9 @@ const CartPage = () => {
 
       <div className="flex flex-col lg:flex-row gap-7 mt-5">
         <div className="w-full lg:w-[70%] bg-neutral-55/20 p-4 rounded-xl border border-neutral-45 flex flex-col gap-5">
-          {data?.data?.items?.map((item:any) => {
+          {
+            data?.data?.items?.length > 0 ?
+          data?.data?.items?.map((item:any) => {
             return (
               <CartProductCard
                 key={item.productId}
@@ -84,7 +87,10 @@ const CartPage = () => {
                 onUpdateQuantity={onUpdateQuantity}
               />
             );
-          })}
+          })
+          :
+          <NoProducts/>
+        }
 
           <div className="flex items-center justify-between w-full ">
             <Link

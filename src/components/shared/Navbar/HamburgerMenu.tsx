@@ -123,6 +123,12 @@ const HamburgerMenu = () => {
           Compare Products
         </Link>
        <Link
+          href={"/recently-viewed"}
+          className="text-neutral-10 text-lg font-semibold py-[10px] w-full border-b border-[#E7E7E7]"
+        >
+          Recently Viewed Products
+        </Link>
+       <Link
           href={"/"}
           className="text-neutral-10 text-lg font-semibold py-[10px] w-full border-b border-[#E7E7E7]"
         >
