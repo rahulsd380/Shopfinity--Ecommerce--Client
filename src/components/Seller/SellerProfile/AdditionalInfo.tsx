@@ -17,7 +17,7 @@ const AdditionalInfo :React.FC<TAdditionalInfo> = ({shopLogo, supplier, address}
     return (
         <div className="bg-white border border-neutral-45 rounded-xl p-4 font-Inter w-full xl:w-[25%] h-fit">
       <div className="flex items-center gap-3">
-        <Image src={shopLogo ? shopLogo : ICONS.user} alt="product-img" className="size-10" />
+        <Image src={shopLogo} alt="product-img" className="size-10" width={40} height={40} />
         <div>
           <p className="text-neutral-15 font-Inter">Supplier</p>
           <p className="text-neutral-15 font-Inter">{supplier}</p>

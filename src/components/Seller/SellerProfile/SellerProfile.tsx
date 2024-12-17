@@ -2,12 +2,42 @@
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
 import AdditionalInfo from "./AdditionalInfo";
+import formatDate from "@/utils/formatDate";
+import { useFollowSellerMutation } from "@/redux/features/User/userApi";
+import { toast } from "sonner";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useAppSelector } from "@/redux/hooks";
 
 type TSellerProfileProps = {
   isFollowVisible?:boolean;
   data:any;
 }
+
 const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true, data}) => {
+  console.log(data)
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const [followSeller] = useFollowSellerMutation();
+
+  const handleFollowSeller= async () => {
+    try {
+      const followData = {
+        userId : user?._id,
+        vendorId : data?._id
+      };
+      const response = await followSeller(followData);
+      console.log(response)
+
+      if(response?.data?.success){
+        toast.success("Seller profile followed successfully.");
+      }
+      
+    } catch (error) {
+      console.log(error)
+      toast.error("Something went wrong! Please try again.");
+    }
+  };
+  
   return (
         <div className="flex flex-col xl:flex-row gap-5">
     <div className="rounded-xl w-full xl:w-[80%]">
@@ -21,16 +51,26 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true, da
         {/* Shop logo */}
         <div className="size-24 rounded-full flex items-center justify-center border border-neutral-45">
           <Image
-            src={IMAGES.logo}
+            src={data?.shopLogo}
             alt="bg-img"
             className="size-[90px] rounded-full object-cover"
+            width={90}
+            height={90}
           />
         </div>
 
         <div className="w-full">
+          <div className="flex items-center gap-3">
           <h1 className="text-neutral-15 font-Inter text-2xl font-semibold">
             {data?.shopName}
           </h1>
+          <h1 className="text-neutral-25 font-Inter text-xs">
+            {data?.followers ? data?.followers?.length : 0} {" "}
+            {
+              data?.followers?.length > 1 ? "Followers" : "Follower"
+            }
+          </h1>
+          </div>
           <p className="text-neutral-25 font-Inter">
           {data?.tagline}
           </p>
@@ -62,7 +102,7 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true, da
                   alt="location-icon"
                   className="size-5"
                 />
-                <p className="text-neutral-25 font-Inter">{data?.createdAt}</p>
+                <p className="text-neutral-25 font-Inter">{formatDate(data?.createdAt)}</p>
               </div>
             </div>
             <div>
@@ -80,9 +120,12 @@ const SellerProfile:React.FC<TSellerProfileProps> = ({isFollowVisible = true, da
             </div>
 
             {
-              isFollowVisible &&
-              <button className="text-white px-6 py-2 bg-primary-10 hover:bg-primary-10/80 transition duration-300 text-lg font-Inter font-medium rounded-3xl">
-              Follow
+              isFollowVisible && user?._id !== data?.userId &&
+              <button onClick={handleFollowSeller} disabled={data?.followers.includes(user?._id)} className="text-white px-6 py-2 bg-primary-10 hover:bg-primary-10/80 transition duration-300 text-lg font-Inter font-medium rounded-3xl">
+              {
+              data?.followers.includes(user?._id) ? "Followed" : "Follow"
+              
+              }
             </button>
             }
           </div>

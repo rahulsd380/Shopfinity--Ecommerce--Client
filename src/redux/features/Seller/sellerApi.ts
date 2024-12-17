@@ -24,6 +24,14 @@ const sellerApi = baseApi.injectEndpoints({
     getSingleSellerById: builder.query({
       query: (id) => ({
         method: "GET",
+        url: `/seller/single/${id}`,
+      }),
+      providesTags: ["sellers"]
+    }),
+
+    getSingleSellerBySellerId: builder.query({
+      query: (id) => ({
+        method: "GET",
         url: `/seller/${id}`,
       }),
       providesTags: ["sellers"]
@@ -86,6 +94,7 @@ export const {
     useBecomeSellerMutation,
     useGetAllShopsQuery,
     useGetSingleSellerByIdQuery,
+    useGetSingleSellerBySellerIdQuery,
     useUpdateShopMutation,
     useGetMyShopQuery,
     useApproveSellerMutation,

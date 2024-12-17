@@ -5,6 +5,7 @@ import ProductDetails from "@/components/ProductDetails/ProductDetails/ProductDe
 import SellerCard from "@/components/ProductDetails/SellerCard/SellerCard";
 import Container from "@/components/shared/Container/Container";
 import { useGetAllProductsQuery, useGetSingleProductByIdQuery } from "@/redux/features/Product/productApi";
+import {  useGetSingleSellerBySellerIdQuery } from "@/redux/features/Seller/sellerApi";
 import { TProduct } from "@/types/product.types";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,8 +14,9 @@ import { useParams } from "next/navigation";
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const { data } = useGetSingleProductByIdQuery(id);
-  const { data:categorizedProducts } = useGetAllProductsQuery(data?.data?.category);
-  console.log(categorizedProducts)
+  const { data:categorizedProducts } = useGetAllProductsQuery({page:1, limit:20});
+  const {data:seller} = useGetSingleSellerBySellerIdQuery(data?.data?.vendorId);
+  console.log(seller)
   return (
     <Container>
       <div className="mt-10">
@@ -24,7 +26,7 @@ const ProductDetailsPage = () => {
         <div className="flex flex-col lg:flex-row gap-7 bg-white border border-neutral-45 rounded-lg p-5">
           <Images images={data?.data?.images} />
           <ProductDetails product={data?.data} />
-          <SellerCard />
+          <SellerCard {...seller?.data} />
         </div>
         <div className="flex flex-col lg:flex-row gap-7 justify-between mt-20 w-full">
           <DetailsTab product={data?.data} />

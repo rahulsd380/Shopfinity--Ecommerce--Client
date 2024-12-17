@@ -102,6 +102,15 @@ const userApi = baseApi.injectEndpoints({
       invalidatesTags: ["users"]
     }),
 
+    followSeller: builder.mutation({
+      query: (followData) => ({
+        method: "PUT",
+        url: `/seller/follow`,
+        body : followData,
+      }),
+      invalidatesTags: ["sellers"]
+    }),
+
 
   }),
 });
@@ -114,4 +123,5 @@ export const {
     useRemoveUserMutation,
     useGetMeQuery,
     useGetMyOrdersQuery,
+    useFollowSellerMutation
 } = userApi;

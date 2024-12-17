@@ -9,6 +9,7 @@ import React from 'react';
 const Seller = () => {
     const {id} = useParams();
     const {data} = useGetSingleSellerByIdQuery(id);
+    console.log(data)
     return (
         <Container>
             <div className="mt-10">
