@@ -6,8 +6,8 @@ Shopfinity is a comprehensive E-Commerce Application designed to provide a seaml
 
 ## Live Deployment
 
-Frontend: [Shopfinity Frontend](https://example-frontend.com)  
-Backend: [Shopfinity Backend](https://example-backend.com)
+Frontend: [Shopfinity Frontend](https://shopfinity-ecommerce.vercel.app/)  
+Backend: [Shopfinity Backend](https://shopfinity-server.vercel.app/)
 
 ---
 

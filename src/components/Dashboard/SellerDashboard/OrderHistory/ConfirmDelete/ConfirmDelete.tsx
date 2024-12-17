@@ -57,7 +57,7 @@ const ConfirmDelete: React.FC<ConfirmationModalProps> = ({
                 {
                   isLoading ?
                   <div className="flex items-center gap-1">
-                    <p>Loading</p>
+                    <p>Deleting...</p>
                     <div className="size-6 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-yellow-900 border-white"></div>
                   </div>
                   : "Yes, Delete"

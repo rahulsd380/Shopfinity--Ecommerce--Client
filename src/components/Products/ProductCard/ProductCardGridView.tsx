@@ -38,11 +38,24 @@ const ProductCardGridView: React.FC<TProductCardGridViewProps> = ({
 
   // For seller
   const handleDeleteProduct = async (id: string) => {
-    toast.promise(deleteProduct(id), {
-      loading: "Deleting product...",
-      success: "Product deleted successfully.",
-      error: "Something went wrong.",
-    });
+    // toast.promise(deleteProduct(id), {
+    //   loading: "Deleting product...",
+    //   success: "Product deleted successfully.",
+    //   error: "Something went wrong.",
+    // });
+
+    try {
+      const response = await deleteProduct(id).unwrap();
+      console.log(response);
+      if (response?.message) {
+        toast.success("Product deleted successfully.");
+        setOpenModal(false);
+        setActiveDropdown(null);
+      }
+    } catch (error) {
+      toast.error("Failed to delete product. Please try again.");
+      console.error("Error deleting product:", error);
+    }
   };
 
   const [wishlist, setWishlist] = useState<any[]>([]);
