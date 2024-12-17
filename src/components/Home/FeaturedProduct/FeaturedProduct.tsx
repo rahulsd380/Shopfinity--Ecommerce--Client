@@ -15,6 +15,7 @@ import FeaturedProductCardLoader from './../../Loaders/FeaturedProductCardLoader
 
 const FeaturedProduct = () => {
   const { data, isLoading } = useGetAllProductsQuery({page:1, limit:20});
+  console.log(data)
 
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);

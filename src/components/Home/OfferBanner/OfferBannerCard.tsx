@@ -44,12 +44,14 @@ const OfferBannerCard: React.FC<ReusableBannerProps> = ({
         <p className="text-neutral-60 font-Inter text-lg font-medium mt-4">
           {description}
         </p>
+        {/* <RippleEffect> */}
         <a
           href={buttonUrl}
           className="inline-block bg-primary-10 text-white font-semibold px-4 py-2 rounded-sm hover:bg-green-600 transition mt-10"
         >
           {buttonText}
         </a>
+        {/* </RippleEffect> */}
       </div>
       {/* Image */}
       <div className="relative z-10 w-full md:w-1/2 h-full">

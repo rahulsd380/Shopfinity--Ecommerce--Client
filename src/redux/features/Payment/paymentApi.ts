@@ -20,9 +20,18 @@ const paymentApi = baseApi.injectEndpoints({
       }),
       providesTags : ["payments"]
     }),
+
+    // For specific seller
+    getHistoriesBySellerId: builder.query({
+      query: (sellerId) => ({
+        method: "GET",
+        url: `/payment/${sellerId}`,
+      }),
+      providesTags : ["payments"]
+    }),
     
 
   }),
 });
 
-export const {useMakePaymentMutation, useGetAllPaymentsHistoriesQuery } = paymentApi;
+export const {useMakePaymentMutation, useGetAllPaymentsHistoriesQuery, useGetHistoriesBySellerIdQuery } = paymentApi;

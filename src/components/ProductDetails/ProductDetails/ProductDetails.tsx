@@ -99,6 +99,7 @@ const ProductDetails = ({product}:{product:any}) => {
     try {
       const cartData = {
         userId: id,
+        sellerId : product?.vendorId,
         quantity : quantity
       };
   

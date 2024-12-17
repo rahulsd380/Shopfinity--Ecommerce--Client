@@ -51,13 +51,29 @@ const Login = () => {
           sameSite: "strict", // Prevent CSRF attacks
         });
       }
+      console.log(response)
 
       // const user = verifyToken(response.data?.data?.accessToken);
       // console.log(user)
+      console.log("User role:", response?.data?.data?.user?.role);
 
-      dispatch(setUser({ user, token: response?.data?.data?.accessToken }));
-      toast.success("Logged in successfully.");
-      router.push("/");
+      if(response?.data?.success){
+        dispatch(setUser({ user, token: response?.data?.data?.accessToken }));
+        toast.success("Logged in successfully.");
+      
+        const userRole = response?.data?.data?.user?.role;
+      
+        if(userRole === "admin"){
+          router.push("/dashboard/admin");
+        } else if (userRole === "seller"){
+          router.push("/dashboard/seller");
+        } else {
+          router.push("/");
+        }
+      } else {
+        toast.error(response?.error?.data?.message);
+      }
+      
     } catch (error) {
       toast.error("Something went wrong! Please try again.");
     }

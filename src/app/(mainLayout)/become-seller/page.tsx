@@ -15,8 +15,7 @@ const BecomeASeller = () => {
       <div className="mt-14 flex flex-col lg:flex-row gap-8 w-full">
         <div className=" w-full lg:w-[30%] h-full">
           {/* Left side container */}
-          <div className="bg-neutral-55 p-5 rounded-xl h-[490px]">
-            {/* Shop logo */}
+          {/* <div className="bg-neutral-55 p-5 rounded-xl h-[490px]">
             <div className="size-28 rounded-full border border-neutral-45 p-1 flex items-center justify-center">
               <Image src={IMAGES.logo} alt="" className="size-24" />
             </div>
@@ -27,9 +26,9 @@ const BecomeASeller = () => {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo,
               nemo.
             </p>
-          </div>
+          </div> */}
 
-          <div className="group hidden lg:block relative w-full overflow-hidden bg-gradient-to-r bg-gradient-to-r from-green-400 to-teal-600 px-6 py-6 text-white shadow mt-5 rounded-xl">
+          <div className="group hidden lg:block relative w-full overflow-hidden bg-gradient-to-r bg-gradient-to-r from-green-400 to-teal-600 px-6 py-6 text-white shadow rounded-xl">
             <span className="absolute left-[-40%] top-[30%] z-10 h-[200px] w-[200px] rounded-full bg-gradient-to-r from-emerald-500 to-lime-600 duration-300 group-hover:top-[-30%] group-hover:blur-sm"></span>
             <span className="absolute right-[-40%] top-[-40%] z-10 h-[200px] w-[200px] rounded-full bg-gradient-to-br from-teal-400 to-green-500 duration-300 group-hover:top-[40%] group-hover:blur-sm"></span>
             <div className="relative z-20 space-y-6">

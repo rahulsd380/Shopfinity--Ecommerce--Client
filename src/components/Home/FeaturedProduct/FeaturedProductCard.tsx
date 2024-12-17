@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS, IMAGES } from "@/assets";
+import RippleEffect from "@/components/reusable/RippleEffect/RippleEffect";
 import { TUser } from "@/components/shared/Navbar/Navbar";
 import { useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useAddToCartMutation } from "@/redux/features/cart/cartApi";
@@ -19,6 +20,7 @@ interface ProductCardProps {
   reviews: any[];
   brand: string;
   price: number;
+  vendorId:string;
 }
 
 const FeaturedProductCard: React.FC<ProductCardProps> = ({
@@ -30,7 +32,9 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   reviews,
   brand,
   price,
+  vendorId,
 }) => {
+  console.log(vendorId)
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const [addToCart] = useAddToCartMutation();
   const [compareProducts, setCompareProducts] = useState<any[]>([]);
@@ -118,8 +122,10 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
     try {
       const cartData = {
         userId: id,
+        sellerId : vendorId,
         quantity : 1
       };
+      console.log(cartData);
   
       // Make API request to add to cart
       const response = await addToCart({ cartData, productId }).unwrap();
@@ -152,15 +158,15 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
           <Image src={ICONS.eye} className="size-4" alt="View" />
         </Link>
         <button onClick={handleAddToCompareList}
-          className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-500 flex items-center justify-center"
-          style={{ transitionDelay: "0.5s" }}
+          className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-300 flex items-center justify-center"
+          style={{ transitionDelay: "0.1s" }}
         >
           <Image src={ICONS.compare} className="size-4" alt="Compare" />
         </button>
         <button
           onClick={handleAddToWishlist}
-          className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-500 flex items-center justify-center"
-          style={{ transitionDelay: "0.5s" }}
+          className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-300 flex items-center justify-center"
+          style={{ transitionDelay: "0.1s" }}
         >
           <Image src={ICONS.wishlist2} className="size-4" alt="Compare" />
         </button>
@@ -216,10 +222,12 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
               ${price + 10}
             </p>
           </div>
-          <button onClick={handleAddToCart} className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
+         <RippleEffect>
+         <button onClick={handleAddToCart} className="px-3 py-2 rounded w-fit bg-green-100 text-green-600 font-medium flex items-center justify-center gap-2 hover:bg-green-200 transition">
             <Image src={ICONS.cart} alt="" className="size-4" />
             Add
           </button>
+         </RippleEffect>
         </div>
       </div>
     </div>

@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { ICONS } from "@/assets";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useGetHistoriesBySellerIdQuery } from "@/redux/features/Payment/paymentApi";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import { useState } from "react";
 
-type TOrder = {
-  orderId: string;
-  customerName: string;
-  orderDate: string;
-  status: "Pending" | "On the Way" | "Delivered";
-};
-
 const OrderHistory = () => {
+   const user = useAppSelector(useCurrentUser) as TUser | null;
+  const {data} = useGetHistoriesBySellerIdQuery(user?._id);
+  console.log(data)
     const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
 //   const [orderId, setOrderId] = useState("");
 //   const [openModal, setOpenModal] = useState(false);
@@ -20,18 +21,12 @@ const OrderHistory = () => {
 //     setActiveDropdown((prev) => (prev === rowId ? null : rowId));
 //   };
 
-  const orders: TOrder[] = [
-    { orderId: "432423", customerName: "John Doe", orderDate: "2024-12-05", status: "Delivered" },
-    { orderId: "43242453", customerName: "Jane Smith", orderDate: "2024-12-04", status: "Pending" },
-    { orderId: "234342", customerName: "Alice Johnson", orderDate: "2024-12-03", status: "On the Way" },
-  ];
-
   const sortedOrders =
     sortOrder === "asc"
-      ? [...orders].sort((a, b) => a.status.localeCompare(b.status))
+      ? [...data?.data].sort((a, b) => a.status.localeCompare(b.status))
       : sortOrder === "desc"
-      ? [...orders].sort((a, b) => b.status.localeCompare(a.status))
-      : orders;
+      ? [...data?.data].sort((a, b) => b.status.localeCompare(a.status))
+      : data?.data;
 
   const handleSortToggle = () => {
     setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
@@ -58,11 +53,11 @@ const OrderHistory = () => {
         </thead>
 
         <tbody>
-          {sortedOrders.map((order) => (
-            <tr key={order.orderId} className="border-b">
-              <td className="text-[#6E7883] font-Poppins p-4">{order.orderId}</td>
-              <td className="text-[#6E7883] font-Poppins p-4">{order.customerName}</td>
-              <td className="text-[#6E7883] font-Poppins p-4">{order.orderDate}</td>
+          {sortedOrders?.map((order:any) => (
+            <tr key={order._id} className="border-b">
+              <td className="text-[#6E7883] font-Poppins p-4">{order._id}</td>
+              <td className="text-[#6E7883] font-Poppins p-4">{order.name}</td>
+              <td className="text-[#6E7883] font-Poppins p-4">{order.createdAt}</td>
               <td className="text-[#6E7883] font-Poppins p-4">
                 <div
                   className={`${
@@ -79,7 +74,7 @@ const OrderHistory = () => {
         </tbody>
       </table>
 
-      {sortedOrders.length === 0 && (
+      {sortedOrders?.length === 0 && (
         <p className="text-[#6E7883] font-Poppins text-center w-full mt-4">
           No Orders Available
         </p>

@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
 import { TCategory } from "@/app/(dashboardLayout)/dashboard/admin/manage-categories/page";
 import CategoryCardLoader from "@/components/Loaders/CategoryCardLoader/CategoryCardLoader";
+import RippleEffect from "@/components/reusable/RippleEffect/RippleEffect";
 
 const Categories = () => {
   const { data, isLoading } = useGetAllCategoriesQuery({});
@@ -43,18 +44,23 @@ const Categories = () => {
           Our Top Categories
         </h1>
         <div className="flex items-center gap-5">
-          <button
-            ref={prevRef}
-            className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
-          >
-            <Image src={ICONS.leftArrow} className="size-6" alt="Previous" />
-          </button>
-          <button
-            ref={nextRef}
-            className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
-          >
-            <Image src={ICONS.rightArrow} className="size-6" alt="Next" />
-          </button>
+        <RippleEffect>
+  <button
+    ref={prevRef}
+    className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
+  >
+    <Image src={ICONS.leftArrow} className="size-6" alt="Previous" />
+  </button>
+</RippleEffect>
+<RippleEffect>
+  <button
+    ref={nextRef}
+    className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
+  >
+    <Image src={ICONS.rightArrow} className="size-6" alt="Next" />
+  </button>
+</RippleEffect>
+
         </div>
       </div>
 

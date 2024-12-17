@@ -31,6 +31,7 @@ const AddProduct = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<TFormValues>();
 
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -60,7 +61,7 @@ const AddProduct = () => {
         brand : data.brand,
         stock : data.stock,
         category : data.category,
-        vendorId : user?.userId,
+        vendorId : user?._id,
       }
       for (const image of imageFiles) {
         formData.append("files", image);
@@ -69,9 +70,9 @@ const AddProduct = () => {
       formData.append("data", JSON.stringify(productData));
 
       const response =await createProduct(formData);
-      console.log(response);
       if(response?.data?.message){
         toast.success("Product created successfully.");
+        reset();
       }
     } catch (error) {
       console.error("Error submitting product:", error);

@@ -42,11 +42,13 @@ const OlaceOrder = () => {
   } = useForm<TFormValues>();
 
   const { data } = useGetAllCartProductsQuery(userId);
+  console.log(data)
   const [removeProductFromCart] = useRemoveProductFromCartMutation();
   const [makePayment] = useMakePaymentMutation();
   const [total, setTotal] = useState(0);
 
   const [productIds, setProductIds] = useState<string[]>([]);
+  const [sellerIds, setSellerIds] = useState<string[]>([]);
 
   useEffect(() => {
     if (data?.data?.items) {
@@ -60,6 +62,10 @@ const OlaceOrder = () => {
       // Extract and store product IDs
       const ids = data.data.items.map((item:any) => item.productId);
       setProductIds(ids);
+
+      // Extract and store seller IDs
+    const sellers = data.data.items.map((item: any) => item.sellerId);
+    setSellerIds(sellers);
     }
   }, [data]);
 
@@ -79,6 +85,7 @@ const OlaceOrder = () => {
         phoneNumber: data.phoneNumber,
         altPhoneNumber: data.altPhoneNumber,
         productIds,
+        sellerIds,
         amount : total + 10
       };
       const response = await makePayment(paymentData).unwrap();
@@ -196,10 +203,6 @@ const OlaceOrder = () => {
                   placeholder="Enter your phone number"
                   validation={{
                     required: "Enter your phone number",
-                    pattern: {
-                      value: /^[0-9]{10}$/,
-                      message: "Enter a valid 10-digit phone number",
-                    },
                   }}
                   register={register}
                   error={errors.phoneNumber}
@@ -211,10 +214,6 @@ const OlaceOrder = () => {
                   type="tel"
                   placeholder="Enter an alternative phone number"
                   validation={{
-                    pattern: {
-                      value: /^[0-9]{10}$/,
-                      message: "Enter a valid 10-digit phone number",
-                    },
                   }}
                   register={register}
                   error={errors.altPhoneNumber}

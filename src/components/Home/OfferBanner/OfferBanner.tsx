@@ -9,7 +9,7 @@ const OfferBanner = () => {
           title="Free delivery over $50 "
           description="Get fresh groceries delivered to your door."
           buttonText="Order Now"
-          buttonUrl="/shop"
+          buttonUrl="/products"
           imageSrc={IMAGES.offerBanner1}
           imageAlt="Person holding groceries"
           bgColor="#fff7e6" 
@@ -19,7 +19,7 @@ const OfferBanner = () => {
           title="Organic Food Of Your Choice"
           description="Save up to 60% off on your first order"
           buttonText="Order Now"
-          buttonUrl="/shop"
+          buttonUrl="/products"
           imageSrc={IMAGES.offerBanner2}
           imageAlt="Person holding groceries"
           bgColor="#d2f0d4"

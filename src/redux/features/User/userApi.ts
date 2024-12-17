@@ -37,6 +37,14 @@ const userApi = baseApi.injectEndpoints({
       providesTags: ["users"]
     }),
 
+    getMyOrders: builder.query({
+      query: (userId) => ({
+        method: "GET",
+        url: `/user/my-orders/${userId}`,
+      }),
+      providesTags: ["users"]
+    }),
+
     // updateShop: builder.mutation({
     //   query: ({ id, formData }) => ({
     //     method: "PUT",
@@ -105,4 +113,5 @@ export const {
     useSuspendUserMutation,
     useRemoveUserMutation,
     useGetMeQuery,
+    useGetMyOrdersQuery,
 } = userApi;

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useGetAllCartProductsQuery } from "@/redux/features/cart/cartApi";
 import Cookies from "js-cookie";
+import RippleEffect from "@/components/reusable/RippleEffect/RippleEffect";
 
 export type TUser = {
   userId: string;
@@ -106,9 +107,17 @@ const Navbar = () => {
           <Link href={"/"} className="hover:underline">
             Home
           </Link>
+         {
+          user?.role === "user"
+          ?
           <Link href={"/"} className="hover:underline">
-            My Account
-          </Link>
+          My Account
+        </Link>
+        :
+        <Link href={user?.role === "admin" ? "dashboard/admin" : "dashboard/seller"} className="hover:underline">
+        Dashboard
+      </Link>
+         }
           <Link href={"/wishlist"} className="hover:underline">
             Wishlist
           </Link>
@@ -179,8 +188,8 @@ const Navbar = () => {
               ))}
             </ul>
           </div>
-          <Link href={"/"} className="hover:underline">
-            Order Tracking
+          <Link href={"/my-orders"} className="hover:underline">
+            My Orders
           </Link>
           <Link
             href={"/compare-products"}
@@ -224,6 +233,9 @@ const Navbar = () => {
 
         <div className="flex items-center gap-8">
           {/* Become a seller */}
+          {
+            user?.role !== "seller" &&
+            <RippleEffect>
           <Link
             href={"/become-seller"}
             className="bg-primary-20/30 px-4 py-3 text-neutral-15 font-medium font-Sora hidden xl:flex items-center gap-3 rounded-md w-fit"
@@ -231,6 +243,8 @@ const Navbar = () => {
             Become a Seller
             <Image src={ICONS.rightArrow} alt="cart" className="size-4" />
           </Link>
+          </RippleEffect>
+          }
           {/* Wishlist */}
           <Link href={"/wishlist"} className="hidden md:block relative w-fit">
             <Image src={ICONS.wishlist2} alt="cart" className="size-10" />
@@ -282,13 +296,17 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="hidden xl:flex items-center gap-4">
+              <RippleEffect>
               <Link
                 href={"/login"}
                 className="border border-primary-10 hover:bg-primary-10 transition duration-300 hover:text-white px-4 py-3 text-primary-10 font-medium font-Sora flex items-center gap-3 rounded-md w-fit"
               >
                 Login
               </Link>
-              <Link
+              </RippleEffect>
+              
+             <RippleEffect>
+             <Link
                 href={"/signup"}
                 className="bg-primary-10 px-4 py-3 text-white font-medium font-Sora flex items-center gap-3 rounded-md w-fit"
               >
@@ -299,6 +317,7 @@ const Navbar = () => {
                   className="size-4"
                 />
               </Link>
+             </RippleEffect>
             </div>
           )}
           <HamburgerMenu />

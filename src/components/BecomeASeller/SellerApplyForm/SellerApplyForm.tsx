@@ -8,6 +8,7 @@ import { useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useBecomeSellerMutation } from "@/redux/features/Seller/sellerApi";
 import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -29,6 +30,7 @@ type TFormValues = {
   shopDescription: string;
 };
 const SellerApplyForm = () => {
+  const router = useRouter();
   const user = useAppSelector(useCurrentUser) as TUser | null;
   
   const [becomeSeller, { isLoading }] = useBecomeSellerMutation();
@@ -81,6 +83,7 @@ const SellerApplyForm = () => {
         toast.success(
           "Seller registration completed. Please wait for admin approval."
         );
+        router.push("/")
       }
     } catch (error) {
       console.error("Error during seller registration:", error);
