@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import UploadImage from "@/components/Dashboard/SellerDashboard/AddProduct/UploadImage/UploadImage";
@@ -13,6 +14,7 @@ import { ICONS } from "@/assets";
 import { toast } from "sonner";
 import FormSubmitButton from "@/components/reusable/FormSubmitButton/FormSubmitButton";
 import { useParams } from "next/navigation";
+import { useGetAllCategoriesQuery } from "@/redux/features/Category/categoryApi";
 
 type TFormValues = {
   name: string;
@@ -39,14 +41,7 @@ const EditProduct = () => {
   // State for images
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-
-  // Dummy category array
-  const categories = [
-    { id: "1", name: "Electronics" },
-    { id: "2", name: "Clothing" },
-    { id: "3", name: "Home Appliances" },
-    { id: "4", name: "Sports" },
-  ];
+  const {data:categories} = useGetAllCategoriesQuery({});
 
   useEffect(() => {
     if (data?.data?.images) {
@@ -180,8 +175,8 @@ const EditProduct = () => {
                 } focus:outline-none`}
               >
                 <option value="">Select Category</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
+                {categories?.data?.categories?.map((category:any) => (
+                  <option key={category._id} value={category._id}>
                     {category.name}
                   </option>
                 ))}
