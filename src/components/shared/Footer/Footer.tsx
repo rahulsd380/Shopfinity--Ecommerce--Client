@@ -1,5 +1,6 @@
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -84,7 +85,7 @@ const Footer = () => {
             Make Money with Us
           </h3>
           <ul className="space-y-2 text-gray-600">
-            <li>Sell on Shopfinity</li>
+            <Link href={"/become-seller"}>Become a seller</Link>
             <li>Sell Your Services on Shopfinity</li>
             <li>Sell on Shopfinity Business</li>
             <li>Sell Your Apps on Shopfinity</li>
@@ -98,18 +99,15 @@ const Footer = () => {
         {/* Help Section */}
         <div className="w-fit">
           <h3 className="text-neutral-15 font-Sora text-xl font-semibold mb-5">
-            Let Us Help You
+            Important Links
           </h3>
-          <ul className="space-y-2 text-gray-600">
-            <li>Accessibility Statement</li>
-            <li>Your Orders</li>
-            <li>Returns & Replacements</li>
-            <li>Shipping Rates & Policies</li>
-            <li>Refund and Returns Policy</li>
-            <li>Privacy Policy</li>
-            <li>Terms and Conditions</li>
-            <li>Cookie Settings</li>
-            <li>Help Center</li>
+          <ul className="space-y-2 text-gray-600 flex flex-col gap-1">
+            <Link href={"/products"}>All Products</Link>
+            <Link href={"/"}>Home</Link>
+            <Link href={"/my-orders"}>Your Orders</Link>
+            <Link href={"/cart"}>Cart</Link>
+            <Link href={"/wishlist"}>Wishlist</Link>
+            <Link href={"/compare-products"}>Compare Products</Link>
           </ul>
         </div>
 
