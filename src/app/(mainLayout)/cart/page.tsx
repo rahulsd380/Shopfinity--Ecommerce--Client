@@ -102,21 +102,7 @@ const CartPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 w-full lg:w-[30%]">
-          <div className=" bg-neutral-55/20 p-4 rounded-xl border border-neutral-45">
-            <h1 className="text-neutral-20 font-semibold mt-1">Have a coupon?</h1>
-
-            <div className="flex items-center w-full mt-2">
-              <input
-                type="text"
-                placeholder="Enter coupon code"
-                className="w-full px-3 py-[10px] border border-neutral-40/60 rounded-l-md focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-2"
-              />
-              <button className="bg-primary-10 hover:bg-primary-10/70 transition duration-300 border border-primary-10 text-white font-medium px-3 py-[10px] rounded-r">
-                Apply
-              </button>
-            </div>
-          </div>
+        <div className="w-full lg:w-[30%]">
           <CartTotal data={data} />
         </div>
       </div>

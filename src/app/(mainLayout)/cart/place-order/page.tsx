@@ -34,18 +34,23 @@ const OlaceOrder = () => {
   const [openPaymentSuccessModal, setOpenPaymentSuccessModal] = useState(false);
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const userId = user?._id;
-  const [paymentMode, setPaymentMode] = useState<"cod" | "amarPay">("cod");
+  const [paymentMode, setPaymentMode] = useState<"cod" | "amarPay">("amarPay");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TFormValues>();
 
+  const [couponInputValue, setCouponInputValue] = useState("");
+  const coupon = "SHOPFINITY"
+
   const { data } = useGetAllCartProductsQuery(userId);
-  console.log(data)
   const [removeProductFromCart] = useRemoveProductFromCartMutation();
   const [makePayment] = useMakePaymentMutation();
+  const shippingCost=10
   const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0);
 
   const [productIds, setProductIds] = useState<string[]>([]);
   const [sellerIds, setSellerIds] = useState<string[]>([]);
@@ -57,7 +62,8 @@ const OlaceOrder = () => {
         (acc:any, item:any) => acc + item.price * item.quantity,
         0
       );
-      setTotal(totalPrice);
+      setTotal(totalPrice + shippingCost);
+      setSubTotal(totalPrice)
   
       // Extract and store product IDs
       const ids = data.data.items.map((item:any) => item.productId);
@@ -69,7 +75,15 @@ const OlaceOrder = () => {
     }
   }, [data]);
 
-  console.log(productIds)
+  const handleCouponCheck = () => {
+    if (couponInputValue === coupon){
+      setTotal(total - (total * 5)/100)
+      setDiscountedPrice((total * 5) / 100)
+    } else{
+      toast.error("Wrong coupon code. Please visit homepage and check in the top header section.")
+      return
+    }
+  }
 
   const handlePlaceOrder: SubmitHandler<TFormValues> = async (data) => {
     try {
@@ -128,6 +142,7 @@ const OlaceOrder = () => {
           onSubmit={handleSubmit(handlePlaceOrder)}
           className="flex flex-col lg:flex-row gap-7 w-full mt-10"
         >
+          {/* Billing info form */}
           <div className="w-full lg:w-[70%] p-4 rounded-xl">
             <h1 className="text-neutral-20 text-xl font-semibold pb-4 border-b border-neutral-200">
               Billing Information
@@ -222,7 +237,27 @@ const OlaceOrder = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-[30%] bg-neutral-55/20 p-4 rounded-xl border border-neutral-45 flex flex-col gap-3">
+
+          <div className="w-full lg:w-[30%] flex flex-col gap-5">
+          {/* Coupon section */}
+          <div className=" bg-neutral-55/20 p-4 rounded-xl border border-neutral-45">
+            <h1 className="text-neutral-20 font-semibold mt-1">Have a coupon?</h1>
+
+            <div className="flex items-center w-full mt-2">
+              <input
+              value={couponInputValue}
+                onChange={(e) => setCouponInputValue(e.target.value)}
+                type="text"
+                placeholder="Enter coupon code"
+                className="w-full px-3 py-[10px] border border-neutral-40/60 rounded-l-md focus:outline-none focus:ring-primary-10 transition duration-300 focus:ring-2"
+              />
+              <button onClick={handleCouponCheck} className="bg-primary-10 hover:bg-primary-10/70 transition duration-300 border border-primary-10 text-white font-medium px-3 py-[10px] rounded-r">
+                Apply
+              </button>
+            </div>
+          </div>
+
+          <div className=" bg-neutral-55/20 p-4 rounded-xl border border-neutral-45 flex flex-col gap-3">
             <h1 className="text-neutral-20 text-xl font-semibold pb-4 border-b border-neutral-200">
               Order Summery
             </h1>
@@ -265,17 +300,22 @@ const OlaceOrder = () => {
 
             <div className="flex justify-between pb-4 border-b border-neutral-200">
               <span className="text-neutral-10 font-medium">Subtotal:</span>
-              <span className="font-medium">${total}</span>
+              <span className="font-medium">${subTotal}</span>
             </div>
 
             <div className="flex justify-between pb-4 border-b border-neutral-200">
               <span className="text-neutral-10 font-medium">Shipping:</span>
-              <span className="font-medium">$10</span>
+              <span className="font-medium">${shippingCost}</span>
+            </div>
+
+            <div className="flex justify-between pb-4 border-b border-neutral-200">
+              <span className="text-neutral-10 font-medium">Discount:</span>
+              <span className="font-medium">${discountedPrice}</span>
             </div>
 
             <div className="flex justify-between font-bold border-b border-neutral-200 pb-4">
               <h1 className="text-neutral-20 font-semibold">Total:</h1>
-              <span className="text-xl">${total + 10}</span>
+              <span className="text-xl">${total}</span>
             </div>
 
             <h1 className="text-neutral-20 text-xl font-semibold pb-4 border-b border-neutral-200 mt-5">
@@ -291,6 +331,7 @@ const OlaceOrder = () => {
                   name="paymentMode"
                   value="cod"
                   checked={paymentMode === "cod"}
+                  disabled
                   onChange={() => setPaymentMode("cod")}
                   className={`appearance-none size-4 border-2 rounded-full cursor-pointer border-[#6E7883] checked:border-primary-10 checked:ring-2 checked:ring-primary-10 checked:ring-offset-2 checked:bg-primary-10`}
                 />
@@ -299,7 +340,7 @@ const OlaceOrder = () => {
                     paymentMode === "cod" ? "text-[#424B54]" : "text-[#6E7883]"
                   }`}
                 >
-                  Cash on Delivery
+                  Cash on Delivery <span className="text-warning-10 text-xs">Not available now</span>
                 </span>
               </label>
 
@@ -331,6 +372,7 @@ const OlaceOrder = () => {
             >
               Place Order
             </button>
+          </div>
           </div>
         </form>
       </div>
