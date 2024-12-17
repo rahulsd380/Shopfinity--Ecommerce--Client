@@ -38,12 +38,13 @@ const Login = () => {
         email: data.email,
         password: data.password,
       };
-      const response = await login(loginData);
+      const response = await login(loginData).unwrap();
+      console.log(response)
       // const user = verifyToken(response.data?.accessToken);
-      const user = response.data?.data?.user;
-      const accessToken = response.data?.data?.accessToken;
+      const user = response.data?.user;
+      const accessToken = response.data?.accessToken;
 
-      const userRole = response?.data?.data?.user?.role;
+      const userRole = response?.data?.user?.role;
       if (accessToken) {
         Cookies.set("accessToken", accessToken, {
           expires: 7,
@@ -57,9 +58,9 @@ const Login = () => {
         });
       }
 
-      if(response?.data?.success){
-        dispatch(setUser({ user, token: response?.data?.data?.accessToken }));
-        toast.success("Logged in successfully.");
+      if(response?.success){
+        dispatch(setUser({ user, token: response?.data?.accessToken }));
+        toast.success(response?.message);
       
        
       

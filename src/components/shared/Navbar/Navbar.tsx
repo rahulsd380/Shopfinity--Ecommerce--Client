@@ -64,6 +64,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     Cookies.remove("accessToken");
+    Cookies.remove("role");
     dispatch(logout());
     router.push("/login");
     toast.success(`See you again ${clientUser?.name}!`);
@@ -108,13 +109,13 @@ const Navbar = () => {
             Home
           </Link>
          {
-          user?.role === "user"
+          user?.role === "user" || !user
           ?
           <Link href={"/"} className="hover:underline">
           My Account
         </Link>
         :
-        <Link href={user?.role === "admin" ? "dashboard/admin" : "dashboard/seller"} className="hover:underline">
+        <Link href={user?.role === "admin" ? "/dashboard/admin" : "/dashboard/seller"} className="hover:underline">
         Dashboard
       </Link>
          }
