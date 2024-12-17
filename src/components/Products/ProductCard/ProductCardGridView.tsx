@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { ICONS } from "@/assets";
 import ConfirmDelete from "@/components/Dashboard/SellerDashboard/OrderHistory/ConfirmDelete/ConfirmDelete";
+import { TUser } from "@/components/shared/Navbar/Navbar";
+import { useCurrentUser } from "@/redux/features/Auth/authSlice";
+import { useAddToCartMutation } from "@/redux/features/cart/cartApi";
 import { useDeleteProductMutation } from "@/redux/features/Product/productApi";
+import { useAppSelector } from "@/redux/hooks";
 import { TProduct } from "@/types/product.types";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,12 +15,17 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 type TProductCardGridViewProps = {
-  isMenuActive? : boolean;
-  product : TProduct;
-}
+  isMenuActive?: boolean;
+  product: TProduct;
+};
 
-const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMenuActive=false }) => {
-  const [deleteProduct, {isLoading}] = useDeleteProductMutation()
+const ProductCardGridView: React.FC<TProductCardGridViewProps> = ({
+  product,
+  isMenuActive = false,
+}) => {
+  const user = useAppSelector(useCurrentUser) as TUser | null;
+  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+  const [addToCart] = useAddToCartMutation();
   const [productId, setProductId] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -24,26 +34,91 @@ const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMe
     setActiveDropdown((prev) => (prev === rowId ? null : rowId));
   };
 
+  // For seller
   const handleDeleteProduct = async (id: string) => {
     toast.promise(deleteProduct(id), {
       loading: "Deleting product...",
       success: "Product deleted successfully.",
       error: "Something went wrong.",
     });
+  };
 
+  const [wishlist, setWishlist] = useState<any[]>([]);
+  const wishlistData = {
+    _id: product?._id,
+    name: product?.name,
+    image: product?.images[0],
+    price: product?.price,
+    brand: product?.brand,
+    ratings: product?.ratings,
+  };
+
+  const handleAddToWishlist = () => {
+    // Check if the product is already in the wishlist
+    const isProductInWishlist = wishlist.some(
+      (item) => item._id === wishlistData._id
+    );
+
+    if (isProductInWishlist) {
+      toast.error("This product is already in your wishlist!");
+    } else {
+      // Add the new product to the wishlist
+      const updatedWishlist = [...wishlist, wishlistData];
+      setWishlist(updatedWishlist); // Update the state immediately
+
+      // Save the updated wishlist back to localStorage
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+      toast.success("Product added to wishlist!");
+    }
+  };
+
+  const id = user?._id;
+  const productIdCart = product?._id;
+
+  const handleAddToCart = async () => {
+    if (!user) {
+      toast.error("Please log in to add products to your cart.");
+      return;
+    }
+    try {
+      const cartData = {
+        userId: id,
+        sellerId: product?.vendorId,
+        quantity: 1,
+      };
+
+      const response = await addToCart({
+        cartData,
+        productId: productIdCart,
+      }).unwrap();
+
+      if (response?.message) {
+        toast.success("Product added to cart successfully.");
+      }
+    } catch (error) {
+      toast.error("Failed to add product to cart. Please try again.");
+      console.error("Error adding to cart:", error);
+    }
   };
 
   return (
     <div className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
-      {
-        isMenuActive &&
-        <button
-        onClick={() => handleDropdownToggle(product?._id)}
-        className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2 z-50"
+      <button
+        onClick={handleAddToCart}
+        className="bg-neutral-55/20 border border-neutral-45 p-1 flex items-center justify-center rounded-md hover:bg-neutral-45/30 transition duration-300 absolute top-2 right-2"
       >
-        <Image src={ICONS.threeDots} alt="three-dots" className="size-6" />
+        <Image src={ICONS.cart} alt="star-icon" className="size-5" />
       </button>
-      }
+
+      {isMenuActive && (
+        <button
+          onClick={() => handleDropdownToggle(product?._id)}
+          className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2 z-50"
+        >
+          <Image src={ICONS.threeDots} alt="three-dots" className="size-6" />
+        </button>
+      )}
 
       {activeDropdown === product?._id && (
         <div className="absolute right-0 mt-12 w-[180px] bg-white border rounded-2xl shadow-lg z-10 p-2">
@@ -109,12 +184,20 @@ const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMe
             </div>
           </div>
 
-          <button className="border border-neutral-45 p-2 flex items-center justify-center rounded-md hover:bg-neutral-45/30 transition duration-300">
+          <button
+            onClick={handleAddToWishlist}
+            className="border border-neutral-45 p-2 flex items-center justify-center rounded-md hover:bg-neutral-45/30 transition duration-300"
+          >
             <Image src={ICONS.heart} alt="star-icon" className="size-5" />
           </button>
         </div>
 
-        <Link href={`/products/${product?._id}`} className="text-neutral-25 font-Inter hover:underline">{product?.name}</Link>
+        <Link
+          href={`/products/${product?._id}`}
+          className="text-neutral-25 font-Inter hover:underline"
+        >
+          {product?.name}
+        </Link>
       </div>
 
       <ConfirmDelete

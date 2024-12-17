@@ -34,7 +34,6 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
   price,
   vendorId,
 }) => {
-  console.log(vendorId)
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const [addToCart] = useAddToCartMutation();
   const [compareProducts, setCompareProducts] = useState<any[]>([]);
@@ -140,6 +139,31 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
       console.error("Error adding to cart:", error);
     }
   };
+
+
+  const recentProductData = {
+    _id,
+    name,
+    image: images[0],
+    price,
+    brand,
+    ratings,
+    category,
+  };
+
+  const addProductToRecentViews = () => {
+    const recentViews = localStorage.getItem("recentViews")
+      ? JSON.parse(localStorage.getItem("recentViews")!)
+      : [];
+
+    recentViews.unshift(recentProductData);
+
+    if (recentViews.length > 10) {
+      recentViews.pop();
+    }
+
+    localStorage.setItem("recentViews", JSON.stringify(recentViews));
+  };
   
 
   return (
@@ -152,6 +176,7 @@ const FeaturedProductCard: React.FC<ProductCardProps> = ({
       <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transform translate-x-6 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
         <Link
           href={`/products/${_id}`}
+          onClick={addProductToRecentViews}
           className="size-8 rounded-full bg-neutral-65 hover:bg-neutral-45 border border-neutral-45 transition duration-300 flex items-center justify-center"
           style={{ transitionDelay: "0.1s" }}
         >

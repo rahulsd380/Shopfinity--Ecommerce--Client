@@ -4,7 +4,7 @@ import Images from "@/components/ProductDetails/Images/Images";
 import ProductDetails from "@/components/ProductDetails/ProductDetails/ProductDetails";
 import SellerCard from "@/components/ProductDetails/SellerCard/SellerCard";
 import Container from "@/components/shared/Container/Container";
-import { useGetAllProductsQuery, useGetSingleProductByIdQuery } from "@/redux/features/Product/productApi";
+import { useGetProductByCategoryQuery, useGetSingleProductByIdQuery } from "@/redux/features/Product/productApi";
 import {  useGetSingleSellerBySellerIdQuery } from "@/redux/features/Seller/sellerApi";
 import { TProduct } from "@/types/product.types";
 import Image from "next/image";
@@ -14,9 +14,8 @@ import { useParams } from "next/navigation";
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const { data } = useGetSingleProductByIdQuery(id);
-  const { data:categorizedProducts } = useGetAllProductsQuery({page:1, limit:20});
+  const { data:categorizedProducts } = useGetProductByCategoryQuery(data?.data?.category);
   const {data:seller} = useGetSingleSellerBySellerIdQuery(data?.data?.vendorId);
-  console.log(seller)
   return (
     <Container>
       <div className="mt-10">
@@ -37,7 +36,7 @@ const ProductDetailsPage = () => {
             </h1>
             <div className="flex flex-col gap-5 mt-5">
               {
-                categorizedProducts?.data?.products?.map((product:TProduct) => 
+                categorizedProducts?.data?.map((product:TProduct) => 
                   <Link
                   key={product?._id}
                 href={`/products/${product?._id}`}

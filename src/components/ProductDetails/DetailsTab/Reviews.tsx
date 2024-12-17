@@ -138,9 +138,14 @@ const Reviews = ({
       </div>
 
       <div className="flex flex-col gap-6 mt-10">
-        {reviews?.map((review: TReview, index: number) => (
+        {
+          reviews?.length < 1 ?
+          <p>Not rated yet</p>
+          :
+        reviews?.map((review: TReview, index: number) => (
           <ReviewCard key={index} review={review} />
-        ))}
+        ))
+        }
       </div>
 
       {isProductBought && <AddReviewForm productId={productId} />}
