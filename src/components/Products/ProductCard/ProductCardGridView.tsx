@@ -30,15 +30,16 @@ const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMe
       success: "Product deleted successfully.",
       error: "Something went wrong.",
     });
+
   };
 
   return (
-    <Link href={`/products/${product?._id}`} className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
+    <div className=" bg-neutral-55/20 border border-neutral-45 rounded-lg relative">
       {
         isMenuActive &&
         <button
         onClick={() => handleDropdownToggle(product?._id)}
-        className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2"
+        className="p-2 hover:bg-gray-100 rounded-md absolute top-2 right-2 z-50"
       >
         <Image src={ICONS.threeDots} alt="three-dots" className="size-6" />
       </button>
@@ -83,7 +84,7 @@ const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMe
       <hr className="border border-neutral-45" />
       <div className="p-5">
         {/* Price and heart icon */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex flex-col gap-2">
             {/* Price */}
             <div className="flex items-center gap-2">
@@ -113,7 +114,7 @@ const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMe
           </button>
         </div>
 
-        <p className="text-neutral-25 font-Inter mt-3">{product?.name}</p>
+        <Link href={`/products/${product?._id}`} className="text-neutral-25 font-Inter hover:underline">{product?.name}</Link>
       </div>
 
       <ConfirmDelete
@@ -123,7 +124,7 @@ const ProductCardGridView:React.FC<TProductCardGridViewProps> = ({ product, isMe
         handleDeleteProduct={handleDeleteProduct}
         isLoading={isLoading}
       />
-    </Link>
+    </div>
   );
 };
 

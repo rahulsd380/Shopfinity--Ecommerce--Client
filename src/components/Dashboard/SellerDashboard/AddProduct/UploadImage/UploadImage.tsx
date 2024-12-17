@@ -13,6 +13,7 @@ const UploadImage = ({handleImageChange}:{handleImageChange:any}) => {
         </label>
 
       <input
+      required
       onChange={(e) => handleImageChange(e)}
       multiple
       type="file"

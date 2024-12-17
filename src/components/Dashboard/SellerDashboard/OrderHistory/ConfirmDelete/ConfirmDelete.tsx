@@ -34,7 +34,7 @@ const ConfirmDelete: React.FC<ConfirmationModalProps> = ({
         >
           <div className="flex flex-col gap-8">
             <h1 className="text-[#293241] font-Poppins text-[32px] font-semibold leading-[42px]">
-              Are you sure you want to remove this product from your menu? This
+              Are you sure you want to remove this product? This
               action cannot be undone.
             </h1>
             <hr className="border border-[#6e78831f]" />
@@ -52,7 +52,7 @@ const ConfirmDelete: React.FC<ConfirmationModalProps> = ({
                 handleDeleteProduct(id)
               }}
                 type="submit"
-                className="px-6 py-[14px] text-white bg-[#E28413] rounded-xl text-lg leading-6 font-semibold"
+                className="px-6 py-[14px] text-white bg-warning-10 rounded-xl text-lg leading-6 font-semibold"
               >
                 {
                   isLoading ?

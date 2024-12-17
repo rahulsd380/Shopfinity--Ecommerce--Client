@@ -35,6 +35,7 @@ const AddProduct = () => {
   } = useForm<TFormValues>();
 
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+  console.log(imageFiles)
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +64,11 @@ const AddProduct = () => {
         category : data.category,
         vendorId : user?._id,
       }
+      if (imageFiles.length === 0) {
+        toast.error("Upload at least 1 product image.");
+        return;
+      }
+      
       for (const image of imageFiles) {
         formData.append("files", image);
       }

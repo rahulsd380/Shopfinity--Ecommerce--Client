@@ -45,6 +45,14 @@ const sellerApi = baseApi.injectEndpoints({
       providesTags: ["sellers"]
     }),
 
+    getMyProducts: builder.query({
+      query: (sellerId) => ({
+        method: "GET",
+        url: `/seller/my-products/${sellerId}`,
+      }),
+      providesTags: ["sellers"]
+    }),
+
     updateShop: builder.mutation({
       query: ({ id, formData }) => ({
         method: "PUT",
@@ -97,6 +105,7 @@ export const {
     useGetSingleSellerBySellerIdQuery,
     useUpdateShopMutation,
     useGetMyShopQuery,
+    useGetMyProductsQuery,
     useApproveSellerMutation,
     useRejectRequestMutation,
     useBlacklistSellerMutation,
