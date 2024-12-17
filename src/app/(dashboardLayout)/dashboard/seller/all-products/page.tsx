@@ -14,7 +14,6 @@ import { useState } from "react";
 const AllProductsBySeller = () => {
   const user = useAppSelector(useCurrentUser) as TUser | null;
   const { data } = useGetMyProductsQuery(user?._id);
-  console.log(data)
   const [viewType, setViewType] = useState("grid");
   const viewButtons = [
     {
