@@ -102,8 +102,9 @@ const Navbar = () => {
   };
 
   return (
-    <Container>
-      <div className="hidden xl:flex items-center justify-between py-3 border-b border-neutral-50/30">
+   <div className="sticky top-0 z-20 bg-white pb-6">
+     <Container>
+      <div className="hidden xl:flex items-center justify-between py-3 border-b border-neutral-50/30 sticky top-0 z-20">
         <div className="flex items-center gap-3 font-Sora text-neutral-30 text-sm font-medium">
           <Link href={"/"} className="hover:underline">
             Home
@@ -325,6 +326,7 @@ const Navbar = () => {
         </div>
       </div>
     </Container>
+   </div>
   );
 };
 

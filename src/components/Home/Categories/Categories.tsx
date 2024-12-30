@@ -32,7 +32,7 @@ const Categories = () => {
   useEffect(() => {
     if (prevRef.current && nextRef.current) {
       import("swiper").then(({ Swiper }) => {
-  Swiper.use([Navigation]);
+        Swiper.use([Navigation]);
       });
     }
   }, []);
@@ -44,22 +44,22 @@ const Categories = () => {
           Our Top Categories
         </h1>
         <div className="flex items-center gap-5">
-        <RippleEffect>
-  <button
-    ref={prevRef}
-    className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
-  >
-    <Image src={ICONS.leftArrow} className="size-6" alt="Previous" />
-  </button>
-</RippleEffect>
-<RippleEffect>
-  <button
-    ref={nextRef}
-    className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
-  >
-    <Image src={ICONS.rightArrow} className="size-6" alt="Next" />
-  </button>
-</RippleEffect>
+          <RippleEffect>
+            <button
+              ref={prevRef}
+              className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
+            >
+              <Image src={ICONS.leftArrow} className="size-6" alt="Previous" />
+            </button>
+          </RippleEffect>
+          <RippleEffect>
+            <button
+              ref={nextRef}
+              className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
+            >
+              <Image src={ICONS.rightArrow} className="size-6" alt="Next" />
+            </button>
+          </RippleEffect>
 
         </div>
       </div>
@@ -102,21 +102,21 @@ const Categories = () => {
         className="carousel mt-10"
       >
         {
-  isLoading
-    ? [1,2,3,4,5,6,7].map((_, index) => (
-        <SwiperSlide key={index} className="">
-          <CategoryCardLoader />
-        </SwiperSlide>
-      ))
-    : data?.data?.categories.map((category: TCategory, index: number) => (
-        <SwiperSlide key={index} className="">
-          <CategoryCard
-            category={category}
-            bgColor={colors[index % colors.length]}
-          />
-        </SwiperSlide>
-      ))
-}
+          isLoading
+            ? [1, 2, 3, 4, 5, 6, 7].map((_, index) => (
+              <SwiperSlide key={index} className="">
+                <CategoryCardLoader />
+              </SwiperSlide>
+            ))
+            : data?.data?.categories.map((category: TCategory, index: number) => (
+              <SwiperSlide key={index} className="">
+                <CategoryCard
+                  category={category}
+                  bgColor={colors[index % colors.length]}
+                />
+              </SwiperSlide>
+            ))
+        }
 
       </Swiper>
     </div>

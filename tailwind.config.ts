@@ -31,7 +31,6 @@ export default {
           10 : "#29A56C",
           20 : "#d2f0d4",
           30 : '#2C742F'
-
         },
         neutral : {
           10 : "#253D4E",  // for heading
