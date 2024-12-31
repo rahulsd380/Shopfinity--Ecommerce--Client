@@ -7,7 +7,6 @@ import { CiCalendarDate } from 'react-icons/ci';
 const ShopCard = () => {
     return (
         <div className='bg-gradient-to-r from-slate-50/70 to-green-50/70 border border-primary-10/30 rounded-2xl p-6'>
-
             <div className='flex flex-col md:flex-row gap-4 md:gap-0 items-start md:items-center justify-between'>
                 <div className="flex items-center gap-3">
                     <div className="size-16 rounded-full border border-primary-10 bg-white flex items-center justify-center">
