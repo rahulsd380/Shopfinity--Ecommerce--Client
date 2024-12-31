@@ -66,7 +66,7 @@ const HeroSlider = () => {
             onMouseLeave={handleMouseLeave}
         >
             <div
-                className={`flex items-center justify-between absolute top-0 bottom-0 z-20 w-full px-5 ${isButtonVisible ? "opacity-100" : "opacity-0"
+                className={`flex items-center justify-between absolute top-0 bottom-0 z-10 w-full px-5 ${isButtonVisible ? "opacity-100" : "opacity-0"
                     } transition-opacity duration-500`}
             >
                 <RippleEffect>
@@ -88,7 +88,7 @@ const HeroSlider = () => {
             </div>
 
             {/* Dots */}
-            <div className="flex justify-center items-center z-50 absolute bottom-4 w-full gap-1">
+            <div className="flex justify-center items-center z-10 absolute bottom-4 w-full gap-1">
                 {sliders.map((_, idx) => (
                     <button
                         key={idx}

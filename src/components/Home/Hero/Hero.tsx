@@ -20,10 +20,10 @@ const Hero: React.FC<THero> = ({ title, description, img, bgColor, isSubscriptio
       />
 
       {/* Hero Content */}
-      <div className="order-1 md:order-2 flex justify-end items-start z-10 w-full h-full">
+      <div className="order-1 md:order-2 flex justify-end items-start w-full h-full">
         <Image src={img} alt="Hero" className="" />
       </div>
-      <div className="flex flex-col justify-center gap-4 items-start px-3 md:px-5 pl-0 lg:pl-12 lg:px-0 z-10">
+      <div className="flex flex-col justify-center gap-4 items-start px-3 md:px-5 pl-0 lg:pl-12 lg:px-0">
         <h1 className="text-neutral-15 font-Sora text-[40px] md:text-[50px] 2xl:text-[60px] font-semibold leading-normal md:leading-[80px] px-3 md:px-5 lg:px-0">
           {title}
         </h1>
