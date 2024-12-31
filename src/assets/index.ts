@@ -30,6 +30,7 @@ import emptyBag from "@/assets/images/empty-box.png";
 
 
 import star from "@/assets/icons/star.svg";
+import starGray from "@/assets/icons/star-gray.svg";
 import downArrow from "@/assets/icons/down-arrow.svg";
 import gridView from "@/assets/icons/gridview.svg";
 import listView from "@/assets/icons/listview.svg";
@@ -84,6 +85,7 @@ import write from "@/assets/icons/write.svg";
 
 export const ICONS = {
     star,
+    starGray,
     downArrow,
     gridView,
     listView,

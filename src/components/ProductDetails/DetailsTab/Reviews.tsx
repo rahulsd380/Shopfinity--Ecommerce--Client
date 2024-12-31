@@ -1,5 +1,7 @@
+"use client"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
+import StarRatings from 'react-star-ratings';
 import { ICONS } from "@/assets";
 import Image from "next/image";
 import ReviewCard from "./ReviewCard";
@@ -10,10 +12,12 @@ const Reviews = ({
   productId,
   reviews,
   isProductBought,
+  ratings,
 }: {
   productId: string;
   reviews: any;
   isProductBought: boolean;
+  ratings : number;
 }) => {
   const buttonStyles =
     "flex items-center justify-center gap-2 px-4 py-2 border border-neutral-45 rounded-md font-Inter font-medium text-neutral-10 focus:outline-none hover:bg-neutral-45/40 transition duration-300";
@@ -30,9 +34,9 @@ const Reviews = ({
           {/* Left average rating */}
           <div className="bg-white p-3 rounded-lg shadow flex flex-col gap-4 items-center justify-center w-full md:w-[200px]">
             <h1 className="text-3xl font-bold text-neutral-10 font-Sora">
-              5.00
+              {ratings}
             </h1>
-            <div className="flex items-center gap-[5px]">
+            {/* <div className="flex items-center gap-[5px]">
               {[...Array(5)].map((_, index) => (
                 <Image
                   key={index}
@@ -41,7 +45,15 @@ const Reviews = ({
                   className={`w-4`}
                 />
               ))}
-            </div>
+            </div> */}
+             <StarRatings
+              rating={ratings}
+              starRatedColor="#FF8A00"
+              numberOfStars={5}
+              name="rating"
+              starDimension="19px"
+              starSpacing="2px"
+            />
             <p className="text-neutral-20 font-semibold">Product Rating</p>
           </div>
 

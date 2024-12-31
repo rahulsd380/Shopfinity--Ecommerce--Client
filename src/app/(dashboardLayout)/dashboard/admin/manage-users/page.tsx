@@ -44,7 +44,6 @@ const ManageUsers = () => {
   const [changeRoleToUser] = useChangeRoleToUserMutation();
   const [suspendUser] = useSuspendUserMutation();
   const [removeUser] = useRemoveUserMutation();
-  console.log(data);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 

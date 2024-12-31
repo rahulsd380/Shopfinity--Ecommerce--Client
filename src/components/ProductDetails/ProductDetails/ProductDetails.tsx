@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { ICONS } from "@/assets";
 import { TUser } from "@/components/shared/Navbar/Navbar";
 import { useCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useAddToCartMutation } from "@/redux/features/cart/cartApi";
 import { useAppSelector } from "@/redux/hooks";
-import Image from "next/image";
+import StarRatings from 'react-star-ratings';
 import { useEffect, useState } from "react";
 import {
   FaFacebook,
@@ -116,6 +115,8 @@ const ProductDetails = ({product}:{product:any}) => {
       console.error("Error adding to cart:", error);
     }
   };
+
+  // console.log(product);
   return (
     <div className="w-full xl:w-[40%]">
 
@@ -132,12 +133,15 @@ const ProductDetails = ({product}:{product:any}) => {
       {/* Rating | ID */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-3">
         <div className="flex items-center gap-2">
-          <Image src={ICONS.star} alt="star-icon" className="size-5" />
-          <Image src={ICONS.star} alt="star-icon" className="size-5" />
-          <Image src={ICONS.star} alt="star-icon" className="size-5" />
-          <Image src={ICONS.star} alt="star-icon" className="size-5" />
-          <Image src={ICONS.star} alt="star-icon" className="size-5" />
-          <p className="text-neutral-30 font-Poppins text-sm">{product?.rating ? product?.rating : 0} Review</p>
+        <StarRatings
+              rating={product?.ratings}
+              starRatedColor="#FF8A00"
+              numberOfStars={5}
+              name="rating"
+              starDimension="19px"
+              starSpacing="2px"
+            />
+          <p className="text-neutral-30 font-Poppins text-sm">{product?.reviews ? product?.reviews?.length : 0} Review</p>
         </div>
         <h1 className="text-black font-Poppins text-sm font-semibold">
           Product ID:{" "}

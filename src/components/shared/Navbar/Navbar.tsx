@@ -133,12 +133,12 @@ const Navbar = () => {
               </ul>
             </div>
 
-              <button onMouseEnter={() => setMenuOpen(true)}
-               className="flex items-center gap-2">
-                Menu
-                <Image src={ICONS.downArrow} alt="down-arrow" className="w-4" />
-              </button>
-              
+            <button onMouseEnter={() => setMenuOpen(true)}
+              className="flex items-center gap-2">
+              Menu
+              <Image src={ICONS.downArrow} alt="down-arrow" className="w-4" />
+            </button>
+
 
             <Link href={"/my-orders"} className="hover:underline">
               My Orders
@@ -157,12 +157,12 @@ const Navbar = () => {
         <Navbar1 />
 
         {menuOpen && (
-                <div ref={dropDownRef}
-                onMouseEnter={() => setMenuOpen(true)} // Keep menu open when hovering over it
-                onMouseLeave={() => setMenuOpen(false)} className="absolute top-10 left-0 w-full z-50">
-                  <MegaMenu />
-                </div>
-              )}
+          <div ref={dropDownRef}
+            onMouseEnter={() => setMenuOpen(true)}
+            onMouseLeave={() => setMenuOpen(false)} className="absolute top-10 left-0 w-full z-50">
+            <MegaMenu />
+          </div>
+        )}
       </Container>
     </div>
   );

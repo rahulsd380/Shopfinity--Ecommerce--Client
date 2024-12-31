@@ -7,16 +7,14 @@ import Reviews from "./Reviews";
 import { useGetMeQuery } from "@/redux/features/User/userApi";
 
 const DetailsTab = ({product}:{product:any}) => {
+  console.log(product)
   const {data} = useGetMeQuery({});
-  console.log(data);
     const [isProductBought, setIsProductBought] = useState(false);
     useEffect(() => {
       if (data?.data?.orders?.includes(product?._id)) {
         setIsProductBought(true);
       }
     }, [data, product?._id]);
-    console.log(isProductBought)
-
   const [detailsTab, setDetailsTab] = useState<"Description" | "Specification" | "Reviews">("Description");
 
   // Tab buttons
@@ -51,7 +49,7 @@ const DetailsTab = ({product}:{product:any}) => {
         ) : detailsTab === "Specification" ? (
           <Specification />
         ) : (
-          <Reviews  reviews={product?.reviews} productId={product?._id} isProductBought={isProductBought} />
+          <Reviews ratings={product?.ratings} reviews={product?.reviews} productId={product?._id} isProductBought={isProductBought} />
         )}
       </div>
     </div>
