@@ -63,8 +63,8 @@ const Navbar = () => {
               Home
             </Link>
             {user?.role === "user" || !user ? (
-              <Link href={"/"} className="hover:underline">
-                My Account
+              <Link href={"/shops"} className="hover:underline">
+                Shops
               </Link>
             ) : (
               <Link
