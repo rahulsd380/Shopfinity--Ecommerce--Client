@@ -1,5 +1,7 @@
 "use client"
 import { ICONS } from "@/assets";
+import ProductGridViewCardLoader from "@/components/Loaders/ProductGridViewCardLoader/ProductGridViewCardLoader";
+import ProductListViewCardLoader from "@/components/Loaders/ProductListViewCardLoader/ProductListViewCardLoader";
 import NoProducts from "@/components/NoProducts/NoProducts";
 import Filters from "@/components/Products/Filter/Filter";
 import ProductCardGridView from "@/components/Products/ProductCard/ProductCardGridView";
@@ -22,20 +24,20 @@ const Products = () => {
       setSearchQuery(query);
     }
 
-    const categoryFilter = params.get('category'); 
+    const categoryFilter = params.get('category');
     if (categoryFilter) {
       setCategory(categoryFilter);
     }
   }, []);
   // State for view type and filter options
-  const [viewType, setViewType] = useState("grid");
+  const [viewType, setViewType] = useState("list");
   // const [search, setSearch] = useState<string | undefined>(searchQuery || "");
   const [brand, setBrand] = useState<string | undefined>(undefined);
   const [rating, setRating] = useState<number | undefined>(undefined);
   const [priceRange, setPriceRange] = useState<string | undefined>(undefined);
 
   // Fetching products with filters
-  const { data } = useGetAllProductsQuery({
+  const { data, isLoading } = useGetAllProductsQuery({
     category,
     search,
     brand,
@@ -62,7 +64,7 @@ const Products = () => {
       <div className="mt-10 flex gap-4 ">
         <div className="hidden xl:block w-[20%]">
           <Filters
-          products={data}
+            products={data}
             setCategory={setCategory}
             setSearch={setSearchQuery}
             setBrand={setBrand}
@@ -111,9 +113,8 @@ const Products = () => {
                   <button
                     key={index}
                     onClick={() => setViewType(btn.label)}
-                    className={`${
-                      btn.label === viewType ? "bg-[#EFF2F4]" : "bg-white"
-                    } p-2 flex items-center justify-center`}
+                    className={`${btn.label === viewType ? "bg-[#EFF2F4]" : "bg-white"
+                      } p-2 flex items-center justify-center`}
                   >
                     <Image src={btn.icon} alt="grid-view" className="size-6" />
                   </button>
@@ -122,7 +123,21 @@ const Products = () => {
             </div>
           </div>
 
-          {data?.data?.products?.length > 0 ? (
+          {isLoading ? (
+  viewType === "grid" ? (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
+      {Array.from({ length: 8 }).map((_, index) => (
+        <ProductGridViewCardLoader key={index} />
+      ))}
+    </div>
+  ) : (
+    <div className="flex flex-col gap-5 mt-7">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <ProductListViewCardLoader key={index} />
+      ))}
+    </div>
+  )
+) : data?.data?.products?.length > 0 ? (
   viewType === "grid" ? (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
       {data?.data?.products?.map((product: TProduct) => (
@@ -139,6 +154,7 @@ const Products = () => {
 ) : (
   <NoProducts />
 )}
+
 
         </div>
       </div>

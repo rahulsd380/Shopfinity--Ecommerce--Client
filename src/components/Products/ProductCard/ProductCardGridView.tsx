@@ -179,15 +179,13 @@ const ProductCardGridView: React.FC<TProductCardGridViewProps> = ({
         {/* Price and heart icon */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex flex-col gap-2">
-            {/* Price */}
-            <div className="flex items-center gap-2">
-              <h1 className="text-neutral-15 font-Inter text-lg font-semibold">
-                ${product?.price}
-              </h1>
-              <h2 className="text-neutral-40 font-Inter line-through">
-                ${product?.price + 99}
-              </h2>
-            </div>
+            {/* Name */}
+          <Link
+          href={`/products/${product?._id}`}
+          className="text-neutral-15 font-Inter text-lg font-semibold hover:underline"
+        >
+          {product?.name}
+        </Link>
 
             {/* Rating */}
             <div className="flex items-center gap-2">
@@ -210,12 +208,16 @@ const ProductCardGridView: React.FC<TProductCardGridViewProps> = ({
           </button>
         </div>
 
-        <Link
-          href={`/products/${product?._id}`}
-          className="text-neutral-25 font-Inter hover:underline"
-        >
-          {product?.name}
-        </Link>
+        
+        {/* Price */}
+        <div className="flex items-center gap-2">
+              <h1 className="text-neutral-15 font-Inter text-lg font-semibold">
+                ${product?.price}
+              </h1>
+              <h2 className="text-neutral-40 font-Inter line-through">
+                ${product?.price + 99}
+              </h2>
+            </div>
       </div>
 
       <ConfirmDelete
