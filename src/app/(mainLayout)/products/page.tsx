@@ -30,11 +30,12 @@ const Products = () => {
     }
   }, []);
   // State for view type and filter options
-  const [viewType, setViewType] = useState("list");
+  const [viewType, setViewType] = useState("grid");
   // const [search, setSearch] = useState<string | undefined>(searchQuery || "");
   const [brand, setBrand] = useState<string | undefined>(undefined);
   const [rating, setRating] = useState<number | undefined>(undefined);
   const [priceRange, setPriceRange] = useState<string | undefined>(undefined);
+  const [paginationNum, setPaginationNum] = useState(0);
 
   // Fetching products with filters
   const { data, isLoading } = useGetAllProductsQuery({
@@ -43,8 +44,8 @@ const Products = () => {
     brand,
     rating,
     priceRange,
-    page: 1,
-    limit: 20,
+    page: paginationNum,
+    limit: 8,
   });
 
   // View buttons for toggling between grid and list view
@@ -58,6 +59,60 @@ const Products = () => {
       icon: ICONS.listView,
     },
   ];
+
+
+
+  // const totalPageNumber = 5;
+  // const updatePageNumber = (num) => {
+  //     if (num > totalPageNumber - 1 || 0 > num) {
+  //         return setPaginationNum(0);
+  //     }
+  //     setPaginationNum(num);
+  // };
+
+  // second pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  // const handlePageClick = (pageNumber) => {
+  //     setCurrentPage(pageNumber);
+  // };
+
+  useEffect(() => {
+    setPaginationNum(currentPage - 1);
+  }, [currentPage]);
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => setCurrentPage(i)}
+          className={`mx-1 px-3 py-1 rounded ${currentPage === i ? "bg-primary-10 text-white" : "bg-gray-200 text-gray-700"
+            }`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return pageNumbers;
+  };
+
 
   return (
     <Container>
@@ -124,38 +179,56 @@ const Products = () => {
           </div>
 
           {isLoading ? (
-  viewType === "grid" ? (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
-      {Array.from({ length: 8 }).map((_, index) => (
-        <ProductGridViewCardLoader key={index} />
-      ))}
-    </div>
-  ) : (
-    <div className="flex flex-col gap-5 mt-7">
-      {Array.from({ length: 4 }).map((_, index) => (
-        <ProductListViewCardLoader key={index} />
-      ))}
-    </div>
-  )
-) : data?.data?.products?.length > 0 ? (
-  viewType === "grid" ? (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
-      {data?.data?.products?.map((product: TProduct) => (
-        <ProductCardGridView key={product._id} product={product} />
-      ))}
-    </div>
-  ) : (
-    <div className="flex flex-col gap-5 mt-7">
-      {data?.data?.products?.map((product: TProduct) => (
-        <ProductCardListView key={product._id} product={product} />
-      ))}
-    </div>
-  )
-) : (
-  <NoProducts />
-)}
+            viewType === "grid" ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <ProductGridViewCardLoader key={index} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-5 mt-7">
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <ProductListViewCardLoader key={index} />
+                ))}
+              </div>
+            )
+          ) : data?.data?.products?.length > 0 ? (
+            viewType === "grid" ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">
+                {data?.data?.products?.map((product: TProduct) => (
+                  <ProductCardGridView key={product._id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-5 mt-7">
+                {data?.data?.products?.map((product: TProduct) => (
+                  <ProductCardListView key={product._id} product={product} />
+                ))}
+              </div>
+            )
+          ) : (
+            <NoProducts />
+          )}
 
-
+          {/* Pagination */}
+          <div className="flex items-center flex-wrap justify-center mt-9">
+            <button
+              onClick={handlePrevious}
+              disabled={currentPage === 1}
+              className="mx-1 px-3 py-1 rounded bg-gray-200 text-text disabled:opacity-50"
+            >
+              Previous
+            </button>
+            {renderPageNumbers()}
+            <button
+              onClick={handleNext}
+              disabled={currentPage === totalPages}
+              className="mx-1 px-3 py-1 rounded bg-gray-200 text-text disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+          
         </div>
       </div>
     </Container>

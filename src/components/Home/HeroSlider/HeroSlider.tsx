@@ -69,7 +69,7 @@ const HeroSlider = () => {
                 className={`flex items-center justify-between absolute top-0 bottom-0 z-10 w-full px-5 ${isButtonVisible ? "opacity-100" : "opacity-0"
                     } transition-opacity duration-500`}
             >
-                <RippleEffect>
+                <RippleEffect className="size-[46px] rounded-full">
                     <button
                         onClick={prevSlider}
                         className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
@@ -77,7 +77,7 @@ const HeroSlider = () => {
                         <Image src={ICONS.leftArrow} className="size-6" alt="Previous" />
                     </button>
                 </RippleEffect>
-                <RippleEffect>
+                <RippleEffect className="size-[46px] rounded-full">
                     <button
                         onClick={nextSlider}
                         className="size-[46px] rounded-full bg-neutral-65 hover:bg-primary-10 transition duration-300 flex items-center justify-center"
