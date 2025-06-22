@@ -67,7 +67,7 @@ const Signup = () => {
           <TextInput
             label="Full name"
             name="name"
-            placeholder="Rahul Sutradhar"
+            placeholder="John Doe"
             validation={{ required: "Enter your full name" }}
             register={register}
             error={errors.name}
