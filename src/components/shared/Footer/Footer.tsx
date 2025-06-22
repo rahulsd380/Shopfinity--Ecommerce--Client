@@ -73,7 +73,7 @@ const Footer = () => {
                 Need help with your order?
               </p>
               <h1 className="text-neutral-15 font-Sora text-xl font-semibold mt-1">
-                rahulsd380@gmail.com
+                johndoe@gmail.com
               </h1>
             </div>
           </div>
